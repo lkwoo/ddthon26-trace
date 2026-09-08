@@ -72,6 +72,6 @@
 
 ## Current Status
 - **Lifecycle Phase**: INCEPTION
-- **Current Stage**: Application Design (Part 1 Planning)
-- **Next Stage**: Units Generation
-- **Status**: 진행 중
+- **Current Stage**: Units Generation (Part 1 Planning — 승인 대기)
+- **Next Stage**: Units Generation Part 2 (Generation) → CONSTRUCTION
+- **Status**: Application Design 승인 완료. unit-of-work-plan.md 생성, 병렬화 전략 포함(최대 4인 3-웨이브 계획). 사용자 승인 대기 중.
