@@ -85,3 +85,11 @@
 **Context**: INCEPTION - Workflow Planning (Step 10, 계획 변경)
 
 ---
+
+## Workflow Planning — 승인 & Application Design 착수
+**Timestamp**: 2026-09-08T00:00:00Z
+**User Input**: "승인"
+**AI Response**: Workflow Planning 승인 확인(UOW-00 포함 계획). Application Design 착수 — application-design-plan.md 생성(방법론 체크리스트 + 사전 정렬(4계층/코어 함수/프롬프트 분리) + Q1~Q5 질문: 모듈 구조/코어 호출 스타일/AI 오케스트레이션/결과 봉투/지식·캐시 위치). aidlc-state.md Workflow Planning 완료·Application Design 진행 표기. 사용자 답변 대기(GATE).
+**Context**: INCEPTION - Application Design (Step 1~6)
+
+---

@@ -56,7 +56,7 @@
 - [x] Requirements Analysis
 - [x] User Stories
 - [x] Workflow Planning
-- [ ] Application Design — EXECUTE
+- [ ] Application Design — EXECUTE (진행 중)
 - [ ] Units Generation — EXECUTE
 
 ### 🟢 CONSTRUCTION PHASE (per-unit loop)
@@ -72,6 +72,6 @@
 
 ## Current Status
 - **Lifecycle Phase**: INCEPTION
-- **Current Stage**: Workflow Planning Complete
-- **Next Stage**: Application Design
-- **Status**: Ready to proceed (승인 대기)
+- **Current Stage**: Application Design (Part 1 Planning)
+- **Next Stage**: Units Generation
+- **Status**: 진행 중
