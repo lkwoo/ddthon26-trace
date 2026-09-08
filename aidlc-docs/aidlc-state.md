@@ -43,19 +43,34 @@
 | Q6 | 데모 데이터셋 | Spring Petclinic REST + 의도적 충돌 합성 문서 |
 | Q7 | 명칭 | TRACE (확정) |
 
+## Execution Plan Summary
+- **Stages to Execute**: Application Design, Units Generation, (per-unit) Functional Design, NFR Requirements, NFR Design, Code Generation, Build and Test
+- **Stages to Skip**: Reverse Engineering (greenfield), Infrastructure Design (로컬 stdio 단일 프로세스, 클라우드 인프라 없음)
+- **권장 유닛 순서**: UOW-01 → 02 → 03 → 04 → 05 → 06
+
 ## Stage Progress
 ### 🔵 INCEPTION PHASE
 - [x] Workspace Detection
-- [ ] Reverse Engineering (N/A — greenfield)
+- [ ] Reverse Engineering (SKIP — greenfield)
 - [x] Requirements Analysis
 - [x] User Stories
-- [ ] Workflow Planning
-- [ ] Application Design
-- [ ] Units Generation
+- [x] Workflow Planning
+- [ ] Application Design — EXECUTE
+- [ ] Units Generation — EXECUTE
 
-### 🟢 CONSTRUCTION PHASE
-- [ ] Per-Unit Loop
-- [ ] Build and Test
+### 🟢 CONSTRUCTION PHASE (per-unit loop)
+- [ ] Functional Design — EXECUTE (per-unit)
+- [ ] NFR Requirements — EXECUTE (per-unit)
+- [ ] NFR Design — EXECUTE (per-unit)
+- [ ] Infrastructure Design — SKIP
+- [ ] Code Generation — EXECUTE (per-unit)
+- [ ] Build and Test — EXECUTE
 
 ### 🟡 OPERATIONS PHASE
 - [ ] Operations (placeholder)
+
+## Current Status
+- **Lifecycle Phase**: INCEPTION
+- **Current Stage**: Workflow Planning Complete
+- **Next Stage**: Application Design
+- **Status**: Ready to proceed (승인 대기)
