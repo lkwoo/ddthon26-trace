@@ -48,7 +48,7 @@
 - [x] Workspace Detection
 - [ ] Reverse Engineering (N/A — greenfield)
 - [x] Requirements Analysis
-- [ ] User Stories
+- [x] User Stories
 - [ ] Workflow Planning
 - [ ] Application Design
 - [ ] Units Generation

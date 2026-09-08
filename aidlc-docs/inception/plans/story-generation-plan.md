@@ -9,18 +9,18 @@
 
 ## A. 스토리 개발 방법론 (실행 체크리스트)
 
-- [ ] 요구사항의 FR/NFR를 페르소나별 사용자 흐름으로 재구성
-- [ ] 각 스토리를 INVEST(Independent·Negotiable·Valuable·Estimable·Small·Testable)로 작성
-- [ ] 각 스토리에 수용 기준(Given/When/Then 또는 체크리스트) 부여
-- [ ] 스토리 ↔ FR/NFR ID ↔ UOW 매핑(추적성) 표기
-- [ ] `personas.md` 생성 — 3개 페르소나 + AI 에이전트 액터
-- [ ] `stories.md` 생성 — Epic → Story 구조
-- [ ] Hero 시나리오를 E2E 통과 스토리로 명시
+- [x] 요구사항의 FR/NFR를 페르소나별 사용자 흐름으로 재구성
+- [x] 각 스토리를 INVEST(Independent·Negotiable·Valuable·Estimable·Small·Testable)로 작성
+- [x] 각 스토리에 수용 기준(Given/When/Then) 부여 (Q4=A)
+- [x] 스토리 ↔ FR/NFR ID ↔ UOW 매핑(추적성) 표기 (Q5=A)
+- [x] `personas.md` 생성 — 3개 페르소나 + AI 에이전트 액터 (Q1=A)
+- [x] `stories.md` 생성 — Epic(=UOW) → Story 구조 (Q3=A)
+- [x] Hero 시나리오를 E2E 통과 스토리로 명시 (US-06.1)
 
 ## B. 필수 산출물
 
-- [ ] `aidlc-docs/inception/user-stories/personas.md`
-- [ ] `aidlc-docs/inception/user-stories/stories.md`
+- [x] `aidlc-docs/inception/user-stories/personas.md`
+- [x] `aidlc-docs/inception/user-stories/stories.md`
 
 ---
 
@@ -51,7 +51,7 @@ B) 3개 사람 페르소나만. 에이전트는 도구 호출 메커니즘으로
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Q2. 스토리 세분도(granularity)
 스토리 크기를 어느 수준으로?
@@ -64,7 +64,7 @@ C) 큰 단위 — Epic ≈ Story (개수 최소)
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A 
 
 ### Q3. 구성 접근법 (위 C 표 참조)
 A) Epic(=UOW) 기반 + Epic 내부 User-Journey 하이브리드 (PO 권장)
@@ -75,7 +75,7 @@ C) Persona-Based
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Q4. 수용 기준 형식
 A) **Given/When/Then** (Gherkin 스타일) — PBT/예제 테스트로 옮기기 쉬움 (권장)
@@ -84,7 +84,7 @@ B) 체크리스트형 불릿
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Q5. 추적성 표기
 스토리에 FR/NFR·UOW ID 매핑을 넣을까요? (원천 §21 AI-DLC 추적성 요구)
@@ -95,4 +95,4 @@ B) 아니오 — 스토리 텍스트만
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
