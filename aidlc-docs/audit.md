@@ -190,3 +190,10 @@
 **Context**: CONSTRUCTION - UOW-06 (C9, NFR-REL-001 반복가능 E2E, NFR-SEC-001 시크릿 위생) — Per-Unit Loop 8개 단위 전부 완료
 
 ---
+
+## Construction — Build and Test 완료
+**Timestamp**: 2026-09-08T00:00:00Z
+**AI Response**: aidlc-docs/construction/build-and-test/에 지침 5종 생성 — build-instructions(설치/의존성/시크릿/트러블슈팅), unit-test-instructions(단위별·PBT 불변식·커버리지 매핑), integration-test-instructions(Hero 시나리오 CLI/MCP E2E 수동 절차), performance-test-instructions(replay 지연·캐시 재사용 측정), build-and-test-summary(요약·NFR/평가 대응 링크). 검증: pip install -e . 성공, pytest 62개 전부 통과, 저장소 밖 /tmp에서 설치된 trace 명령으로 Hero E2E 재현(value_mismatch 20 vs 10 검출→영향분석→5단계 Change Plan). aidlc-state.md Build and Test 체크. CONSTRUCTION 단계 완료(8개 단위 + Build and Test), 다음은 OPERATIONS placeholder.
+**Context**: CONSTRUCTION - Build and Test (NFR-REL-001/AI-004 반복가능 E2E, NFR-SEC-001 시크릿 위생) — CONSTRUCTION 종료
+
+---

@@ -76,15 +76,15 @@
 | UOW-06 통합·시연 | [x] | N/A | [x] (폴백 CLI + Hero E2E + 시크릿 위생 + README; import 패키지 trace→traceki 개명으로 stdlib 충돌 해소) |
 
 - [ ] Infrastructure Design — SKIP (로컬 stdio 단일 프로세스)
-- [ ] Build and Test — EXECUTE (모든 단위 완료 후)
+- [x] Build and Test — EXECUTE 완료 (build/unit/integration/performance/summary 지침 5종, 62 테스트 통과)
 
 ### 🟡 OPERATIONS PHASE
 - [ ] Operations (placeholder)
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: Per-Unit Loop 완료 (8개 단위 전부) — 다음: Build and Test
-- **Next Stage**: Build and Test (모든 단위 완료 후 실행)
+- **Current Stage**: CONSTRUCTION 완료 (Per-Unit Loop 8개 단위 + Build and Test)
+- **Next Stage**: OPERATIONS (placeholder — 향후 배포·모니터링 확장)
 - **완료**: UOW-0F ~ UOW-06 전 단위. 전체 62 테스트 통과. 설치된 `trace`/`trace-mcp` 명령이 저장소 밖에서도 동작(replay Hero E2E 검증). value_mismatch(전화번호 20 vs 10) 검출·영향분석·Change Plan 확인.
 - **Status**: 8개 단위 코드 생성 완료. import 패키지 `trace`→`traceki` 개명(파이썬 stdlib `trace` 충돌 해소, 명령어명·로거명·`.trace/` 디렉터리는 유지). result/hero-run.txt 실행 전사 갱신.
 - **핵심 Construction 결정**: LLMService는 (1) live Anthropic Claude 백엔드 + (2) cache/replay 백엔드를 지원.
