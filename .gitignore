@@ -1,0 +1,17 @@
+# Secrets — never commit (NFR-SEC-001)
+.env
+*.key
+
+# TRACE runtime artifacts (per-project knowledge/cache live under the analyzed project)
+.trace/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.hypothesis/
+.venv/
+venv/

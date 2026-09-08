@@ -126,3 +126,18 @@
 **Context**: INCEPTION - Units Generation Part 1(GATE 승인) → Part 2 Generation
 
 ---
+
+## Units Generation — 최종 승인(사용자 위임) & Construction 착수
+**Timestamp**: 2026-09-08T00:00:00Z
+**User Input**: "aidlc-docs/aidlc-state.md를 확인하고 계획대로 진행해줘. 모든 판단은 너에게 위임할게."
+**AI Response**: Units Generation 산출물(unit-of-work*.md 3종) 검토 완료·일관성 확인. 사용자 위임에 따라 최종 승인으로 처리하고 CONSTRUCTION 진입. per-unit 루프를 위상순(0F→00→01→02→03→04→05→06)으로 진행. 핵심 Construction 결정: LLMService에 live+replay 백엔드 도입(API 키 없이 Hero 데모 결정적 재현).
+**Context**: INCEPTION 종료 → CONSTRUCTION 착수 (사용자 판단 위임)
+
+---
+
+## Construction — UOW-0F Foundation 완료
+**Timestamp**: 2026-09-08T00:00:00Z
+**AI Response**: 공유 계약 동결. 산출: trace/models(도메인 dataclass), trace/common(Result envelope·오류·시크릿마스킹 로깅), trace/config(제외규칙·env LLM설정), trace/prompts(로더), trace/llm(LLMService live+replay). 기술 결정: Python 3.10+, dataclass(무의존), Sonnet 5 temperature 미전송. 테스트: 속성(Hypothesis)+단위 23개 전부 통과. pyproject/pip install -e . 성공.
+**Context**: CONSTRUCTION - Functional Design + Code Generation (UOW-0F), 사용자 위임하 자동 진행
+
+---

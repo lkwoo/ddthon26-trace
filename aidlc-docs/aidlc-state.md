@@ -4,7 +4,7 @@
 - **Project Name**: TRACE — 개발자 지식 인텔리전스 (작업명)
 - **Project Type**: Greenfield
 - **Start Date**: 2026-09-08T00:00:00Z
-- **Current Stage**: INCEPTION - Requirements Analysis
+- **Current Stage**: CONSTRUCTION - Per-Unit Loop (UOW-0F Foundation)
 
 ## Workspace State
 - **Existing Code**: No
@@ -59,21 +59,33 @@
 - [x] User Stories
 - [x] Workflow Planning
 - [x] Application Design — EXECUTE
-- [x] Units Generation — EXECUTE (Part 1 계획 + Part 2 산출물 생성 완료, 최종 승인 대기)
+- [x] Units Generation — EXECUTE (Part 1 계획 + Part 2 산출물 완료, 승인됨 — 사용자 위임)
 
 ### 🟢 CONSTRUCTION PHASE (per-unit loop)
-- [ ] Functional Design — EXECUTE (per-unit)
-- [ ] NFR Requirements — EXECUTE (per-unit)
-- [ ] NFR Design — EXECUTE (per-unit)
-- [ ] Infrastructure Design — SKIP
-- [ ] Code Generation — EXECUTE (per-unit)
-- [ ] Build and Test — EXECUTE
+진행 순서(위상): 0F → 00 → 01 → 02 → 03 → 04 → 05 → 06
+
+| 단위 | Functional Design | NFR Req/Design | Code Generation |
+|---|---|---|---|
+| UOW-0F Foundation | [x] | [x] | [x] |
+| UOW-00 데모 | [ ] | N/A | [ ] |
+| UOW-01 스캐너 | [ ] | [ ] | [ ] |
+| UOW-02 Feature/Knowledge | [ ] | [ ] | [ ] |
+| UOW-03 Claims/Conflict | [ ] | [ ] | [ ] |
+| UOW-04 Task Impact | [ ] | [ ] | [ ] |
+| UOW-05 MCP 어댑터 | [ ] | [ ] | [ ] |
+| UOW-06 통합·시연 | [ ] | [ ] | [ ] |
+
+- [ ] Infrastructure Design — SKIP (로컬 stdio 단일 프로세스)
+- [ ] Build and Test — EXECUTE (모든 단위 완료 후)
 
 ### 🟡 OPERATIONS PHASE
 - [ ] Operations (placeholder)
 
 ## Current Status
-- **Lifecycle Phase**: INCEPTION
-- **Current Stage**: Units Generation (Part 2 산출물 생성 완료 — 최종 승인 대기)
-- **Next Stage**: CONSTRUCTION PHASE (per-unit 루프, UOW-0F부터)
-- **Status**: unit-of-work.md / unit-of-work-dependency.md / unit-of-work-story-map.md 3종 생성 완료. 8개 단위(0F,00,01~06), 3-웨이브 병렬 계획 확정. 최종 승인 대기 중.
+- **Lifecycle Phase**: CONSTRUCTION
+- **Current Stage**: Per-Unit Loop — UOW-00 데모 (다음)
+- **Next Stage**: UOW-00 → UOW-01 → ... → UOW-06 → Build and Test
+- **완료**: UOW-0F (models/common/config/prompts/llm) — 23 테스트 통과, 계약 동결.
+- **Status**: Units Generation 승인(사용자 위임). Construction 착수. 진행 순서 0F→00→01→02→03→04→05→06.
+- **핵심 Construction 결정**: LLMService는 (1) live Anthropic Claude 백엔드 + (2) cache/replay 백엔드를 지원.
+  데모 Hero 시나리오는 사전 캐시된 응답으로 API 키 없이 결정적 재현 가능(NFR-AI-004, NFR-REL-001).
