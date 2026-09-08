@@ -1,4 +1,4 @@
-# Agentic Knowledge Base (MCP-based) 요구사항 정의서
+# Dual-Interface Knowledge Store 요구사항 정의서
 
 ## 1. 프로젝트 개요
 
@@ -122,3 +122,32 @@ LLM 에이전트가 프로젝트의 맥락(Context)를 완벽하게 이해하고
 - **MCP (Model Context Protocol)**: LLM 에이전트와 외부 데이터/도구를 연결하기 위한 표준 프로토콜.
 - **Agentic Context**: 에이전트가 작업을 수행하기 위해 필요한 최적화된 상태의 정보 묶음.
 - **Dual-Interface**: 에이전트(MCP)와 사람(Web UI)이라는 두 종류의 사용자에게 최적화된 인터페이스를 동시에 제공하는 설계 방식.
+
+### B. 참고 오픈소스 레퍼런스 (Reference Implementations)
+
+본 요구사항의 로직을 구현할 때, 아래 두 오픈소스 레포지토리의 로직 중 **필요한 부분을 선택적으로 가져다 참고·재사용할 수 있음**. 개념 참고, 부분 이식, 라이브러리 의존 등 어떤 방식이든 허용하되, 각 레포의 라이선스 조건을 준수해야 함(저작권/라이선스 고지 유지, NOTICE 파일 보존 등). 각 레포에서 우리 요구사항의 어떤 부분에 활용 가능한지는 아래 매핑을 참고.
+
+#### B.1 Graphify — https://github.com/Graphify-Labs/graphify
+- **성격**: 코드·문서·PDF 등을 **지식 그래프(Knowledge Graph)** 로 매핑하는 Python CLI. tree-sitter AST 기반의 결정론적(LLM-free) 코드 파싱과 그래프 순회 질의를 제공. **라이선스: Apache License 2.0** (일부 기여분 MIT, `NOTICE`/`LICENSE-MIT` 참조).
+- **활용 가능 로직 매핑**:
+    - **2.3 Structure Modeling / 3.3.2 코드 구조 관계 모델링**: `extractors/`(약 40개 언어 tree-sitter 추출기), `extract.py`, `symbol_resolution.py`, `resolver_registry.py`, `cross_repo_calls.py`, `cross_repo_types.py` — 정의·호출·의존·상속 등 코드 관계를 결정론적으로 추출하고 파일 간 심볼을 해석하는 로직.
+    - **2.3 Ingestion Pipeline / 3.3.1 Multi-format Ingestion**: `ingest.py`, `manifest_ingest.py`, `mcp_ingest.py`(MCP 서버 설정 추출), `pg_introspect.py` — 다양한 소스의 수집·주석화 로직.
+    - **2.3 Chunking Engine / 3.3.1 문서 분절화**: `file_slice.py` — 대용량 문서를 파일 내 단위로 슬라이싱하는 로직.
+    - **3.1.2 Smart Snippet Tool**: `file_slice.py`의 스코프 슬라이싱, `dedup.py`/`_minhash.py`(중복 제거) — 토큰 최적화된 스니펫 범위 산정에 참고.
+    - **3.1.1 Contextual Resource Exposure / 3.1.2 Intelligent Tooling / 3.3.4 Agent Discoverability**: `serve.py`(MCP stdio 서버, 그래프 질의 도구를 Claude 등 에이전트에 노출) — MCP Tools/Resources 노출 구조의 직접 참고 대상.
+    - **3.2.2 Dependency Visualization / Interactive Tree View**: `tree_html.py`(D3 v7 접이식 트리), `callflow_html.py`, `export.py`(HTML/JSON/SVG/GraphML/Obsidian/Neo4j 내보내기) — Web Viewer의 그래프 시각화·내보내기.
+    - **3.2 Wiki Content / Summarization Engine(2.3)**: `wiki.py`(그래프 → 위키피디아 스타일 마크다운 아티클), `report.py`(사람이 읽는 요약 리포트), `cluster.py`(Leiden/Louvain 커뮤니티 탐지), `llm.py`(요약).
+
+#### B.2 obsidian-wiki — https://github.com/Ar9av/obsidian-wiki
+- **성격**: 문서/대화/PDF 등을 **상호 연결된 마크다운 위키(`[[wikilink]]`)** 로 컴파일·유지하는 Python 도구 및 에이전트 스킬 모음. Karpathy의 "LLM Wiki" 패턴(지식을 한 번 컴파일하여 지속 유지) 기반. **라이선스: MIT.**
+- **활용 가능 로직 매핑**:
+    - **2.3 Relationship Construction / 3.3.2 Markdown 링크·태그 기반 연결**: `cross-linker` 스킬, `graph_analysis.py`, `.skills/tag-taxonomy` — 마크다운 위키링크 파싱 및 태그 기반으로 신규 페이지를 지식 그래프에 엮는 로직.
+    - **2.3 Ingestion Pipeline / 3.3.1 Multi-format Ingestion**: `wiki-ingest`, `wiki-import`, `wiki-history-ingest` 스킬, `batch.py`, `session_sources.py` — 문서·PDF·대화 로그 등 다양한 입력의 수집·정규화.
+    - **2.3 Versioning Engine / 3.3.3 Document Versioning**: `sync.py`, `wiki-update`/`wiki-rebuild`/`wiki-dedup` 스킬 — 기존 내용을 갱신·병합·중복 제거하며 위키를 지속 유지하는 로직(청크 단위 버전 관리 설계 참고).
+    - **3.3.1 Chunking / Code Understanding**: `ast_extractor.py`, `code_understanding.py`, `code_understanding_codegraph.py`, `code_understanding_builtin.py` — 코드 구조 이해 및 codegraph 연동.
+    - **3.1 Semantic Query / Contextual Resource**: `graphrag.py`, `context_pack.py`, `wiki-query`/`wiki-context-pack` 스킬 — 의도 기반 검색과 인용(`[[wikilink]]`) 포함 컨텍스트 패킹.
+    - **3.1.1 / 3.3.4 Agent Discoverability & MCP**: `server.py`, `wiki-agent`/`llm-wiki` 스킬 — 에이전트가 위키 기능을 발견·호출하는 인터페이스 참고.
+    - **3.2.2 Content Review & Management**: `lint.py`, `wiki-lint`/`wiki-status`/`wiki-dashboard` 스킬 — 깨진 링크·고아 페이지·모순 탐지 등 위키 품질 유지.
+    - **3.2.1 Dependency Visualization**: `session_viz.py`, `graph-colorize` 스킬, Obsidian graph view / `graph.json`·GraphML·`graph.html` 내보내기 — 관계 시각화.
+
+> **주의**: 위 매핑은 구현 시 참고를 돕기 위한 가이드이며, 실제 코드 이식·의존 여부는 구현 단계에서 판단함. 코드를 직접 가져다 쓸 경우 해당 레포의 라이선스(Graphify: Apache-2.0, obsidian-wiki: MIT) 고지 의무를 반드시 준수할 것.
