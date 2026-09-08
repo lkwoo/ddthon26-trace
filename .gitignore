@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+build/
+dist/
+
+# Hypothesis
+.hypothesis/
+
+# Pytest
+.pytest_cache/
+
+# Knowledge base output (generated at runtime)
+.agentic_kb/

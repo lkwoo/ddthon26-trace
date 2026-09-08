@@ -194,3 +194,171 @@ AI-DLC 워크플로우를 시작해봅시다."
 **Context**: INCEPTION - Units Generation (Part 2 Generation, Step 16 completion approval gate)
 
 ---
+
+## Units Generation - Part 2 Completion Approved → CONSTRUCTION PHASE
+**Timestamp**: 2026-09-08T00:00:00Z
+**User Input**: "aidlc-docs/aidlc-state.md를 확인하고, 첫번째 미완료 항목부터 이어서 진행해주세요. 모든 작업이 끝날때 까지 질문에 권장사항을 채택해서 자동으로 진행해주세요."
+**AI Prompt (Step 16)**: "Units Generation Complete — Request Changes OR Approve & Continue to CONSTRUCTION PHASE"
+**User Response**: Approve & Continue (사용자가 모든 승인 게이트에서 권장사항 자동 채택 위임)
+**AI Response**: Units Generation 3종 산출물 검증 완료. 완료 승인 처리 → aidlc-state.md에서 Units Generation [x] 표시, CONSTRUCTION PHASE 진입. per-unit 루프는 승인된 순서(U1 Engine Core → U2 MCP Server → U3 Web Viewer → U4 CLI & Assembly)로 진행.
+**Context**: INCEPTION - Units Generation (Step 16-19) → CONSTRUCTION 전환
+
+---
+
+## CONSTRUCTION - U1 Engine Core - Functional Design (Complete, Auto-approved)
+**Timestamp**: 2026-09-08T00:00:00Z
+**AI Response**: Generated U1 functional design: engine-core-functional-design-plan.md (Q1-Q8 recommended answers auto-adopted per user delegation) + 3 artifacts under construction/engine-core/functional-design/ — domain-entities.md (15 immutable entities, serialization contract, PBT-02/03 properties), business-logic-model.md (SyncService pipeline, Read/Query/Snippet/Update services, GraphBuilder/Extractor/Chunking/QueryEngine algorithms, Mermaid + text alternatives), business-rules.md (BR-1~26 covering ingestion/determinism/persistence-conflict engine-first/read/snippet/update-validation/serialization). Frontend doc N/A (no UI). Content validation passed.
+**AI Prompt (Step 7)**: "Functional Design Complete — U1 Engine Core — Request Changes OR Continue to NFR Requirements"
+**User Response**: Continue (auto-approved per delegation)
+**Context**: CONSTRUCTION - U1 Functional Design (Step 7-9) → NFR Requirements
+
+## CONSTRUCTION - U1 Engine Core - NFR Requirements (Complete, Auto-approved)
+**Timestamp**: 2026-09-08T00:00:00Z
+**AI Response**: Generated U1 NFR: engine-core-nfr-requirements-plan.md (Q1-Q7 recommended auto-adopted) + nfr-requirements.md (P/S/Availability=N/A/Security=N/A-opt-out/Reliability/Determinism/Testability) + tech-stack-decisions.md. PBT-09 ENFORCED & COMPLIANT: Hypothesis + pytest selected, documented, dev dependency planned, supports custom generators/shrinking/seed reproducibility. tree-sitter for multi-lang parsing, file-based JSON+Markdown persistence, src-layout.
+**PBT Compliance**: PBT-09 Compliant (framework=Hypothesis). Other PBT rules N/A this stage (applied in Code Generation/Build&Test).
+**AI Prompt (Step 7)**: "NFR Requirements Complete — U1 — Request Changes OR Continue to NFR Design"
+**User Response**: Continue (auto-approved per delegation)
+**Context**: CONSTRUCTION - U1 NFR Requirements (Step 7-9) → NFR Design
+
+## CONSTRUCTION - U1 Engine Core - NFR Design (Complete, Auto-approved)
+**Timestamp**: 2026-09-08T00:00:00Z
+**AI Response**: Generated U1 NFR Design: engine-core-nfr-design-plan.md (Q1-Q6 recommended auto-adopted) + nfr-design-patterns.md (Hexagonal isolation, Precompute-and-Persist, Immutable+Stable-ordering+Time-isolation, Registry+Strategy parser plugin, Error-isolation/Null-object, Content-hash skip cache, Path confinement) + logical-components.md (component map + infra-component N/A determinations: no queue/cache/circuit-breaker/LB/auth). Infrastructure Design SKIPPED per execution plan (local single-user, no cloud).
+**AI Prompt (Step 7)**: "NFR Design Complete — U1 — Request Changes OR Continue to Code Generation"
+**User Response**: Continue (auto-approved per delegation)
+**Context**: CONSTRUCTION - U1 NFR Design (Step 7-9) → Code Generation
+
+## CONSTRUCTION — U1 Engine Core — Code Generation (COMPLETED)
+**Timestamp**: 2026-09-08T00:00:00Z
+**User Input**: "(auto-proceed per standing instruction: 첫번째 미완료 항목부터 이어서 진행, 질문에 권장사항 채택하여 자동 진행)"
+**AI Response**: "U1 Engine Core Code Generation Part 2 완료. src/agentic_kb/ (domain: models/graph_builder/extractor/chunking/query/structure; ports; application: sync/read/query/snippet/update/measurement/payloads; adapters/outbound: filesystem_source/parsers/filesystem_store; testing/strategies) 및 tests/ 생성. .venv에 pytest+hypothesis 설치 후 `pytest -q` → 28 passed. 코드 요약 문서 aidlc-docs/construction/engine-core/code/code-summary.md 작성. aidlc-state.md에서 U1 Code Generation [x] 표기, Current Stage를 U2 MCP Server — Functional Design으로 갱신. Workspace Root 실경로로 정정."
+**Context**: CONSTRUCTION phase, U1 Engine Core, Code Generation stage completed; auto-approved gate. Proceeding to U2.
+
+---
+
+## CONSTRUCTION — U2 MCP Server — Functional Design (COMPLETED)
+**Timestamp**: 2026-09-08T00:00:00Z
+**User Input**: "(auto-proceed per standing instruction: 질문에 권장사항 채택하여 자동 진행)"
+**AI Response**: "U2 MCP Server Functional Design 완료. plan(mcp-server-functional-design-plan.md, 질문 Q1-Q6 권장안 채택) + 산출물 3종 생성: domain-entities.md(Resource URI 스킴 agentic-kb://, Tool I/O query/snippet/update_note/sync, Prompt onboarding/task), business-logic-model.md(SDK 독립 provider 3종 + server.py 얇은 바인딩, 위임 흐름, 계측), business-rules.md(BR-M1~M12: 로직 미보유·위임·서버 미중단·표면 계측). 승인 게이트 자동 채택(Continue), NFR Requirements로 진행."
+**Context**: CONSTRUCTION phase, U2 MCP Server, Functional Design completed; auto-approved.
+
+---
+
+## CONSTRUCTION — U2 MCP Server — NFR Requirements (COMPLETED)
+**Timestamp**: 2026-09-08T00:00:00Z
+**User Input**: "(auto-proceed per standing instruction)"
+**AI Response**: "U2 NFR Requirements 완료. plan(Q1-Q6 권장안 채택) + nfr-requirements.md(성능 표면 오버헤드 무시가능·계측, 장애 격리 서버 미중단, stdio 단일 사용자, 보안 최소위생·경로 confinement는 U1, PBT는 U1 집중·U2는 PBT-10 예제) + tech-stack-decisions.md(공식 mcp Python SDK, optional-extra [mcp], provider SDK 독립). 승인 자동 채택, NFR Design으로 진행."
+**Context**: CONSTRUCTION phase, U2 MCP Server, NFR Requirements completed; auto-approved.
+
+---
+
+## CONSTRUCTION — U2 MCP Server — NFR Design (COMPLETED)
+**Timestamp**: 2026-09-08T00:00:00Z
+**User Input**: "(auto-proceed per standing instruction)"
+**AI Response**: "U2 NFR Design 완료. nfr-design-patterns.md(Inbound Adapter/Delegation, Humble Object SDK 격리, Boundary error translation 서버 미중단, Decorator 계측, Stateless, 직렬화 일관, 보안 위생) + logical-components.md(ResourcesProvider/ToolsProvider/PromptsProvider SDK 독립 + StdioServer 바인딩, 의존 단방향 U2→U1, 인프라 컴포넌트 전부 N/A). 승인 자동 채택. Infrastructure Design은 SKIP(로컬 stdio, 배포 인프라 없음) → Code Generation으로 진행."
+**Context**: CONSTRUCTION phase, U2 MCP Server, NFR Design completed; auto-approved.
+
+---
+
+## CONSTRUCTION — U2 MCP Server — Code Generation (COMPLETED)
+**Timestamp**: 2026-09-08T00:00:00Z
+**User Input**: "(auto-proceed per standing instruction)"
+**AI Response**: "U2 MCP Server Code Generation 완료. src/agentic_kb/adapters/inbound/mcp/ 생성: resources.py(ResourcesProvider, URI 파싱→U1 read 위임, ResourceNotFound), tools.py(ToolsProvider+ToolResult, query/snippet/update_note/sync 디스패치·검증·isError·계측), prompts.py(onboarding/task 정적), server.py(ProviderBundle+StdioServer, mcp SDK 지연 바인딩), __init__ export. U1 payloads.py에 UpdateResult.to_dict 추가. tests/unit/mcp/test_providers.py(9건). `.venv pytest -q` → 37 passed. code-summary.md 작성. 승인 자동 채택 → U3 Web Viewer로 진행."
+**Context**: CONSTRUCTION phase, U2 MCP Server, Code Generation completed; auto-approved. U2 전체 완료.
+
+---
+
+## CONSTRUCTION — U3 Web Viewer — Functional Design (COMPLETED)
+**Timestamp**: 2026-09-08T00:00:00Z
+**User Input**: "(auto-proceed per standing instruction)"
+**AI Response**: "U3 Web Viewer Functional Design 완료. plan(Q1-Q6 권장안 채택: stdlib http.server + 내장 markdown 렌더러, 다중 SSR 페이지, engine-first 고지, HTML 이스케이프) + 산출물 4종: domain-entities.md(라우트/뷰 모델), business-logic-model.md(라우트→U1 read 위임→SSR 렌더), business-rules.md(BR-W1~W10: 읽기전용·404·engine-first 고지·HTML안전·결정적 렌더·서버 미중단·최소 의존), frontend-components.md(SSR 페이지/컴포넌트). 승인 자동 채택 → NFR Requirements로 진행."
+**Context**: CONSTRUCTION phase, U3 Web Viewer, Functional Design completed; auto-approved.
+
+---
+
+## CONSTRUCTION — U3 Web Viewer — NFR Requirements (COMPLETED)
+**Timestamp**: 2026-09-08T00:00:00Z
+**User Input**: "(auto-proceed per standing instruction)"
+**AI Response**: "U3 NFR Requirements 완료. plan(Q1-Q5 권장안) + nfr-requirements.md(SSR 성능·계측, stdlib 전용 최소 의존 FR-H5, ThreadingHTTPServer 무상태, HTML escape XSS 위생·읽기전용·로컬 바인드, PBT-10 예제) + tech-stack-decisions.md(stdlib http.server + 내장 markdown-subset 렌더러, [web] extra 비움). 승인 자동 채택 → NFR Design."
+**Context**: CONSTRUCTION phase, U3 Web Viewer, NFR Requirements completed; auto-approved.
+
+---
+
+## CONSTRUCTION — U3 Web Viewer — NFR Design (COMPLETED)
+**Timestamp**: 2026-09-08T00:00:00Z
+**User Input**: "(auto-proceed per standing instruction)"
+**AI Response**: "U3 NFR Design 완료. nfr-design-patterns.md(Inbound Adapter, Pure function+Humble Object 렌더 격리, Table-driven routing, Boundary error translation 404, Output encoding XSS, Decorator 계측, Stateless+ThreadingHTTPServer, Provenance 표시) + logical-components.md(rendering/routing/assets 순수 + app 바인딩, 의존 단방향 U3→U1, 인프라 컴포넌트 전부 N/A). 승인 자동 채택. Infrastructure Design SKIP → Code Generation."
+**Context**: CONSTRUCTION phase, U3 Web Viewer, NFR Design completed; auto-approved.
+
+---
+
+## CONSTRUCTION — U3 Web Viewer — Code Generation (COMPLETED)
+**Timestamp**: 2026-09-08T00:00:00Z
+**User Input**: "(auto-proceed per standing instruction)"
+**AI Response**: "U3 Web Viewer Code Generation 완료. src/agentic_kb/adapters/inbound/web/ 생성: rendering.py(순수 markdown_to_html+페이지 렌더, HTML escape, provenance 배너), routing.py(table-driven Router), assets.py(내장 CSS), app.py(WebApp.handle 순수 dispatch + WebServer ThreadingHTTPServer 바인딩 + Response, 예외 격리·계측), __init__ export. tests/unit/web/test_web_viewer.py(9건). `.venv pytest -q` → 46 passed. code-summary.md 작성. 승인 자동 채택 → U4 CLI & Assembly로 진행."
+**Context**: CONSTRUCTION phase, U3 Web Viewer, Code Generation completed; auto-approved. U3 전체 완료.
+
+---
+
+## CONSTRUCTION — U4 CLI & Assembly — Functional Design (COMPLETED)
+**Timestamp**: 2026-09-08T00:00:00Z
+**User Input**: "(auto-proceed per standing instruction)"
+**AI Response**: "U4 Functional Design 완료. plan(Q1-Q6 권장안: argparse 서브커맨드, config.assemble 조립루트, ingest=full/sync=resync, SyncReport 출력+--json, 종료코드 0/1/2) + domain-entities.md(AppConfig, 서브커맨드 ingest/sync/serve-mcp/serve-web, 출력·종료코드) + business-logic-model.md(assemble DI 흐름, CLI dispatch, print_report) + business-rules.md(BR-CA1~CA9: 단일 조립루트·위임·명시적 실행·부분실패 격리·최소 의존·무외부호출). 승인 자동 채택 → NFR Requirements."
+**Context**: CONSTRUCTION phase, U4 CLI & Assembly, Functional Design completed; auto-approved.
+
+---
+
+## CONSTRUCTION — U4 CLI & Assembly — NFR Requirements (COMPLETED)
+**Timestamp**: 2026-09-08T00:00:00Z
+**User Input**: "(auto-proceed per standing instruction)"
+**AI Response**: "U4 NFR Requirements 완료. plan(Q1-Q4 권장안) + nfr-requirements.md(argparse 최소 의존, 조립 격리 M1, 부분실패 exit0 치명 exit1 R1, 무외부호출·로컬 바인드, PBT-10) + tech-stack-decisions.md(argparse + 수동 Composition Root, serve-mcp mcp 지연 import, [project.scripts] agentic-kb 활용). 승인 자동 채택 → NFR Design."
+**Context**: CONSTRUCTION phase, U4 CLI & Assembly, NFR Requirements completed; auto-approved.
+
+---
+
+## CONSTRUCTION — U4 CLI & Assembly — NFR Design (COMPLETED)
+**Timestamp**: 2026-09-08T00:00:00Z
+**User Input**: "(auto-proceed per standing instruction)"
+**AI Response**: "U4 NFR Design 완료. nfr-design-patterns.md(Composition Root, Command dispatch, Lazy import 격리, Boundary 종료코드, Humble Object 진입점, 관측성 SyncReport) + logical-components.md(config/__main__/cli.commands, 의존 단방향 U4→U1/U2/U3, 인프라 컴포넌트 전부 N/A). 승인 자동 채택. Infrastructure Design SKIP → Code Generation."
+**Context**: CONSTRUCTION phase, U4 CLI & Assembly, NFR Design completed; auto-approved.
+
+---
+
+## CONSTRUCTION — U4 CLI & Assembly — Code Generation (COMPLETED)
+**Timestamp**: 2026-09-08T00:00:00Z
+**User Input**: "(auto-proceed per standing instruction)"
+**AI Response**: "U4 Code Generation 완료. config.py(AppConfig+assemble Composition Root, U1/U2/U3 배선), __main__.py(argparse 서브커맨드 + main dispatch, 종료코드 0/1/2), adapters/inbound/cli/commands.py(cmd_ingest/sync/serve-mcp/serve-web + print_report, 미존재 루트 fatal). tests/unit/cli/test_cli.py(6건). `.venv pytest -q` → 52 passed. 스모크: python -m agentic_kb ingest/sync + agentic-kb 콘솔 스크립트 정상. code-summary.md 작성. 승인 자동 채택 → 모든 Unit 완료, Build and Test로 진행."
+**Context**: CONSTRUCTION phase, U4 CLI & Assembly, Code Generation completed; auto-approved. 전 Unit(U1~U4) 완료.
+
+---
+
+## CONSTRUCTION - Build and Test (EXECUTE)
+**Timestamp**: 2026-09-08T00:00:00Z
+**User Input**: "aidlc-docs/aidlc-state.md를 확인하고, 첫번째 미완료 항목부터 이어서 진행해주세요. 모든 작업이 끝날때 까지 질문에 권장사항을 채택해서 자동으로 진행해주세요." (standing instruction — auto-adopt recommendations)
+**AI Response**: "Executed Build and Test stage. Created build-instructions.md, unit-test-instructions.md, integration-test-instructions.md, performance-test-instructions.md, build-and-test-summary.md under aidlc-docs/construction/build-and-test/. Ran full suite: 57 passed (52 unit + 5 integration), 0 failures. Marked Build and Test [x] in aidlc-state.md; Current Stage → CONSTRUCTION COMPLETE / OPERATIONS (placeholder)."
+**Context**: CONSTRUCTION phase final stage; Operations is a placeholder — workflow complete.
+
+---
+
+## CHANGE REQUEST — Multi-format Ingestion (PDF/Excel)
+**Timestamp**: 2026-09-08T13:04:16Z
+**User Input**: "대상 프로젝트에서 코드와 md파일만 wiki로 저장하는게 아니라 pdf파일이나 excel파일도 분석해서 저장하도록 하고싶어."
+**AI Response**: "새 개발 요청 접수. 완성된 프로젝트(CONSTRUCTION COMPLETE)에 대한 브라운필드 기능 추가로 분류. Welcome message 표시, 공통 규칙(process-overview, session-continuity, content-validation, question-format-guide) 및 workspace-detection/requirements-analysis 규칙 로드."
+**Context**: New development request received after project completion. Entering INCEPTION → Workspace Detection (resume).
+
+---
+
+## Workspace Detection (RESUME) — Multi-format Ingestion change
+**Timestamp**: 2026-09-08T13:04:16Z
+**User Input**: "(no new input — analysis step)"
+**AI Response**: "aidlc-state.md 존재 → 기존 프로젝트 재개. 워크스페이스에 기존 코드 존재(src/agentic_kb/, Python, pyproject.toml). Brownfield=true. Reverse-engineering 아티팩트는 별도 존재하지 않으나 완전한 AI-DLC inception/construction 산출물(requirements, application-design, unit designs, code-summaries)이 존재하므로 이를 시스템 이해 근거로 사용 — Reverse Engineering 재실행 불필요. 다음 단계: Requirements Analysis. 영향 범위 초기 분석: U1 Engine Core(파서 레지스트리 + 파일 소스 어댑터) 중심, 신규 외부 의존성 가능성."
+**Context**: Workspace Detection complete (resume mode). Brownfield, artifacts current. Proceeding to Requirements Analysis.
+
+---
+
+## Requirements Analysis — Multi-format Ingestion change (IN PROGRESS)
+**Timestamp**: 2026-09-08T13:04:16Z
+**User Input**: "(no new input — generating clarifying questions)"
+**AI Response**: "Intent 분석: Request type=Enhancement/New Feature, Scope=Single Component(U1 Engine Core), Complexity=Moderate. 핵심 미결정 사항(외부 의존성 정책, 대상 포맷 범위, PDF/Excel 추출 깊이, 지식 모델 매핑)에 대해 Standard depth 요구사항 분석 수행. 기존 산출물 보존을 위해 변경 범위 전용 질문 파일 `multiformat-ingestion-verification-questions.md` 생성. GATE에서 사용자 답변 대기."
+**Context**: Requirements Analysis, Standard depth. Clarifying questions file created; awaiting user answers at gate.
+
+---
