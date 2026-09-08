@@ -1,0 +1,17 @@
+{
+  "features": [
+    {
+      "id": "owner-registration",
+      "title": "Owner Registration",
+      "description": "Register a pet owner with contact details via the REST API.",
+      "related_sources": [
+        "petclinic/src/main/java/org/springframework/samples/petclinic/owner/Owner.java",
+        "petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerRestController.java",
+        "petclinic/src/main/resources/db/schema.sql",
+        "petclinic/src/main/resources/openapi.yaml",
+        "petclinic/src/test/java/org/springframework/samples/petclinic/owner/OwnerRegistrationTests.java",
+        "requirements/owner-registration-spec.pdf"
+      ]
+    }
+  ]
+}

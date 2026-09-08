@@ -67,9 +67,9 @@
 | 단위 | Functional Design | NFR Req/Design | Code Generation |
 |---|---|---|---|
 | UOW-0F Foundation | [x] | [x] | [x] |
-| UOW-00 데모 | [x] | N/A | [~] (데이터셋 완료; replay 픽스처는 02/03/04와 함께) |
+| UOW-00 데모 | [x] | N/A | [~] (데이터셋+identify/generate 픽스처 완료; extract/analyze 픽스처는 03/04와 함께) |
 | UOW-01 스캐너 | [x] | [x] | [x] |
-| UOW-02 Feature/Knowledge | [ ] | [ ] | [ ] |
+| UOW-02 Feature/Knowledge | [x] | N/A | [x] |
 | UOW-03 Claims/Conflict | [ ] | [ ] | [ ] |
 | UOW-04 Task Impact | [ ] | [ ] | [ ] |
 | UOW-05 MCP 어댑터 | [ ] | [ ] | [ ] |
@@ -83,7 +83,7 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: Per-Unit Loop — UOW-02 Feature/Knowledge (다음)
+- **Current Stage**: Per-Unit Loop — UOW-03 Claims/Conflict (다음)
 - **Next Stage**: UOW-00 → UOW-01 → ... → UOW-06 → Build and Test
 - **완료**: UOW-0F (models/common/config/prompts/llm) — 23 테스트 통과, 계약 동결.
 - **Status**: Units Generation 승인(사용자 위임). Construction 착수. 진행 순서 0F→00→01→02→03→04→05→06.

@@ -1,0 +1,12 @@
+{
+  "overview": "Owner Registration lets a client create a pet owner through POST /api/owners. The Owner entity persists first/last name, address, city and telephone; the request is validated and stored in the owners table. The current implementation performs no SMS verification step.",
+  "business_rules": [
+    "Telephone is required and validated for length before an owner is saved.",
+    "Owner registration is exposed as POST /api/owners and returns the created owner.",
+    "First name, last name, address and city are mandatory fields on the Owner entity."
+  ],
+  "dependencies": [
+    "owners database table (schema.sql)",
+    "OpenAPI contract for /api/owners"
+  ]
+}

@@ -155,3 +155,10 @@
 **Context**: CONSTRUCTION - UOW-01 (US-01.1/02/03, 0F 계약 소비)
 
 ---
+
+## Construction — UOW-02 Feature/Knowledge 완료
+**Timestamp**: 2026-09-08T00:00:00Z
+**AI Response**: trace/knowledge(C4 MD+YAML 저장소: save/load/list/read_resource, 무손실 front matter 왕복)·trace/workflow(C3: identify_features·generate_feature_knowledge, 프롬프트 템플릿 2종)·trace/engine/pipeline(analyze_project 파이프라인+캐시 재사용+register_enrich_hook 확장점, list_features, get_feature_knowledge) 구현. demo/replay에 identify_features.json·generate_knowledge.owner-registration.json 픽스처 신설(UOW-00 step_key 계약 준수). 테스트 8개 통과(저장소 왕복·슬러그 속성 + replay로 demo 분석→Hero Feature 검출·영속화·조회·캐시). 전체 40개 통과.
+**Context**: CONSTRUCTION - UOW-02 (FR-KNOWLEDGE-001/002/003, C2·C3·C4)
+
+---
