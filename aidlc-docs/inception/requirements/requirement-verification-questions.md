@@ -17,7 +17,7 @@ B) TypeScript + 공식 TypeScript MCP SDK — Node 생태계, Claude Code와 동
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ---
 
@@ -30,7 +30,7 @@ B) 로컬/오픈 모델 (예: Ollama 경유) — 완전 로컬, 오프라인 시
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ---
 
@@ -45,7 +45,7 @@ C) PDF/DOCX/PPTX 전부 P0에 포함
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B
 
 ---
 
@@ -58,7 +58,7 @@ B) 데모 설정 보조 — 데모 대상 Feature 힌트를 설정으로 제공�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ---
 
@@ -73,7 +73,7 @@ C) 둘 다 생략 — 라이브 MCP 흐름만 P0로 집중 (시간 절약)
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ---
 
@@ -86,7 +86,7 @@ B) 더 작은 자체 합성 미니 프로젝트 — 저장소를 가볍게 유�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ---
 
@@ -99,7 +99,7 @@ B) 아니오 — 다른 이름 사용 (X에 기입)
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ---
 
@@ -112,7 +112,7 @@ B) No — skip all SECURITY rules (suitable for PoCs, prototypes, and experiment
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B
 
 ---
 
@@ -125,7 +125,7 @@ B) No — skip the resiliency baseline (suitable for PoCs, prototypes, and exper
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ---
 
@@ -140,4 +140,26 @@ C) No — skip all PBT rules (suitable for simple CRUD applications, UI-only pro
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
+
+---
+
+## Q11. (Resiliency 확장 필수) RTO/RPO 목표 및 재해복구(DR) 전략
+Resiliency 확장(Q9=A)의 RESILIENCY-02 룰은 요구사항 확정 전 RTO/RPO 목표를 묻도록 요구합니다.
+What are your Recovery Time Objective (RTO) and Recovery Point Objective (RPO) goals?
+
+> **맥락 참고**: TRACE는 로컬 stdio MCP 서버 PoC(2일, 클라우드 인프라·멀티리전 없음, §2.1)입니다. 이 경우 대부분의 Resiliency 룰(멀티존/멀티리전/DR/백업)은 **N/A**가 되며, 로컬 재실행·재분석으로 복구합니다. 그래서 **E**가 자연스러운 선택입니다.
+
+A) RPO/RTO: Hours — Backup & Restore. Lowest cost.
+
+B) RPO/RTO: 10s of minutes — Pilot Light.
+
+C) RPO/RTO: Minutes — Warm Standby.
+
+D) RPO/RTO: Near real-time — Multi-site Active/Active.
+
+E) N/A — Single-region(로컬 단일 프로세스) 로 충분, cross-region DR 불필요. (PoC 권장)
+
+X) Other (please describe after [Answer]: tag below)
+
+[Answer]: E

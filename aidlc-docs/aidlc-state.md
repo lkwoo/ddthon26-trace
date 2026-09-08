@@ -24,13 +24,30 @@
 - **Assessment Criteria**: requirments/assessment.md (100점 만점 해커톤 평가)
 
 ## Extension Configuration
-[Requirements Analysis에서 opt-in 응답 후 기록]
+| Extension | Enabled | Mode | Decided At |
+|---|---|---|---|
+| Security Baseline | No | — | Requirements Analysis (Q8=B) |
+| Resiliency Baseline | Yes | Blocking (전면) | Requirements Analysis (Q9=A) |
+| Property-Based Testing | Yes | Blocking (전면) | Requirements Analysis (Q10=A) |
+
+**참고**: Security Baseline 확장은 미적용이나, 요구사항 문서 자체의 NFR-SEC-001~005(P0 시크릿/경로검증/로컬처리 등)는 그대로 유효한 요구사항으로 유지된다.
+
+## 확정된 기술 결정 (Requirements Q1~Q7)
+| # | 결정 | 값 |
+|---|---|---|
+| Q1 | 구현 스택 | Python + 공식 Python MCP SDK (`mcp`) |
+| Q2 | LLM | Anthropic Claude (예: Claude Sonnet 5) |
+| Q3 | 문서 파서 | Markdown/텍스트/OpenAPI/SQL/설정/소스/테스트 + **PDF(P0)**; DOCX/PPTX는 P1 |
+| Q4 | Feature 검출 | 완전 자동 |
+| Q5 | 폴백 | 분석 결과 캐시 + 얇은 폴백 CLI (둘 다) |
+| Q6 | 데모 데이터셋 | Spring Petclinic REST + 의도적 충돌 합성 문서 |
+| Q7 | 명칭 | TRACE (확정) |
 
 ## Stage Progress
 ### 🔵 INCEPTION PHASE
 - [x] Workspace Detection
 - [ ] Reverse Engineering (N/A — greenfield)
-- [ ] Requirements Analysis (진행 중)
+- [x] Requirements Analysis
 - [ ] User Stories
 - [ ] Workflow Planning
 - [ ] Application Design
