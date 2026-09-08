@@ -1,0 +1,42 @@
+openapi: 3.0.1
+info:
+  title: Spring PetClinic REST API (발췌·데모용)
+  version: "1.0"
+  description: Owner 등록 API 명세 조각. telephone 필드 제약을 포함한다.
+paths:
+  /api/owners:
+    post:
+      summary: Register a new owner
+      operationId: addOwner
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Owner"
+      responses:
+        "201":
+          description: Owner created
+components:
+  schemas:
+    Owner:
+      type: object
+      required: [firstName, lastName, address, city, telephone]
+      properties:
+        firstName:
+          type: string
+          maxLength: 30
+        lastName:
+          type: string
+          maxLength: 30
+        address:
+          type: string
+          maxLength: 255
+        city:
+          type: string
+          maxLength: 80
+        telephone:
+          type: string
+          # 전화번호 최대 길이 10 (API 명세 기준)
+          maxLength: 10
+          pattern: "^[0-9]+$"

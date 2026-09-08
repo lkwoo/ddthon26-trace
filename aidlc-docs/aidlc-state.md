@@ -67,7 +67,7 @@
 | 단위 | Functional Design | NFR Req/Design | Code Generation |
 |---|---|---|---|
 | UOW-0F Foundation | [x] | [x] | [x] |
-| UOW-00 데모 | [ ] | N/A | [ ] |
+| UOW-00 데모 | [x] | N/A | [~] (데이터셋 완료; replay 픽스처는 02/03/04와 함께) |
 | UOW-01 스캐너 | [ ] | [ ] | [ ] |
 | UOW-02 Feature/Knowledge | [ ] | [ ] | [ ] |
 | UOW-03 Claims/Conflict | [ ] | [ ] | [ ] |

@@ -141,3 +141,10 @@
 **Context**: CONSTRUCTION - Functional Design + Code Generation (UOW-0F), 사용자 위임하 자동 진행
 
 ---
+
+## Construction — UOW-00 데모 데이터셋 완료 (데이터 부분)
+**Timestamp**: 2026-09-08T00:00:00Z
+**AI Response**: demo/ 하이브리드 픽스처 생성. Petclinic Owner 조각(Owner.java @Size(max=10), OwnerRestController[SMS 없음], schema.sql VARCHAR(10), openapi.yaml maxLength:10, 테스트) + 합성 요구 PDF(전화번호 max 20 + SMS 인증 필수). 의도적 value_mismatch: Owner.telephone.max_length = 20(PDF) vs 10(명세·구현). PDF는 fpdf2 저작 도구로 생성, pypdf 파싱 검증 완료. replay 픽스처는 workflow 단위(02/03/04)에서 step_key 확정 후 함께 생성.
+**Context**: CONSTRUCTION - UOW-00 (Q6 Petclinic+의도적충돌 반영)
+
+---
