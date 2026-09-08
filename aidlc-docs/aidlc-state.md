@@ -72,7 +72,7 @@
 | UOW-02 Feature/Knowledge | [x] | N/A | [x] |
 | UOW-03 Claims/Conflict | [x] | N/A | [x] |
 | UOW-04 Task Impact | [x] | N/A | [x] |
-| UOW-05 MCP 어댑터 | [ ] | [ ] | [ ] |
+| UOW-05 MCP 어댑터 | [x] | N/A | [x] |
 | UOW-06 통합·시연 | [ ] | [ ] | [ ] |
 
 - [ ] Infrastructure Design — SKIP (로컬 stdio 단일 프로세스)
@@ -83,7 +83,7 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: Per-Unit Loop — UOW-05 MCP 어댑터 (다음)
+- **Current Stage**: Per-Unit Loop — UOW-06 통합·시연 (다음)
 - **Next Stage**: UOW-00 → UOW-01 → ... → UOW-06 → Build and Test
 - **완료**: UOW-0F (models/common/config/prompts/llm) — 23 테스트 통과, 계약 동결.
 - **Status**: Units Generation 승인(사용자 위임). Construction 착수. 진행 순서 0F→00→01→02→03→04→05→06.

@@ -176,3 +176,10 @@
 **Context**: CONSTRUCTION - UOW-04 (Hero 최종 산출, C6·C3, FR-IMPACT-001/002/003)
 
 ---
+
+## Construction — UOW-05 MCP 어댑터 완료
+**Timestamp**: 2026-09-08T00:00:00Z
+**AI Response**: trace/mcp_server(C1) 신설 — mcp 2.x MCPServer로 코어 함수 5종을 도구 1:1 노출(analyze_project·list_features·get_feature_knowledge·get_conflicts·analyze_task_impact), 지식을 리소스(trace://features, trace://feature/{id})로 노출. Result.to_dict() 직렬화(summary 우선). 로그 stderr 분리, mcp 지연 임포트, load_config로 env 백엔드 결정. trace-mcp 진입점(main, stdio). pyproject mcp 핀 >=2,<3로 갱신. 속성 테스트가 UOW-03 normalize_value 멱등 결함(". 0")을 검출→한 번의 결합 strip으로 수정. 테스트 4개 통과, 전체 56개.
+**Context**: CONSTRUCTION - UOW-05 (C1, NFR-CORE-001/002 얇은 어댑터, FR-MCP-001/002)
+
+---
