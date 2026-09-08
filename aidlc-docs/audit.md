@@ -169,3 +169,10 @@
 **Context**: CONSTRUCTION - UOW-03 (구조적 차별점, C3·C5, FR-CLAIM/EVIDENCE/CONFIDENCE/CONFLICT)
 
 ---
+
+## Construction — UOW-04 Task Impact 완료
+**Timestamp**: 2026-09-08T00:00:00Z
+**AI Response**: trace/workflow에 analyze_task(step_key analyze_task.<slug>) 추가. trace/impact(C6) 신설: analyze_task_impact(task, feature_id) — 지식 로드→컨텍스트 렌더(Claim·근거·충돌)→LLM 분류→{must/likely/review + change_plan + related_conflicts} 정규화→Result 조립. 지식 없으면 analyze_project 선행 안내, 충돌 인지 경고, 소스 자동수정 없음(FR-IMPACT-003, 테스트로 불변 검증). demo/replay/analyze_task.add-sms-verification-to-owner-registration.json 픽스처 신설(UOW-00 4종 완료). engine __getattr__로 지연 재노출. 테스트 5개 통과, 전체 52개.
+**Context**: CONSTRUCTION - UOW-04 (Hero 최종 산출, C6·C3, FR-IMPACT-001/002/003)
+
+---

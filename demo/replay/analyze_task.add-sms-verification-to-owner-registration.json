@@ -1,0 +1,44 @@
+{
+  "must_change": [
+    {
+      "path": "petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerRestController.java",
+      "reason": "Owner registration endpoint (POST /api/owners) currently has no SMS verification; the verification step must be added here.",
+      "evidence": [
+        "petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerRestController.java",
+        "requirements/owner-registration-spec.pdf §3 Verification"
+      ]
+    }
+  ],
+  "likely_change": [
+    {
+      "path": "petclinic/src/main/java/org/springframework/samples/petclinic/owner/Owner.java",
+      "reason": "May need a verification status/flag field to record whether the telephone was verified.",
+      "evidence": ["petclinic/src/main/java/org/springframework/samples/petclinic/owner/Owner.java"]
+    },
+    {
+      "path": "petclinic/src/main/resources/db/schema.sql",
+      "reason": "A new column may be required to persist verification state for the owner.",
+      "evidence": ["petclinic/src/main/resources/db/schema.sql"]
+    }
+  ],
+  "review": [
+    {
+      "path": "petclinic/src/test/java/org/springframework/samples/petclinic/owner/OwnerRegistrationTests.java",
+      "reason": "Existing registration tests must be extended to cover the SMS verification flow.",
+      "evidence": ["petclinic/src/test/java/org/springframework/samples/petclinic/owner/OwnerRegistrationTests.java"]
+    },
+    {
+      "path": "petclinic/src/main/resources/openapi.yaml",
+      "reason": "The API contract should document the new verification step and any request/response changes.",
+      "evidence": ["petclinic/src/main/resources/openapi.yaml"]
+    }
+  ],
+  "related_conflicts": ["Owner.telephone.max_length"],
+  "change_plan": [
+    "1. Resolve the telephone max_length conflict (requirement says 20, code/spec say 10) before touching the field.",
+    "2. Add a verification-code send + confirm step to OwnerRestController POST /api/owners.",
+    "3. Add a verification status field to Owner and a matching column in schema.sql.",
+    "4. Update openapi.yaml to describe the verification step.",
+    "5. Extend OwnerRegistrationTests to cover verified and unverified registration paths."
+  ]
+}

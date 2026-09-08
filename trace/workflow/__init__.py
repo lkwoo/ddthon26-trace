@@ -104,6 +104,19 @@ def extract_claims(feature: Feature, assets: list[Asset], llm: LLMService) -> li
     return claims
 
 
+def analyze_task(task: str, task_id: str, context: str, llm: LLMService) -> dict:
+    """자연어 작업을 지식 컨텍스트에 그라운딩해 영향 범위를 분석한다 (FR-IMPACT-002).
+
+    지식(Claim·충돌·소스)에 근거해 변경 파일을 Must/Likely/Review로 분류하고 순서형 계획을 낸다.
+    소스를 자동 수정하지 않는다(FR-IMPACT-003 — 제안만).
+
+    replay step_key: ``analyze_task.<task_id>``. 반환 dict은 impact 컴포넌트가 정규화한다.
+    """
+    prompt = get_prompt("analyze_task", task=task, context=context)
+    raw = llm.structured(f"analyze_task.{task_id}", prompt)
+    return raw if isinstance(raw, dict) else {}
+
+
 def group_evidence(claims: list[Claim]) -> list[Claim]:
     """동일 (key, value) Claim을 병합하고 Evidence를 중복 제거한다 (FR-EVIDENCE-001).
 
@@ -190,5 +203,6 @@ __all__ = [
     "generate_feature_knowledge",
     "extract_claims",
     "group_evidence",
+    "analyze_task",
     "render_assets",
 ]

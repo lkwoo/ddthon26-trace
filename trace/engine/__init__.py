@@ -6,7 +6,7 @@
 - list_features          (UOW-02, 구현됨)
 - get_feature_knowledge  (UOW-02, 구현됨)
 - get_conflicts          (UOW-03, 구현됨)
-- analyze_task_impact    (UOW-04)
+- analyze_task_impact    (UOW-04, 구현됨)
 
 MCP 서버(C1)·CLI(C9)는 이 모듈의 함수만 호출한다(NFR-CORE-001/002).
 """
@@ -30,14 +30,19 @@ __all__ = [
     "list_features",
     "get_feature_knowledge",
     "get_conflicts",
+    "analyze_task_impact",
     "register_enrich_hook",
 ]
 
 
 def __getattr__(name: str) -> Any:
-    """get_conflicts는 UOW-03(trace.conflict)에 있으므로 지연 재노출한다(순환 임포트 방지)."""
+    """UOW-03/04 코어 함수는 지연 재노출한다(순환 임포트 방지)."""
     if name == "get_conflicts":
         from trace.conflict import get_conflicts
 
         return get_conflicts
+    if name == "analyze_task_impact":
+        from trace.impact import analyze_task_impact
+
+        return analyze_task_impact
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
