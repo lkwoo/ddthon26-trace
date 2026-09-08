@@ -114,14 +114,28 @@ flowchart TD
 - [ ] Operations — PLACEHOLDER
 
 ## Units 개요 (Units Generation 입력)
-UOW-01 스캐너/파서 · UOW-02 Feature/지식 · UOW-03 Claim/Evidence/Conflict · UOW-04 Task Impact · UOW-05 MCP 인터페이스 · UOW-06 통합/신뢰성/시연
 
-**권장 구현 순서(의존성 기준)**: UOW-01 → UOW-02 → UOW-03 → UOW-04 → UOW-05 → UOW-06
-(스캔/파싱이 지식의 입력, 지식이 Claim/Conflict의 기반, 그 위에 Impact, 이들을 MCP로 노출, 마지막에 통합·시연)
+**UOW-00 데모 데이터셋 & 픽스처 (신설, 사용자 요청)** · UOW-01 스캐너/파서 · UOW-02 Feature/지식 · UOW-03 Claim/Evidence/Conflict · UOW-04 Task Impact · UOW-05 MCP 인터페이스 · UOW-06 통합/신뢰성/시연
+
+### UOW-00 — 데모 데이터셋 & 픽스처 (신설)
+- **분리 이유(사용자 요청)**: 데모 데이터셋은 분석의 **입력**이자 의도적 충돌을 심는 독립 산출물. 코드(엔진)와 분리하면 추적성·시연 안정성·재현성이 향상되고, 데이터셋 교체가 엔진에 영향 없음.
+- **접근법(확정)**: **하이브리드** — Spring Petclinic REST에서 **Owner 관련 최소 조각만 발췌·경량화**하고, 그 위에 **합성 요구사항 문서(PDF 포함)**와 **의도적 충돌**을 얹는다.
+- **핵심 산출물**:
+  - `demo/` (또는 유사) 아래 경량 대상 프로젝트 — Owner 도메인 중심: 소스(`Owner*.java` 등), OpenAPI 명세, DB 스키마, 설정, 테스트
+  - 의도적 충돌: 전화번호 max length **요구사항 20 vs OpenAPI/코드 10** (§18.3)
+  - 합성 요구사항 PDF/문서 (교차소스 커버리지 ↑, PDF 파싱 P0 근거)
+  - Hero Task 시연에 필요한 관련 자산 완비 (§18.4)
+- **관련 요구사항**: FR-DEMO-001, §18(데모 데이터셋), FR-KNOWLEDGE-003(교차소스), FR-CONFLICT-001(value_mismatch), FR-PROJECT-002(PDF)
+- **UOW-06과의 경계**: UOW-00은 **데이터셋/픽스처 자체**를 만든다. UOW-06은 이 데이터셋을 사용한 **턴키 시연 구성·스크린샷·신뢰성/폴백**을 담당한다.
+- **NFR-SEC 주의**: 합성 문서/설정에 실제 시크릿·PII를 넣지 않는다(플레이스홀더 사용).
+
+**권장 구현 순서(의존성 기준)**: **UOW-00** → UOW-01 → UOW-02 → UOW-03 → UOW-04 → UOW-05 → UOW-06
+(데모 데이터셋이 있어야 스캐너/파서와 이후 파이프라인을 실제 자산으로 검증 가능 → UOW-00을 최우선. 이후 스캔/파싱→지식→Claim/Conflict→Impact→MCP 노출→통합·시연)
 
 ## Estimated Timeline
-- **Total Phases (execute)**: INCEPTION 2(AD, UG) + CONSTRUCTION per-unit(FD/NFRA/NFRD/CG × 6 UOW) + Build&Test
+- **Total Phases (execute)**: INCEPTION 2(AD, UG) + CONSTRUCTION per-unit(FD/NFRA/NFRD/CG × **7 UOW**, UOW-00 포함) + Build&Test
 - **Estimated Duration**: 2일 해커톤 PoC 범위. P0 우선, P1은 시간 허용 시.
+- **참고**: UOW-00은 코드 생성보다 데이터셋 준비 성격이라 Functional/NFR 설계는 최소 깊이로 처리(픽스처 정의 위주).
 
 ## Success Criteria
 - **Primary Goal**: Hero 시나리오("Owner 등록에 SMS 인증 추가")를 Claude Code에서 E2E로 시연 — 충돌 경고 + 근거 기반 Change Plan

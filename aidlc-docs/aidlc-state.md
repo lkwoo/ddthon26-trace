@@ -46,7 +46,8 @@
 ## Execution Plan Summary
 - **Stages to Execute**: Application Design, Units Generation, (per-unit) Functional Design, NFR Requirements, NFR Design, Code Generation, Build and Test
 - **Stages to Skip**: Reverse Engineering (greenfield), Infrastructure Design (로컬 stdio 단일 프로세스, 클라우드 인프라 없음)
-- **권장 유닛 순서**: UOW-01 → 02 → 03 → 04 → 05 → 06
+- **권장 유닛 순서**: UOW-00(데모 데이터셋, 신설) → 01 → 02 → 03 → 04 → 05 → 06
+- **UOW-00 신설(사용자 요청)**: 데모 데이터셋 & 픽스처를 별도 유닛으로 분리. 접근법=하이브리드(Petclinic Owner 조각 발췌 + 합성 PDF·의도적 충돌).
 
 ## Stage Progress
 ### 🔵 INCEPTION PHASE

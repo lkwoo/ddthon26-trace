@@ -77,3 +77,11 @@
 **Context**: INCEPTION - Workflow Planning (Step 9, GATE)
 
 ---
+
+## Workflow Planning — 데모 데이터셋 유닛 분리(계획 변경)
+**Timestamp**: 2026-09-08T00:00:00Z
+**User Input**: "시연을 위한 샘플 프로젝트를 만드는 유닛을 별도 분리하고 싶어. 좋은 샘플을 찾아서 가져와도 되고, 시연에 적합한 프로젝트를 새로 만들어도 되고" → (AskUserQuestion 응답) "하이브리드"
+**AI Response**: execution-plan.md에 UOW-00(데모 데이터셋 & 픽스처) 신설. 접근법=하이브리드(Petclinic Owner 최소 조각 발췌·경량화 + 합성 요구사항 PDF + 의도적 전화번호 길이 충돌 20 vs 10). UOW-06과 경계 명시(UOW-00=데이터셋 자체, UOW-06=턴키 시연/스크린샷/신뢰성). 권장 순서 UOW-00→01→...→06으로 갱신, aidlc-state.md 반영.
+**Context**: INCEPTION - Workflow Planning (Step 10, 계획 변경)
+
+---
