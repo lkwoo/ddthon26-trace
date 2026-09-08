@@ -10,7 +10,7 @@ from dataclasses import dataclass, field
 from pathlib import PurePosixPath
 from typing import Any
 
-from trace.config import ASSET_EXTENSIONS
+from traceki.config import ASSET_EXTENSIONS
 
 # 확장자 → 자산 유형 역인덱스
 _EXT_TO_TYPE: dict[str, str] = {}

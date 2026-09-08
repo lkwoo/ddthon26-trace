@@ -18,8 +18,8 @@ import re
 from pathlib import Path
 from typing import Any
 
-from trace.common import ConfigError, LLMError, get_logger
-from trace.config import LLMSettings
+from traceki.common import ConfigError, LLMError, get_logger
+from traceki.config import LLMSettings
 
 _log = get_logger("trace.llm")
 

@@ -10,12 +10,12 @@ from __future__ import annotations
 
 from typing import Any
 
-from trace.common import Result, get_logger
-from trace.config import Config
-from trace.knowledge import KnowledgeStore, default_store, slugify
-from trace.llm import LLMService
-from trace.models import FeatureKnowledge
-from trace.workflow import analyze_task
+from traceki.common import Result, get_logger
+from traceki.config import Config
+from traceki.knowledge import KnowledgeStore, default_store, slugify
+from traceki.llm import LLMService
+from traceki.models import FeatureKnowledge
+from traceki.workflow import analyze_task
 
 _log = get_logger("trace.impact")
 

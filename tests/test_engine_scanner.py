@@ -6,9 +6,9 @@ from pathlib import Path
 
 from hypothesis import given, strategies as st
 
-from trace.common import Result
-from trace.engine import scan_project
-from trace.engine.assets import classify, is_test_path
+from traceki.common import Result
+from traceki.engine import scan_project
+from traceki.engine.assets import classify, is_test_path
 
 DEMO = Path(__file__).resolve().parents[1] / "demo"
 

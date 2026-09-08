@@ -12,11 +12,11 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from trace.common import Result, get_logger
-from trace.engine.pipeline import register_enrich_hook
-from trace.knowledge import KnowledgeStore, default_store
-from trace.llm import LLMService
-from trace.models import (
+from traceki.common import Result, get_logger
+from traceki.engine.pipeline import register_enrich_hook
+from traceki.knowledge import KnowledgeStore, default_store
+from traceki.llm import LLMService
+from traceki.models import (
     Claim,
     Confidence,
     Conflict,
@@ -26,10 +26,10 @@ from trace.models import (
     Feature,
     FeatureKnowledge,
 )
-from trace.workflow import extract_claims, group_evidence
+from traceki.workflow import extract_claims, group_evidence
 
 if TYPE_CHECKING:
-    from trace.engine.assets import Asset
+    from traceki.engine.assets import Asset
 
 _log = get_logger("trace.conflict")
 

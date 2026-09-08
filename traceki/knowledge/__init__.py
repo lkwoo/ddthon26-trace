@@ -18,8 +18,8 @@ from typing import Any
 
 import yaml
 
-from trace.common import KnowledgeNotFoundError, get_logger
-from trace.models import FeatureKnowledge
+from traceki.common import KnowledgeNotFoundError, get_logger
+from traceki.models import FeatureKnowledge
 
 _log = get_logger("trace.knowledge")
 

@@ -15,14 +15,14 @@ from __future__ import annotations
 
 from typing import Any
 
-from trace.common import get_logger
-from trace.config import load_config
-from trace.conflict import get_conflicts as _get_conflicts
-from trace.engine import analyze_project as _analyze_project
-from trace.engine import get_feature_knowledge as _get_feature_knowledge
-from trace.engine import list_features as _list_features
-from trace.impact import analyze_task_impact as _analyze_task_impact
-from trace.knowledge import default_store
+from traceki.common import get_logger
+from traceki.config import load_config
+from traceki.conflict import get_conflicts as _get_conflicts
+from traceki.engine import analyze_project as _analyze_project
+from traceki.engine import get_feature_knowledge as _get_feature_knowledge
+from traceki.engine import list_features as _list_features
+from traceki.impact import analyze_task_impact as _analyze_task_impact
+from traceki.knowledge import default_store
 
 _log = get_logger("trace.mcp")
 
@@ -38,7 +38,7 @@ def build_server() -> Any:
     """MCPServer 인스턴스를 구성한다. 코어 함수 5개 = 도구 5개, 지식은 리소스로 노출."""
     from mcp.server.mcpserver import MCPServer  # 지연 임포트 (mcp 2.x)
 
-    from trace import __version__
+    from traceki import __version__
 
     mcp = MCPServer(name="trace", version=__version__, instructions=INSTRUCTIONS)
     config = load_config(".")  # 서버 cwd의 .env·환경에서 LLM 백엔드/키 결정

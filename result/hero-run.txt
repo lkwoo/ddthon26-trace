@@ -1,0 +1,40 @@
+# TRACE Hero 시나리오 — 실제 CLI 실행 전사 (replay 백엔드, API 키 불필요)
+# 생성: 2026-09-08T09:38:50Z / 저장소 밖(/tmp)에서 설치된 'trace' 명령으로 실행
+# 재현: TRACE_LLM_BACKEND=replay TRACE_REPLAY_DIR=<repo>/demo/replay trace analyze-project <repo>/demo --refresh
+
+$ trace analyze-project ./demo --refresh
+2026-09-08 18:38:50,745 [INFO] trace.llm: replay step: identify_features
+2026-09-08 18:38:50,746 [INFO] trace.workflow: Feature 검출: 1개
+2026-09-08 18:38:50,746 [INFO] trace.llm: replay step: generate_knowledge.owner-registration
+2026-09-08 18:38:50,747 [INFO] trace.llm: replay step: extract_claims.owner-registration
+2026-09-08 18:38:50,747 [INFO] trace.workflow: Claim 추출: owner-registration → 4개
+2026-09-08 18:38:50,747 [INFO] trace.conflict: 보강 owner-registration: claim 4, conflict 1
+2026-09-08 18:38:50,759 [INFO] trace.knowledge: 지식 저장: /tmp/trace-hero-home/.trace/knowledge/features/owner-registration.md
+  • owner-registration — Owner Registration (신뢰도 LOW) ⚠️ 충돌 1건
+'/home/wsl/aidlc-workshop/ddthon26-trace/demo' 분석 완료: Feature 1개, 충돌 1건, 자산 12개
+
+$ trace list-features
+  • owner-registration — Owner Registration (충돌 1건)
+Feature 1개
+
+$ trace conflicts
+  • [value_mismatch] Owner.telephone.max_length: 10 ← petclinic/src/main/java/org/springframework/samples/petclinic/owner/Owner.java; 10 ← petclinic/src/main/resources/db/schema.sql; 10 ← petclinic/src/main/resources/openapi.yaml; 20 ← requirements/owner-registration-spec.pdf
+전체 프로젝트에서 충돌 1건 검출 (착수 전 확인 권장).
+
+$ trace analyze-task "Add SMS verification to Owner registration"
+  [반드시 변경]
+    - petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerRestController.java: Owner registration endpoint (POST /api/owners) currently has no SMS verification; the verification step must be added here.
+  [변경 가능]
+    - petclinic/src/main/java/org/springframework/samples/petclinic/owner/Owner.java: May need a verification status/flag field to record whether the telephone was verified.
+    - petclinic/src/main/resources/db/schema.sql: A new column may be required to persist verification state for the owner.
+  [검토]
+    - petclinic/src/test/java/org/springframework/samples/petclinic/owner/OwnerRegistrationTests.java: Existing registration tests must be extended to cover the SMS verification flow.
+    - petclinic/src/main/resources/openapi.yaml: The API contract should document the new verification step and any request/response changes.
+  [Change Plan]
+    1. Resolve the telephone max_length conflict (requirement says 20, code/spec say 10) before touching the field.
+    2. Add a verification-code send + confirm step to OwnerRestController POST /api/owners.
+    3. Add a verification status field to Owner and a matching column in schema.sql.
+    4. Update openapi.yaml to describe the verification step.
+    5. Extend OwnerRegistrationTests to cover verified and unverified registration paths.
+'Add SMS verification to Owner registration' 영향 분석: 반드시 변경 1개, 변경 가능 2개, 검토 2개, 계획 5단계
+  ⚠️  관련 충돌 1건이 있습니다. 착수 전 값 불일치를 먼저 확인하세요.

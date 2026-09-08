@@ -15,12 +15,12 @@ from __future__ import annotations
 
 from typing import Any
 
-from trace.common import get_logger
-from trace.engine.assets import Asset
-from trace.knowledge import slugify
-from trace.llm import LLMService
-from trace.models import Claim, Evidence, EvidenceRelation, Feature, FeatureKnowledge
-from trace.prompts import get_prompt
+from traceki.common import get_logger
+from traceki.engine.assets import Asset
+from traceki.knowledge import slugify
+from traceki.llm import LLMService
+from traceki.models import Claim, Evidence, EvidenceRelation, Feature, FeatureKnowledge
+from traceki.prompts import get_prompt
 
 _log = get_logger("trace.workflow")
 
@@ -70,7 +70,7 @@ def generate_feature_knowledge(
     )
     raw = llm.structured(f"generate_knowledge.{feature.id}", prompt)
     data = raw if isinstance(raw, dict) else {}
-    from trace.models import Confidence
+    from traceki.models import Confidence
 
     return FeatureKnowledge(
         feature=feature,

@@ -10,16 +10,16 @@ from pathlib import Path
 from hypothesis import given
 from hypothesis import strategies as st
 
-from trace.config import Config, LLMSettings
-from trace.conflict import (
+from traceki.config import Config, LLMSettings
+from traceki.conflict import (
     assign_confidence,
     detect_conflicts,
     get_conflicts,
     normalize_value,
 )
-from trace.engine.pipeline import analyze_project
-from trace.knowledge import KnowledgeStore
-from trace.models import (
+from traceki.engine.pipeline import analyze_project
+from traceki.knowledge import KnowledgeStore
+from traceki.models import (
     Claim,
     Confidence,
     ConflictType,

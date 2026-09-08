@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from trace.config import Config, LLMSettings
-from trace.engine.pipeline import analyze_project
-from trace.impact import analyze_task_impact
-from trace.knowledge import KnowledgeStore
+from traceki.config import Config, LLMSettings
+from traceki.engine.pipeline import analyze_project
+from traceki.impact import analyze_task_impact
+from traceki.knowledge import KnowledgeStore
 
 DEMO = Path(__file__).resolve().parents[1] / "demo"
 REPLAY = DEMO / "replay"

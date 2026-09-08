@@ -22,7 +22,7 @@ def replay_env(tmp_path, monkeypatch):
     monkeypatch.setenv("TRACE_LLM_BACKEND", "replay")
     monkeypatch.setenv("TRACE_REPLAY_DIR", str(REPLAY))
     monkeypatch.setenv("TRACE_HOME", str(tmp_path))
-    from trace.mcp_server import build_server
+    from traceki.mcp_server import build_server
 
     return build_server()
 

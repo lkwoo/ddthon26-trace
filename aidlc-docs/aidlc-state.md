@@ -4,7 +4,7 @@
 - **Project Name**: TRACE — 개발자 지식 인텔리전스 (작업명)
 - **Project Type**: Greenfield
 - **Start Date**: 2026-09-08T00:00:00Z
-- **Current Stage**: CONSTRUCTION - Per-Unit Loop (UOW-0F Foundation)
+- **Current Stage**: CONSTRUCTION - Per-Unit Loop 완료 (UOW-0F ~ UOW-06) → Build and Test
 
 ## Workspace State
 - **Existing Code**: No
@@ -12,7 +12,7 @@
 - **Build System**: None yet
 - **Project Structure**: Empty (문서만 존재)
 - **Reverse Engineering Needed**: No
-- **Workspace Root**: C:\claude\aidlc-workshop\ddthon26-trace
+- **Workspace Root**: /home/wsl/aidlc-workshop/ddthon26-trace
 
 ## Code Location Rules
 - **Application Code**: Workspace root (NEVER in aidlc-docs/)
@@ -73,7 +73,7 @@
 | UOW-03 Claims/Conflict | [x] | N/A | [x] |
 | UOW-04 Task Impact | [x] | N/A | [x] |
 | UOW-05 MCP 어댑터 | [x] | N/A | [x] |
-| UOW-06 통합·시연 | [ ] | [ ] | [ ] |
+| UOW-06 통합·시연 | [x] | N/A | [x] (폴백 CLI + Hero E2E + 시크릿 위생 + README; import 패키지 trace→traceki 개명으로 stdlib 충돌 해소) |
 
 - [ ] Infrastructure Design — SKIP (로컬 stdio 단일 프로세스)
 - [ ] Build and Test — EXECUTE (모든 단위 완료 후)
@@ -83,9 +83,9 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: Per-Unit Loop — UOW-06 통합·시연 (다음)
-- **Next Stage**: UOW-00 → UOW-01 → ... → UOW-06 → Build and Test
-- **완료**: UOW-0F (models/common/config/prompts/llm) — 23 테스트 통과, 계약 동결.
-- **Status**: Units Generation 승인(사용자 위임). Construction 착수. 진행 순서 0F→00→01→02→03→04→05→06.
+- **Current Stage**: Per-Unit Loop 완료 (8개 단위 전부) — 다음: Build and Test
+- **Next Stage**: Build and Test (모든 단위 완료 후 실행)
+- **완료**: UOW-0F ~ UOW-06 전 단위. 전체 62 테스트 통과. 설치된 `trace`/`trace-mcp` 명령이 저장소 밖에서도 동작(replay Hero E2E 검증). value_mismatch(전화번호 20 vs 10) 검출·영향분석·Change Plan 확인.
+- **Status**: 8개 단위 코드 생성 완료. import 패키지 `trace`→`traceki` 개명(파이썬 stdlib `trace` 충돌 해소, 명령어명·로거명·`.trace/` 디렉터리는 유지). result/hero-run.txt 실행 전사 갱신.
 - **핵심 Construction 결정**: LLMService는 (1) live Anthropic Claude 백엔드 + (2) cache/replay 백엔드를 지원.
   데모 Hero 시나리오는 사전 캐시된 응답으로 API 키 없이 결정적 재현 가능(NFR-AI-004, NFR-REL-001).

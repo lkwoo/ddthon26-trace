@@ -183,3 +183,10 @@
 **Context**: CONSTRUCTION - UOW-05 (C1, NFR-CORE-001/002 얇은 어댑터, FR-MCP-001/002)
 
 ---
+
+## Construction — UOW-06 통합·신뢰성·시연 완료
+**Timestamp**: 2026-09-08T00:00:00Z
+**AI Response**: traceki/cli(C9) 폴백 CLI 신설 — argparse 서브커맨드(analyze-project/list-features/feature/conflicts/analyze-task), --json 원시 봉투 출력, 종료코드(0 정상 / 2 Result.meta.ok=False / 1 전역 예외). __main__.py로 python -m 실행 지원. Hero E2E 통합 테스트(replay 무편집 재현) + 시크릿 위생 테스트(mask_secrets, 소스에 sk-ant- 리터럴 부재) 6개 추가. README 전면 재작성(문제정의·30초 replay 데모·.mcp.json 스니펫·예제 프롬프트·도구표·아키텍처·트러블슈팅). result/hero-run.txt 실행 전사 + result/README.md 생성. **중대 수정**: import 패키지명 `trace`가 파이썬 stdlib `trace` 모듈과 충돌해 설치된 `trace` 명령이 저장소 밖에서 ModuleNotFoundError → import 패키지를 `traceki`로 개명(git mv + import문만 치환). 명령어명(trace/trace-mcp)·로거명("trace"/"trace.*")·MCPServer name·`.trace/` 디렉터리는 그대로 유지. pyproject scripts/packages 갱신, 재설치 후 저장소 밖 /tmp에서 `trace analyze-project`·`conflicts`·`analyze-task` 정상 동작 검증(value_mismatch 20 vs 10 검출, 5단계 Change Plan). 전체 62 테스트 통과.
+**Context**: CONSTRUCTION - UOW-06 (C9, NFR-REL-001 반복가능 E2E, NFR-SEC-001 시크릿 위생) — Per-Unit Loop 8개 단위 전부 완료
+
+---

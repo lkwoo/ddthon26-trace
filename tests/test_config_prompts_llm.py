@@ -6,11 +6,11 @@ import json
 
 import pytest
 
-import trace.prompts as prompts_mod
-from trace.common import ConfigError, LLMError
-from trace.config import DEFAULT_EXCLUSIONS, get_llm_settings, load_config
-from trace.llm import LLMService, _extract_json
-from trace.prompts import get_prompt
+import traceki.prompts as prompts_mod
+from traceki.common import ConfigError, LLMError
+from traceki.config import DEFAULT_EXCLUSIONS, get_llm_settings, load_config
+from traceki.llm import LLMService, _extract_json
+from traceki.prompts import get_prompt
 
 
 # ------------------------------------------------------------------- config

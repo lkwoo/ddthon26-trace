@@ -12,14 +12,14 @@ from __future__ import annotations
 
 from typing import Callable
 
-from trace.common import KnowledgeNotFoundError, LLMError, Result, get_logger
-from trace.config import Config
-from trace.engine.assets import Asset
-from trace.engine.scanner import collect_assets
-from trace.knowledge import KnowledgeStore, default_store
-from trace.llm import LLMService
-from trace.models import Feature, FeatureKnowledge
-from trace.workflow import generate_feature_knowledge, identify_features
+from traceki.common import KnowledgeNotFoundError, LLMError, Result, get_logger
+from traceki.config import Config
+from traceki.engine.assets import Asset
+from traceki.engine.scanner import collect_assets
+from traceki.knowledge import KnowledgeStore, default_store
+from traceki.llm import LLMService
+from traceki.models import Feature, FeatureKnowledge
+from traceki.workflow import generate_feature_knowledge, identify_features
 
 _log = get_logger("trace.engine.pipeline")
 
@@ -54,7 +54,7 @@ def analyze_project(
     # UOW-03 충돌 보강 훅을 소프트 활성화 (있으면 등록, 없어도 UOW-02 단독 동작)
     if _enrich_hook is None:
         try:
-            import trace.conflict  # noqa: F401 — import 시 register_enrich_hook 호출
+            import traceki.conflict  # noqa: F401 — import 시 register_enrich_hook 호출
         except ImportError:
             pass
 

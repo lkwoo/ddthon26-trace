@@ -9,10 +9,10 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from trace.common import InvalidPathError, Result, get_logger
-from trace.config import Config
-from trace.engine.assets import Asset, classify
-from trace.engine.parsers import parse_asset
+from traceki.common import InvalidPathError, Result, get_logger
+from traceki.config import Config
+from traceki.engine.assets import Asset, classify
+from traceki.engine.parsers import parse_asset
 
 _log = get_logger("trace.engine.scanner")
 

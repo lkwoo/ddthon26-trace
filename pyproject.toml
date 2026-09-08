@@ -25,11 +25,11 @@ dev = [
 ]
 
 [project.scripts]
-trace = "trace.cli:main"
-trace-mcp = "trace.mcp_server:main"
+trace = "traceki.cli:main"
+trace-mcp = "traceki.mcp_server:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["trace"]
+packages = ["traceki"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

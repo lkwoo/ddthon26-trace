@@ -15,13 +15,13 @@ from __future__ import annotations
 
 from typing import Any
 
-from trace.engine.pipeline import (
+from traceki.engine.pipeline import (
     analyze_project,
     get_feature_knowledge,
     list_features,
     register_enrich_hook,
 )
-from trace.engine.scanner import collect_assets, scan_project
+from traceki.engine.scanner import collect_assets, scan_project
 
 __all__ = [
     "scan_project",
@@ -38,11 +38,11 @@ __all__ = [
 def __getattr__(name: str) -> Any:
     """UOW-03/04 코어 함수는 지연 재노출한다(순환 임포트 방지)."""
     if name == "get_conflicts":
-        from trace.conflict import get_conflicts
+        from traceki.conflict import get_conflicts
 
         return get_conflicts
     if name == "analyze_task_impact":
-        from trace.impact import analyze_task_impact
+        from traceki.impact import analyze_task_impact
 
         return analyze_task_impact
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

@@ -10,10 +10,10 @@ from pathlib import Path
 from hypothesis import given
 from hypothesis import strategies as st
 
-from trace.config import Config, LLMSettings
-from trace.engine.pipeline import analyze_project, get_feature_knowledge, list_features
-from trace.knowledge import KnowledgeStore, slugify
-from trace.models import (
+from traceki.config import Config, LLMSettings
+from traceki.engine.pipeline import analyze_project, get_feature_knowledge, list_features
+from traceki.knowledge import KnowledgeStore, slugify
+from traceki.models import (
     Claim,
     Confidence,
     Conflict,

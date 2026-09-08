@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from hypothesis import given, strategies as st
 
-from trace.models import (
+from traceki.models import (
     Claim,
     Confidence,
     Conflict,

@@ -12,7 +12,7 @@ TRACE의 Hero 시나리오를 결정적으로 재현하기 위한 하이브리�
 | `petclinic/src/main/resources/openapi.yaml` | openapi | `telephone.maxLength: 10` (**10**) |
 | `petclinic/src/test/.../OwnerRegistrationTests.java` | test | 전화번호 10자리 상한 검증 |
 | `requirements/owner-registration-spec.pdf` | requirement(PDF) | 전화번호 **최대 20자리** 요구 + **SMS 인증 필수** 요구 |
-| `replay/*.json` | (replay 픽스처) | API 키 없이 AI 단계 결정적 재현 (workflow 단위와 함께 생성) |
+| `replay/*.json` | (replay 픽스처) | API 키 없이 AI 단계 결정적 재현 (4종: identify_features·generate_knowledge·extract_claims·analyze_task) |
 
 ## 의도적 충돌 (value_mismatch, P0)
 

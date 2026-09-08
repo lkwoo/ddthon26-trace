@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from hypothesis import given, strategies as st
 
-from trace.common import Result, mask_secrets
+from traceki.common import Result, mask_secrets
 
 
 def test_result_to_dict_key_order():
