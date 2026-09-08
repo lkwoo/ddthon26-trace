@@ -148,3 +148,10 @@
 **Context**: CONSTRUCTION - UOW-00 (Q6 Petclinic+의도적충돌 반영)
 
 ---
+
+## Construction — UOW-01 스캐너 & 파서 완료
+**Timestamp**: 2026-09-08T00:00:00Z
+**AI Response**: trace/engine 구현 — scan_project(코어함수, Result 반환)·collect_assets·assets(분류)·parsers(text/PDF via pypdf). 경로검증(NFR-SEC-004)→Result.error, 제외규칙(FR-PROJECT-003), 부분실패 허용(FR-ANALYSIS-003)→parse_status/warning. OpenAPI 콘텐츠 스니핑 분류. 테스트 9개 통과(속성+실제 demo 스캔: source/sql/openapi/test/pdf 전범주·PDF 파싱 성공).
+**Context**: CONSTRUCTION - UOW-01 (US-01.1/02/03, 0F 계약 소비)
+
+---
