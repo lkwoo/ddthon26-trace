@@ -120,13 +120,13 @@ UOW-0F(Foundation)는 기술 인프라 단위로 **직접 대응하는 사용자
 
 ## 실행 체크리스트 (승인 후 Part 2에서 수행)
 
-- [ ] `application-design/unit-of-work.md` 생성 — 단위 정의·책임·경계 + 코드 구성 전략 + **병렬 웨이브/트랙 표**
-- [ ] `application-design/unit-of-work-dependency.md` 생성 — 단위 간 의존성 매트릭스 + 병렬 가능/불가 표시
-- [ ] `application-design/unit-of-work-story-map.md` 생성 — 22개 스토리 ↔ 단위 매핑, UOW-0F enabler 표기
-- [ ] 단위 경계·의존성 검증 (순환 없음 확인)
-- [ ] 모든 스토리가 단위에 배정됐는지 확인
-- [ ] aidlc-state.md 단위 순서·병렬 계획 반영, Units Generation 진행상태 갱신
-- [ ] git 커밋 (`[AI-DLC:Inception/UnitsGeneration] ...`)
+- [x] `application-design/unit-of-work.md` 생성 — 단위 정의·책임·경계 + 코드 구성 전략 + **병렬 웨이브/트랙 표**
+- [x] `application-design/unit-of-work-dependency.md` 생성 — 단위 간 의존성 매트릭스 + 병렬 가능/불가 표시
+- [x] `application-design/unit-of-work-story-map.md` 생성 — 22개 스토리 ↔ 단위 매핑, UOW-0F enabler 표기
+- [x] 단위 경계·의존성 검증 (순환 없음 확인)
+- [x] 모든 스토리가 단위에 배정됐는지 확인
+- [x] aidlc-state.md 단위 순서·병렬 계획 반영, Units Generation 진행상태 갱신
+- [x] git 커밋 (`[AI-DLC:Inception/UnitsGeneration] ...`)
 
 ---
 

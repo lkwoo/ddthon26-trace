@@ -46,8 +46,10 @@
 ## Execution Plan Summary
 - **Stages to Execute**: Application Design, Units Generation, (per-unit) Functional Design, NFR Requirements, NFR Design, Code Generation, Build and Test
 - **Stages to Skip**: Reverse Engineering (greenfield), Infrastructure Design (로컬 stdio 단일 프로세스, 클라우드 인프라 없음)
-- **권장 유닛 순서**: UOW-00(데모 데이터셋, 신설) → 01 → 02 → 03 → 04 → 05 → 06
+- **유닛 순서(위상)**: UOW-0F(Foundation, 신설) → 00(데모) → 01 → 02 → 03 → 04 → 05 → 06
 - **UOW-00 신설(사용자 요청)**: 데모 데이터셋 & 픽스처를 별도 유닛으로 분리. 접근법=하이브리드(Petclinic Owner 조각 발췌 + 합성 PDF·의도적 충돌).
+- **UOW-0F 신설(Units Generation Q1=A)**: 공유 계약(C4 모델·Result envelope·config·프롬프트 로더·LLM 스켈레톤) 단위. 병렬화 이음새(enabler, 직접 스토리 없음).
+- **병렬 개발 계획(사용자 제약: 최대 4인, Units Generation Q3=A)**: 3-웨이브. W0=[0F ∥ 00], W1=[01 ∥ (02→03) ∥ 05 ∥ 04선작업] 최대 4트랙, W2=[04 마감 → 06 수렴]. 밀결합(02↔03)·수렴(04·06)은 병렬화 안 함.
 
 ## Stage Progress
 ### 🔵 INCEPTION PHASE
@@ -57,7 +59,7 @@
 - [x] User Stories
 - [x] Workflow Planning
 - [x] Application Design — EXECUTE
-- [ ] Units Generation — EXECUTE
+- [x] Units Generation — EXECUTE (Part 1 계획 + Part 2 산출물 생성 완료, 최종 승인 대기)
 
 ### 🟢 CONSTRUCTION PHASE (per-unit loop)
 - [ ] Functional Design — EXECUTE (per-unit)
@@ -72,6 +74,6 @@
 
 ## Current Status
 - **Lifecycle Phase**: INCEPTION
-- **Current Stage**: Units Generation (Part 1 Planning — 승인 대기)
-- **Next Stage**: Units Generation Part 2 (Generation) → CONSTRUCTION
-- **Status**: Application Design 승인 완료. unit-of-work-plan.md 생성, 병렬화 전략 포함(최대 4인 3-웨이브 계획). 사용자 승인 대기 중.
+- **Current Stage**: Units Generation (Part 2 산출물 생성 완료 — 최종 승인 대기)
+- **Next Stage**: CONSTRUCTION PHASE (per-unit 루프, UOW-0F부터)
+- **Status**: unit-of-work.md / unit-of-work-dependency.md / unit-of-work-story-map.md 3종 생성 완료. 8개 단위(0F,00,01~06), 3-웨이브 병렬 계획 확정. 최종 승인 대기 중.
