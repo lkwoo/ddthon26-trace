@@ -162,3 +162,10 @@
 **Context**: CONSTRUCTION - UOW-02 (FR-KNOWLEDGE-001/002/003, C2·C3·C4)
 
 ---
+
+## Construction — UOW-03 Claims/Evidence/Conflict 완료
+**Timestamp**: 2026-09-08T00:00:00Z
+**AI Response**: trace/workflow에 extract_claims(정규화 삼중항+Evidence)·group_evidence 추가. trace/conflict(C5) 신설: normalize_value(멱등)·assign_confidence(근거 일치도, FR-CONFIDENCE-001)·detect_conflicts(key별 값 비교→value_mismatch, 결정적 안정정렬)·summarize_conflicts·get_conflicts. enrich_feature를 register_enrich_hook로 등록→analyze_project가 UOW-02 본문 수정 없이 Claim/Conflict 보강(개방-폐쇄). 순환 임포트는 engine __getattr__ 지연 재노출+conflict의 Asset TYPE_CHECKING으로 해소. demo/replay/extract_claims.owner-registration.json 픽스처 신설. E2E: Owner.telephone.max_length 20(PDF) vs 10(코드/명세) value_mismatch 검출. 테스트 7개(속성4+신뢰도2+E2E1) 통과, 전체 47개.
+**Context**: CONSTRUCTION - UOW-03 (구조적 차별점, C3·C5, FR-CLAIM/EVIDENCE/CONFIDENCE/CONFLICT)
+
+---

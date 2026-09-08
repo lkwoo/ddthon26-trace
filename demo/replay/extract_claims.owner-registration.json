@@ -1,0 +1,46 @@
+{
+  "claims": [
+    {
+      "subject": "Owner.telephone",
+      "predicate": "max_length",
+      "value": "20",
+      "evidence": [
+        {"source": "requirements/owner-registration-spec.pdf", "type": "requirement",
+         "location": "§2 Telephone", "extracted_value": "maximum 20 digits", "relation": "direct"}
+      ]
+    },
+    {
+      "subject": "Owner.telephone",
+      "predicate": "max_length",
+      "value": "10",
+      "evidence": [
+        {"source": "petclinic/src/main/resources/openapi.yaml", "type": "openapi",
+         "location": "components.schemas.Owner.telephone.maxLength", "extracted_value": "10", "relation": "direct"},
+        {"source": "petclinic/src/main/resources/db/schema.sql", "type": "sql",
+         "location": "owners.telephone", "extracted_value": "VARCHAR(10)", "relation": "direct"},
+        {"source": "petclinic/src/main/java/org/springframework/samples/petclinic/owner/Owner.java", "type": "source",
+         "location": "@Size(max = 10)", "extracted_value": "10", "relation": "supporting"}
+      ]
+    },
+    {
+      "subject": "Owner.registration",
+      "predicate": "sms_verification",
+      "value": "required",
+      "evidence": [
+        {"source": "requirements/owner-registration-spec.pdf", "type": "requirement",
+         "location": "§3 Verification", "extracted_value": "SMS verification REQUIRED", "relation": "direct"}
+      ]
+    },
+    {
+      "subject": "Owner.registration",
+      "predicate": "http_method",
+      "value": "POST",
+      "evidence": [
+        {"source": "petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerRestController.java",
+         "type": "source", "location": "@PostMapping(\"/api/owners\")", "extracted_value": "POST /api/owners", "relation": "direct"},
+        {"source": "petclinic/src/main/resources/openapi.yaml", "type": "openapi",
+         "location": "paths./api/owners.post", "extracted_value": "post", "relation": "supporting"}
+      ]
+    }
+  ]
+}

@@ -51,6 +51,13 @@ def analyze_project(
     config = config or Config()
     store = _resolve_store(store)
 
+    # UOW-03 충돌 보강 훅을 소프트 활성화 (있으면 등록, 없어도 UOW-02 단독 동작)
+    if _enrich_hook is None:
+        try:
+            import trace.conflict  # noqa: F401 — import 시 register_enrich_hook 호출
+        except ImportError:
+            pass
+
     # 캐시 재사용 (NFR-PERF-003)
     if not refresh:
         cached = store.list_feature_summaries()

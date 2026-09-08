@@ -19,7 +19,7 @@ from trace.common import get_logger
 from trace.engine.assets import Asset
 from trace.knowledge import slugify
 from trace.llm import LLMService
-from trace.models import Feature, FeatureKnowledge
+from trace.models import Claim, Evidence, EvidenceRelation, Feature, FeatureKnowledge
 from trace.prompts import get_prompt
 
 _log = get_logger("trace.workflow")
@@ -83,7 +83,86 @@ def generate_feature_knowledge(
     )
 
 
+def extract_claims(feature: Feature, assets: list[Asset], llm: LLMService) -> list[Claim]:
+    """Feature에서 정규화 원자 Claim(subject·predicate·value) + Evidence를 추출한다.
+
+    이것이 TRACE의 구조적 차별점의 입력이다(FR-CLAIM-001): 자유 텍스트가 아니라
+    (subject, predicate, value) 삼중항으로 정규화하므로, 같은 (subject.predicate)에 서로 다른
+    value가 붙으면 결정적 코드로 value_mismatch를 검출할 수 있다(UOW-03 detect_conflicts).
+
+    replay step_key: ``extract_claims.<feature_id>``.
+    """
+    related = [a for a in assets if a.path in set(feature.related_sources)] or assets
+    prompt = get_prompt(
+        "extract_claims",
+        feature_title=feature.title,
+        assets=render_assets(related),
+    )
+    raw = llm.structured(f"extract_claims.{feature.id}", prompt)
+    claims = _coerce_claims(raw)
+    _log.info("Claim 추출: %s → %d개", feature.id, len(claims))
+    return claims
+
+
+def group_evidence(claims: list[Claim]) -> list[Claim]:
+    """동일 (key, value) Claim을 병합하고 Evidence를 중복 제거한다 (FR-EVIDENCE-001).
+
+    LLM이 같은 주장을 여러 번 내도 근거만 합쳐 하나의 Claim으로 정규화한다. 서로 다른 value는
+    별개 Claim으로 유지되어 충돌 검출의 입력이 된다.
+    """
+    merged: dict[tuple[str, str], Claim] = {}
+    for c in claims:
+        gkey = (c.key, c.value.strip())
+        if gkey not in merged:
+            merged[gkey] = Claim(c.subject, c.predicate, c.value, evidence=[], confidence=c.confidence)
+        target = merged[gkey]
+        seen = {(e.source, e.location, e.extracted_value) for e in target.evidence}
+        for e in c.evidence:
+            sig = (e.source, e.location, e.extracted_value)
+            if sig not in seen:
+                target.evidence.append(e)
+                seen.add(sig)
+    return list(merged.values())
+
+
 # ------------------------------------------------------------------ 강제 변환
+def _coerce_claims(raw: Any) -> list[Claim]:
+    """LLM 원시 출력을 Claim 목록으로 관대하게 변환한다."""
+    items = raw.get("claims") if isinstance(raw, dict) else raw
+    if not isinstance(items, list):
+        return []
+    out: list[Claim] = []
+    for item in items:
+        if not isinstance(item, dict) or not item.get("subject") or not item.get("predicate"):
+            continue
+        evs: list[Evidence] = []
+        for e in item.get("evidence", []):
+            if not isinstance(e, dict) or not e.get("source"):
+                continue
+            try:
+                rel = EvidenceRelation(str(e.get("relation", "supporting")))
+            except ValueError:
+                rel = EvidenceRelation.SUPPORTING
+            evs.append(
+                Evidence(
+                    source=str(e["source"]),
+                    type=str(e.get("type", "")),
+                    location=str(e.get("location", "")),
+                    extracted_value=str(e.get("extracted_value", "")),
+                    relation=rel,
+                )
+            )
+        out.append(
+            Claim(
+                subject=str(item["subject"]).strip(),
+                predicate=str(item["predicate"]).strip(),
+                value=str(item.get("value", "")).strip(),
+                evidence=evs,
+            )
+        )
+    return out
+
+
 def _coerce_features(raw: Any) -> list[Feature]:
     """LLM 원시 출력을 Feature 목록으로 관대하게 변환한다."""
     items = raw.get("features") if isinstance(raw, dict) else raw
@@ -106,4 +185,10 @@ def _coerce_features(raw: Any) -> list[Feature]:
     return out
 
 
-__all__ = ["identify_features", "generate_feature_knowledge", "render_assets"]
+__all__ = [
+    "identify_features",
+    "generate_feature_knowledge",
+    "extract_claims",
+    "group_evidence",
+    "render_assets",
+]
