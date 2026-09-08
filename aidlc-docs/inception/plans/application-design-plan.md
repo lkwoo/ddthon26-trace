@@ -11,21 +11,21 @@
 
 ## A. 설계 방법론 (실행 체크리스트)
 
-- [ ] 요구사항 §4(4계층 컴포넌트 A~D)와 §13(코어 인터페이스)를 컴포넌트로 매핑
-- [ ] 컴포넌트 책임·인터페이스 정의 (`components.md`)
-- [ ] 코어 함수 시그니처 정의 (`component-methods.md`) — 비즈니스 규칙은 Functional Design로 이연
-- [ ] 서비스/오케스트레이션 정의 (`services.md`) — analyze_project·analyze_task_impact 파이프라인 조율
-- [ ] 컴포넌트 의존성·통신·데이터 흐름 정의 (`component-dependency.md`)
-- [ ] 통합 설계 문서 (`application-design.md`)
-- [ ] NFR-CORE-001/002(코어·인터페이스 분리, 재사용) & NFR-MAINT-001/002(모듈 분리, 프롬프트 분리) 준수 확인
+- [x] 요구사항 §4(4계층 컴포넌트 A~D)와 §13(코어 인터페이스)를 컴포넌트로 매핑
+- [x] 컴포넌트 책임·인터페이스 정의 (`components.md`)
+- [x] 코어 함수 시그니처 정의 (`component-methods.md`) — 비즈니스 규칙은 Functional Design로 이연
+- [x] 서비스/오케스트레이션 정의 (`services.md`) — analyze_project·analyze_task_impact 파이프라인 조율
+- [x] 컴포넌트 의존성·통신·데이터 흐름 정의 (`component-dependency.md`)
+- [x] 통합 설계 문서 (`application-design.md`)
+- [x] NFR-CORE-001/002(코어·인터페이스 분리, 재사용) & NFR-MAINT-001/002(모듈 분리, 프롬프트 분리) 준수 확인
 
 ## B. 필수 산출물
 
-- [ ] `aidlc-docs/inception/application-design/components.md`
-- [ ] `aidlc-docs/inception/application-design/component-methods.md`
-- [ ] `aidlc-docs/inception/application-design/services.md`
-- [ ] `aidlc-docs/inception/application-design/component-dependency.md`
-- [ ] `aidlc-docs/inception/application-design/application-design.md`
+- [x] `aidlc-docs/inception/application-design/components.md`
+- [x] `aidlc-docs/inception/application-design/component-methods.md`
+- [x] `aidlc-docs/inception/application-design/services.md`
+- [x] `aidlc-docs/inception/application-design/component-dependency.md`
+- [x] `aidlc-docs/inception/application-design/application-design.md`
 
 ---
 
@@ -52,7 +52,7 @@ B) 더 얇게 — `server`/`core`/`io` 3묶음으로 단순화
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Q2. 코어 API 호출 스타일
 코어 함수와 MCP 도구 핸들러의 결합 방식은?
@@ -63,7 +63,7 @@ B) 도구 핸들러에 로직 일부 포함(간결하나 재사용성 낮음)
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Q3. AI 워크플로우 오케스트레이션
 Feature 식별→Claim→Evidence→Conflict→Confidence→지식 생성 파이프라인 구성은?
@@ -74,7 +74,7 @@ B) 단일 대형 프롬프트로 한 번에 생성 (단순하나 결정성·부�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Q4. 도구 결과 표현(결과 봉투)
 MCP 도구의 구조화 결과 형식은? (NFR-MCP-UX-002 점진적 노출)
@@ -85,7 +85,7 @@ B) 도구마다 자유 형식 JSON
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Q5. 지식/캐시 저장 위치
 생성 지식과 분석 캐시의 위치는?
@@ -96,4 +96,4 @@ B) 대상 프로젝트 내부 `knowledge/` 에 직접 생성 (요구사항 예�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A

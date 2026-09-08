@@ -56,7 +56,7 @@
 - [x] Requirements Analysis
 - [x] User Stories
 - [x] Workflow Planning
-- [ ] Application Design — EXECUTE (진행 중)
+- [x] Application Design — EXECUTE
 - [ ] Units Generation — EXECUTE
 
 ### 🟢 CONSTRUCTION PHASE (per-unit loop)
