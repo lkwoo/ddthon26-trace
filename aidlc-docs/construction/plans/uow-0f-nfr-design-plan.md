@@ -13,9 +13,9 @@
 
 ## 실행 체크리스트
 
-- [ ] Step A: 패턴 확정 (`nfr-design-patterns.md`) — 주입 경계·직렬화 결정성·오류→Result 변환·로깅 횡단·설정 로딩·재시도
-- [ ] Step B: 논리 컴포넌트 배치 (`logical-components.md`) — 0F 서브모듈 내부 구성과 협력, 주입 지점
-- [ ] Step C: 질문 답변 반영 → 산출물 2종 생성 → 완료 메시지 → 승인 대기
+- [x] Step A: 패턴 확정 (`nfr-design-patterns.md`) — 주입 경계·직렬화 결정성·오류→Result 변환·로깅 횡단·설정 로딩·재시도
+- [x] Step B: 논리 컴포넌트 배치 (`logical-components.md`) — 0F 서브모듈 내부 구성과 협력, 주입 지점
+- [x] Step C: 질문 답변 반영(Q1~Q6 승인) → 산출물 2종 생성 완료 → 완료 메시지 → 승인 대기
 
 ## 카테고리 적용성 (권장 사전판단)
 

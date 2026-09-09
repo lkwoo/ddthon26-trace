@@ -169,3 +169,12 @@
 **Context**: CONSTRUCTION - NFR Requirements(UOW-0F) GATE 승인 → NFR Design(UOW-0F) 착수
 
 ---
+
+## NFR Design (UOW-0F) — 계획/질문 승인 & 산출물 생성
+**Timestamp**: 2026-09-09T00:00:00Z
+**AI Prompt**: uow-0f-nfr-design-plan.md 검토 — 프리필(Q1=Protocol+주입, Q2=어댑터 변환, Q3=warning 누적기, Q4=log_stage CM, Q5=단일 serialize, Q6=env 소비직전) 승인/변경.
+**User Input**: "좋은 제안인것 같아. 승인"
+**AI Response**: 모호성 없음. Q1~Q6 프리필 확정. nfr-design-patterns.md·logical-components.md 생성.
+**Context**: CONSTRUCTION - NFR Design(UOW-0F) Part 1(GATE 승인) → 산출물 생성
+
+---
