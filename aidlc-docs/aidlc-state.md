@@ -64,7 +64,7 @@
 ### 🟢 CONSTRUCTION PHASE (per-unit loop)
 - [ ] Functional Design — EXECUTE (per-unit) — ✅ UOW-0F, ✅ UOW-00 완료 / 🔄 UOW-01 진행
 - [ ] NFR Requirements — EXECUTE (per-unit) — ✅ UOW-0F 완료, ✅ UOW-00 완료(2026-09-09 승인)
-- [ ] NFR Design — EXECUTE (per-unit) — ✅ UOW-0F 완료 / UOW-00 SKIP(런타임 패턴 없음)
+- [ ] NFR Design — EXECUTE (per-unit) — ✅ UOW-0F / UOW-00 SKIP / ✅ UOW-01 완료(2026-09-09)
 - [ ] Infrastructure Design — SKIP
 - [ ] Code Generation — EXECUTE (per-unit) — ✅ UOW-0F 완료·승인(2026-09-09, 31 tests pass) / 🔄 UOW-00~06 진행
 - [ ] Build and Test — EXECUTE
@@ -74,6 +74,6 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: NFR Requirements — UOW-01 (스캐너 & 파서), 산출물 생성 완료 — 승인 대기 (GATE)
-- **Next Stage**: UOW-01 NFR Requirements 승인 → NFR Design(UOW-01) → Code Generation
-- **Status**: UOW-01 NFR Requirements 완료 — Q1=A(순차)/Q2=B(파일 5MB·총량 200MB)/Q3=A,B,C,D(PBT 4속성)/Q4=A(config 분리). 확장 컴플라이언스: Resiliency Compliant, PBT Compliant(4속성 채택). pypdf 런타임 승격 예정. NFR Design은 EXECUTE.
+- **Current Stage**: NFR Design — UOW-01 (스캐너 & 파서), 산출물 생성 완료 — 승인 대기 (GATE)
+- **Next Stage**: UOW-01 NFR Design 승인 → Code Generation(UOW-01) Part 1 계획
+- **Status**: UOW-01 NFR Design 완료 — 추가 질문 없음(패턴 도출 일의적). nfr-design-patterns.md(P1~P9: 경로검증 게이트·prune 순회·파서 레지스트리·크기상한·실패격리·Warning 코드체계·config 분리·PBT 배치·결정성), logical-components.md(engine/ 4모듈+models/asset+config/scan_settings, 시그니처·의존방향·테스트 배치·pypdf 런타임 승격).

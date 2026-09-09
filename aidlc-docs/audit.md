@@ -281,3 +281,10 @@
 **AI Response**: 계획 체크박스 S1~S6 [x]. 산출물 2종 생성: nfr-requirements.md(성능 NFR-01-PERF-1~5[순차·5MB·200MB], 신뢰성 REL-1~4[Resiliency], 보안 SEC-1~4[NFR-SEC-004], 유지보수 MAINT-1~3[config 분리·파서 확장], PBT 4속성 PBT-01-A~D, 확장 컴플라이언스 Resiliency/PBT Compliant), tech-stack-decisions.md(pypdf 런타임 승격·PyYAML·hypothesis·os.walk, MAX_FILE_BYTES=5MB/MAX_TOTAL_BYTES=200MB config 배치). NFR Design EXECUTE.
 **Status**: 승인 대기 (GATE)
 **Context**: CONSTRUCTION - NFR Requirements(UOW-01) 산출물 생성 완료
+
+## NFR Requirements (UOW-01) GATE 승인 & NFR Design 생성
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인"
+**AI Response**: UOW-01 NFR Requirements 승인 → NFR Design(UOW-01). 추가 질문 없음(패턴이 앞 단계에서 일의적 도출). 산출물 2종: nfr-design-patterns.md(P1 경로검증 게이트+canonicalization, P2 prune-on-descent 순회, P3 파서 레지스트리(Strategy), P4 크기상한 스트리밍, P5 per-item 실패격리+sanitize, P6 Warning 코드 체계 7종, P7 config 분리 get_scan_settings, P8 PBT 배치 4속성, P9 결정성), logical-components.md(models/asset.py·config/scan_settings.py·engine/{scanner,classifier,parsers,scan}.py 시그니처·의존방향·테스트 3파일·pypdf 런타임 승격).
+**Status**: 승인 대기 (GATE)
+**Context**: CONSTRUCTION - NFR Design(UOW-01) 산출물 생성 완료
