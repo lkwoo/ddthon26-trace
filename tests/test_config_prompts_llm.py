@@ -33,6 +33,19 @@ def test_llm_settings_default_backend_is_replay(monkeypatch):
     assert get_llm_settings().backend == "replay"
 
 
+def test_bedrock_backend_reads_bearer_token_and_model(monkeypatch):
+    # Bedrock은 sk-ant 다이렉트 키가 아니라 bearer 토큰(ABSK…)과 Bedrock 모델 ID를 쓴다.
+    monkeypatch.setenv("TRACE_LLM_BACKEND", "bedrock")
+    monkeypatch.setenv("AWS_BEARER_TOKEN_BEDROCK", "ABSK-test-token")
+    monkeypatch.setenv("TRACE_BEDROCK_MODEL", "apac.anthropic.claude-sonnet-4-5-20250929-v1:0")
+    monkeypatch.setenv("AWS_REGION", "ap-northeast-2")
+    s = get_llm_settings()
+    assert s.backend == "bedrock"
+    assert s.api_key == "ABSK-test-token"
+    assert s.model == "apac.anthropic.claude-sonnet-4-5-20250929-v1:0"
+    assert s.aws_region == "ap-northeast-2"
+
+
 # ------------------------------------------------------------------ prompts
 def test_get_prompt_renders_variables(tmp_path, monkeypatch):
     tdir = tmp_path / "templates"

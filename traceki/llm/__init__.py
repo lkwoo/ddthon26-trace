@@ -1,9 +1,11 @@
 """S4 LLMService — Claude 접근 캡슐화 + 결정적 replay (UOW-0F).
 
-두 백엔드를 지원한다:
-- **live**: 실제 Anthropic Claude 호출. 구조화(JSON) 출력을 요구하고 검증하며, 파싱 실패 시
-  제약 교정 재시도 1회(§17.4). Claude Sonnet 5는 샘플링 파라미터를 허용하지 않으므로
+세 백엔드를 지원한다:
+- **live**: 실제 Anthropic 다이렉트 Claude 호출(sk-ant 키). 구조화(JSON) 출력을 요구·검증하며,
+  파싱 실패 시 제약 교정 재시도 1회(§17.4). Sonnet 5는 샘플링 파라미터를 허용하지 않으므로
   temperature를 보내지 않는다(400 방지).
+- **bedrock**: Amazon Bedrock 경유 Claude 호출. Bedrock API 키(bearer 토큰, ABSK…)로 인증하고
+  Bedrock 모델/추론 프로파일 ID를 쓴다. 그 외 구조화/재시도 로직은 live와 동일.
 - **replay**: 사전 저장된 응답을 재생. **API 키 없이** Hero 데모를 결정적으로 재현한다
   (NFR-AI-004 시연 안정성, NFR-REL-001 반복 가능 E2E).
 
@@ -60,19 +62,34 @@ class LLMService:
         self.replay_dir = Path(rd) if rd else None
         self._client = None  # live 클라이언트 지연 생성
 
-    # ------------------------------------------------------------------ live
+    # ------------------------------------------------------ live / bedrock
     def _get_client(self):
         if self._client is not None:
             return self._client
+        try:
+            import anthropic  # 지연 임포트
+        except ImportError as exc:  # pragma: no cover
+            raise ConfigError("`anthropic` 패키지가 설치되어 있지 않습니다.") from exc
+
+        if self.settings.backend == "bedrock":
+            # Amazon Bedrock: bearer 토큰(ABSK…) 인증. sk-ant 다이렉트 키가 아니다.
+            if not self.settings.api_key:
+                raise ConfigError(
+                    "bedrock 백엔드에 Bedrock API 키가 필요합니다. "
+                    "AWS_BEARER_TOKEN_BEDROCK(권장) 또는 ANTHROPIC_API_KEY 환경변수를 설정하세요."
+                )
+            kwargs: dict = {"api_key": self.settings.api_key}
+            if self.settings.aws_region:
+                kwargs["aws_region"] = self.settings.aws_region
+            self._client = anthropic.AnthropicBedrock(**kwargs)
+            return self._client
+
+        # live (Anthropic 다이렉트)
         if not self.settings.api_key:
             raise ConfigError(
                 "live LLM 백엔드에 ANTHROPIC_API_KEY가 필요합니다. "
                 "환경변수를 설정하거나 TRACE_LLM_BACKEND=replay 로 실행하세요."
             )
-        try:
-            import anthropic  # 지연 임포트
-        except ImportError as exc:  # pragma: no cover
-            raise ConfigError("`anthropic` 패키지가 설치되어 있지 않습니다.") from exc
         self._client = anthropic.Anthropic(api_key=self.settings.api_key)
         return self._client
 
@@ -134,7 +151,7 @@ class LLMService:
         if self.settings.backend == "replay":
             _log.info("replay step: %s", step_key)
             return self._structured_replay(step_key)
-        _log.info("live LLM step: %s (model=%s)", step_key, self.settings.model)
+        _log.info("%s LLM step: %s (model=%s)", self.settings.backend, step_key, self.settings.model)
         return self._structured_live(prompt)
 
 

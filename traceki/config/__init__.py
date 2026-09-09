@@ -42,10 +42,11 @@ class LLMSettings:
     결정성은 구조화 출력 + replay 캐시로 확보한다. temperature 필드는 두지 않는다.
     """
 
-    backend: str = "replay"                # "live" | "replay"
+    backend: str = "replay"                # "live" | "bedrock" | "replay"
     model: str = "claude-sonnet-5"
-    api_key: str | None = None
+    api_key: str | None = None             # live: ANTHROPIC_API_KEY / bedrock: Bedrock API 키(bearer)
     replay_dir: str | None = None          # replay 사전 응답 디렉터리 (없으면 데모 픽스처)
+    aws_region: str | None = None          # bedrock 백엔드 리전 (없으면 SDK가 us-east-1로 폴백)
     max_tokens: int = 4096
 
 
@@ -86,12 +87,28 @@ def get_exclusions(config: Config | None = None) -> list[str]:
 
 
 def get_llm_settings() -> LLMSettings:
-    """환경변수에서 LLM 설정을 읽는다. API 키는 여기서만 접근 (NFR-SEC-001)."""
+    """환경변수에서 LLM 설정을 읽는다. API 키는 여기서만 접근 (NFR-SEC-001).
+
+    - live: ANTHROPIC_API_KEY, 모델은 TRACE_LLM_MODEL (Anthropic 다이렉트 ID).
+    - bedrock: Bedrock API 키(bearer) = AWS_BEARER_TOKEN_BEDROCK, 모델은 TRACE_BEDROCK_MODEL
+      (Bedrock 모델/추론 프로파일 ID), 리전은 AWS_REGION/AWS_DEFAULT_REGION.
+    """
+    backend = os.environ.get("TRACE_LLM_BACKEND", "replay").lower()
+    if backend == "bedrock":
+        # Bedrock은 다이렉트 sk-ant 키가 아니라 bearer 토큰(ABSK…)을 쓴다. 모델 ID도 Bedrock 형식.
+        api_key = os.environ.get("AWS_BEARER_TOKEN_BEDROCK") or os.environ.get("ANTHROPIC_API_KEY")
+        model = os.environ.get("TRACE_BEDROCK_MODEL") or os.environ.get(
+            "TRACE_LLM_MODEL", "us.anthropic.claude-sonnet-4-5-20250929-v1:0"
+        )
+    else:
+        api_key = os.environ.get("ANTHROPIC_API_KEY")
+        model = os.environ.get("TRACE_LLM_MODEL", "claude-sonnet-5")
     return LLMSettings(
-        backend=os.environ.get("TRACE_LLM_BACKEND", "replay").lower(),
-        model=os.environ.get("TRACE_LLM_MODEL", "claude-sonnet-5"),
-        api_key=os.environ.get("ANTHROPIC_API_KEY"),
+        backend=backend,
+        model=model,
+        api_key=api_key,
         replay_dir=os.environ.get("TRACE_REPLAY_DIR"),
+        aws_region=os.environ.get("AWS_REGION") or os.environ.get("AWS_DEFAULT_REGION"),
     )
 
 
