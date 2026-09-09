@@ -421,3 +421,10 @@
 **AI Response**: UOW-04 Functional Design 승인 → NFR Requirements(UOW-04) 착수. uow-04-nfr-requirements-plan.md 작성(S1~S7 + Q1~Q3). 질문: Q1 PBT 대상(매핑 건전성·근거부족 강등·정렬 결정성·related_conflicts 정합), Q2 LLM 테스트(FakeLLM+llm_integration 상속), Q3 컨텍스트 상한(발췌 4000 상속·focus top-N).
 **Status**: 승인 대기 (GATE, 계획+질문)
 **Context**: CONSTRUCTION - NFR Requirements(UOW-04) 계획 작성
+
+## NFR Requirements (UOW-04) — 답변 수신(모두 권장) & 산출물 생성
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "모두 권장으로 진행해줘" (Q1=A,B,C,D PBT 4속성, Q2=A FakeLLM+llm_integration, Q3=A 발췌 4000·focus top-N=3)
+**AI Response**: 계획 체크박스 S1~S7 [x]. 산출물 2종: nfr-requirements.md(COST 1회호출·발췌4000·focus N=3, PERF 순수·저장지식 재사용, REL LLM/지식부재/손상 강등·충돌 독립노출, SEC known_sources 화이트리스트, TST, PBT-04-A~D[매핑 건전성·근거부족 강등·정렬 결정성·related_conflicts 정합], 확장 Compliant), tech-stack-decisions.md(UOW-0F/02/03 상속·impact 모듈·중간스키마·focus N=3·신규 의존성 없음). 승인 대기(GATE).
+**Status**: 승인 대기 (GATE)
+**Context**: CONSTRUCTION - NFR Requirements(UOW-04) 산출물 생성 완료

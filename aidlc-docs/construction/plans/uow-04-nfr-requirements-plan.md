@@ -9,13 +9,13 @@
 ---
 
 ## 계획 스텝 (체크박스)
-- [ ] S1. LLM 비용/토큰 — analyze_task 1회 호출, 컨텍스트 발췌 상한 상속(Q3)
-- [ ] S2. 성능 — build_context/to_impact_out/rank_by_relevance 순수(무네트워크), 저장 지식 재사용(analyze_project 산출)
-- [ ] S3. 신뢰성(Resiliency) — LLM 실패·지식부재·손상 파일 강등, related_conflicts는 LLM과 무관하게 노출
-- [ ] S4. 보안 — 프롬프트 known_sources 화이트리스트, reason/warning 원문·절대경로 비노출
-- [ ] S5. 재현성 — 매핑·정렬·랭킹 결정적, FakeLLM + llm_integration 옵트인(Q2)
-- [ ] S6. PBT 속성 대상 확정(Q1)
-- [ ] S7. nfr-requirements.md / tech-stack-decisions.md 작성 + 확장 컴플라이언스 요약
+- [x] S1. LLM 비용/토큰 — analyze_task 1회 호출, 컨텍스트 발췌 상한 상속(Q3)
+- [x] S2. 성능 — build_context/to_impact_out/rank_by_relevance 순수(무네트워크), 저장 지식 재사용(analyze_project 산출)
+- [x] S3. 신뢰성(Resiliency) — LLM 실패·지식부재·손상 파일 강등, related_conflicts는 LLM과 무관하게 노출
+- [x] S4. 보안 — 프롬프트 known_sources 화이트리스트, reason/warning 원문·절대경로 비노출
+- [x] S5. 재현성 — 매핑·정렬·랭킹 결정적, FakeLLM + llm_integration 옵트인(Q2)
+- [x] S6. PBT 속성 대상 확정(Q1)
+- [x] S7. nfr-requirements.md / tech-stack-decisions.md 작성 + 확장 컴플라이언스 요약
 
 ---
 
@@ -30,20 +30,20 @@ UOW-04 코어(to_impact_out/rank_by_relevance)는 순수 함수 → PBT에 적�
 
 선택(권장: **A,B,C,D 전부**):
 
-[Answer]:
+[Answer]: A,B,C,D (권장)
 
 ### Q2. LLM 테스트 정책 — UOW-02/03과 동일하게?
 - **A. 기본 FakeLLM 오프라인 + 기존 `llm_integration` 마커 옵트인(analyze_task_impact 실 API 통합 1건 추가)** (권장) — 일관·재현·비용 0
 - **B. 오프라인만(통합 테스트 없음)**
 - **C. 기타(직접 지정)**
 
-[Answer]:
+[Answer]: A (권장)
 
 ### Q3. 컨텍스트 상한 — 발췌·focus 개수
 - **A. 자산/근거 발췌 4,000자 상속(UOW-02/03) + focus 상세는 관련도 상위 N=3 기본(전체 요약은 항상 포함)** (권장) — 토큰 예측성·집중
 - **B. UOW-04 전용 상한 별도 지정(직접 지정)**
 
-[Answer]:
+[Answer]: A (권장)
 
 ---
 
