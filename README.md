@@ -18,7 +18,105 @@ RAG류 도구가 "비슷한 것"을 검색하는 것과 달리, TRACE는 자산�
 
 ---
 
+## 처음이신가요? — 터미널·코딩 경험 없이 따라하기
+
+**아래 6단계만 그대로 따라 하면 API 키 없이 데모가 돌아갑니다.** 명령어는 복사해서 붙여넣으면 됩니다.
+
+> 💡 **알아두기**: "터미널"은 컴퓨터에 글자로 명령을 내리는 검은 창입니다. 아래 회색 상자 안의 글자를
+> 복사(`Ctrl+C`)해서 터미널에 붙여넣고(`Ctrl+V` 또는 마우스 오른쪽 클릭) `Enter`를 누르면 실행됩니다.
+
+### 준비물
+
+- **컴퓨터** (Windows 10/11 또는 macOS)
+- **Python 3.10 이상** — 프로그램을 실행하는 도구 (아래 2단계에서 설치)
+- **API 키·계정은 필요 없습니다.** 데모는 미리 저장해 둔 응답을 재생하므로 인터넷·결제·로그인이 전부 불필요합니다.
+
+### 1단계 — 터미널(명령 창) 열기
+
+- **Windows**: 화면 왼쪽 아래 시작 버튼 → `PowerShell` 이라고 검색 → **Windows PowerShell** 클릭
+- **macOS**: `⌘(Command) + Space` → `터미널` 또는 `Terminal` 입력 → `Enter`
+
+### 2단계 — Python이 있는지 확인 (없으면 설치)
+
+터미널에 아래를 입력하고 `Enter`:
+
+```bash
+python --version
+```
+
+`Python 3.10.x` 이상이 보이면 통과입니다. (macOS에서 안 되면 `python3 --version`으로 다시 시도)
+
+숫자가 안 나오거나 오류가 나면 아직 없는 것입니다. [python.org/downloads](https://www.python.org/downloads/) 에서
+설치 파일을 받아 실행하세요.
+
+> ⚠️ **Windows 설치 시 중요**: 설치 첫 화면 맨 아래 **"Add Python to PATH"** 체크박스를 꼭 켠 뒤 설치하세요.
+> 이걸 놓치면 터미널이 python을 찾지 못합니다. (놓쳤다면 파이썬을 다시 설치하며 체크하면 됩니다.)
+
+### 3단계 — 이 프로젝트 내려받기
+
+**방법 A (간단)**: GitHub 저장소 페이지에서 초록색 **`Code` 버튼 → `Download ZIP`** → 내려받은 zip을
+더블클릭해 압축을 풀면 `ddthon26-trace` 폴더가 생깁니다.
+
+**방법 B (git이 있다면)**:
+
+```bash
+git clone <저장소-주소>
+```
+
+### 4단계 — 프로젝트 폴더로 이동
+
+`cd`는 "이 폴더로 들어가라"는 뜻입니다. `cd ` 까지만 입력하고 **폴더를 터미널 창으로 끌어다 놓으면**
+경로가 자동으로 채워집니다. `Enter`를 누르세요.
+
+```bash
+cd 프로젝트폴더경로/ddthon26-trace
+```
+
+### 5단계 — 설치 (한 번만)
+
+```bash
+pip install -e .
+```
+
+> `pip`이 없다는 오류가 나면 `python -m pip install -e .` (macOS는 `python3 -m pip install -e .`)로 시도하세요.
+> 필요한 부품(라이브러리)을 자동으로 내려받으므로 처음엔 1~2분 걸릴 수 있습니다.
+
+### 6단계 — 데모 실행
+
+아래 **OS에 맞는 상자**를 통째로 복사해 붙여넣고 `Enter` 하세요.
+
+**macOS / Linux (터미널)**
+
+```bash
+export TRACE_LLM_BACKEND=replay
+export TRACE_REPLAY_DIR="$PWD/demo/replay"
+
+trace analyze-project ./demo --refresh    # 프로젝트를 스캔·분석
+trace conflicts                           # ⚠️ 문서와 코드가 어긋난 부분을 근거와 함께 표시
+trace map ./demo --refresh                # 신입 온보딩 맵 생성
+```
+
+**Windows (PowerShell)** — Windows는 `export` 대신 `$env:`를 씁니다:
+
+```powershell
+$env:TRACE_LLM_BACKEND="replay"
+$env:TRACE_REPLAY_DIR="$PWD\demo\replay"
+
+trace analyze-project ./demo --refresh
+trace conflicts
+trace map ./demo --refresh
+```
+
+`trace conflicts`에서 `Owner.telephone.max_length: 20(PDF) vs 10(코드/명세)` 같은 경고가 뜨면 성공입니다.
+막히면 맨 아래 [트러블슈팅](#트러블슈팅)을 참고하세요.
+
+---
+
 ## 30초 데모 (API 키 불필요)
+
+> 터미널이 익숙하다면 이 섹션으로 바로 시작하세요. 처음이라면 위
+> [처음이신가요?](#처음이신가요--터미널코딩-경험-없이-따라하기) 6단계를 따라 하면 됩니다.
+> (아래 명령은 macOS/Linux 기준이며, Windows PowerShell은 `export`를 `$env:`로 바꿔 씁니다.)
 
 TRACE는 사전 캐시된 응답을 재생하는 **replay 백엔드**를 내장해, API 키 없이도 Hero 시나리오를
 결정적으로 재현합니다. 동봉된 `demo/`(Spring Petclinic 조각 + 의도적 충돌)로 바로 확인하세요.
@@ -50,7 +148,9 @@ trace map ./demo --refresh               # 신입 온보딩 맵: 진입점·의�
 
 ## Claude Code에 MCP 서버로 연결
 
-프로젝트 루트에 `.mcp.json`을 만들면 Claude Code가 TRACE 도구를 사용합니다.
+[Claude Code](https://claude.com/claude-code)는 터미널에서 AI(Claude)와 대화하며 코드를 다루는 도구입니다.
+TRACE를 여기에 연결하면 아래처럼 **한국어로 말만 하면** TRACE 도구가 자동으로 실행됩니다.
+프로젝트 루트에 `.mcp.json` 파일을 만들면 됩니다. (동봉된 `.mcp.json.example`을 복사해 값을 채우면 편합니다.)
 
 ```json
 {
