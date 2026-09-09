@@ -212,3 +212,10 @@
 **Context**: CONSTRUCTION - 시연 증거 (완성도: 실행 증거와 기능 정합 / 사용성: 화면으로 사용 흐름 전달). live 모델 호출 로그가 model=global.anthropic.claude-opus-4-8로 실 동작 증거.
 
 ---
+## Increment 착수 — 신규 기능 "프로젝트 온보딩 맵" (Requirements Analysis)
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "프로젝트에 투입된 신입 개발자가 전체적인 프로젝트를 이해하는데 도움될 수 있도록 전체 프로젝트의 흐름과 파일간 관계를 파악할 수 있도록 하고 싶어. 유저 시나리오와 페르소나를 aidlc에 맞게 추가하고 싶어." / (명확화) "설명이 모호했네. TRACE를 사용하는 신입 개발자가 맞아. 새로 투입된 프로젝트에서 전체적인 흐름과 작업 내용, 온보딩을 위해 필요한 관련 지식을 담은 문서들을 정리해서 보여주고 해당 파일들의 관계, 프로젝트 내 함수들의 관계 등을 전체적으로 파악할 수 있도록 하는 시나리오야." / "B로 하고 싶어. 그러면 요구사항부터 다시 정의해야하는거지?"
+**AI Response**: 신규 기능 요청 = TRACE를 쓰는 신입 개발자가 낯선 프로젝트에 투입됐을 때 전체 흐름·파일 관계·함수 관계를 온보딩 관점에서 파악하도록 돕는 "프로젝트 온보딩 맵". 사용자가 (B) 새 기능 전제를 선택 → AI-DLC 적응형 증분으로 처리(프로젝트가 이제 브라운필드). 증분 스테이지: Requirements Analysis → User Stories(페르소나+온보딩 시나리오) → Application Design → Units Generation → Construction. Requirements Analysis 착수: 요구사항을 가르는 확인 질문 5개를 onboarding-map-questions.md로 작성(관계 추출 방식/산출물 형태/맵 구성 범위/시각화/언어 범위). 승인 대기.
+**Context**: INCEPTION - Requirements Analysis (신규 증분: 온보딩 맵). 기존 requirements.md의 FR/NFR 코드 컨벤션 위에 FR-MAP-* 신설 예정.
+
+---
