@@ -143,3 +143,11 @@
 **Context**: CONSTRUCTION - Functional Design(UOW-0F) Part 1(GATE 승인) → 산출물 생성
 
 ---
+
+## Functional Design (UOW-0F) — 승인 & GLOSSARY 작성 & NFR Requirements 착수
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "사용자가 FR, NFR, BR 등 용어의 의미를 알아야 할 필요가 있을까? 설명이 필요할지 말지 잘 모르겠네" → (권고 후) "응 용어표를 작성한 후에 계속 진행하자"
+**AI Response**: 최종 사용자 화면엔 약어 비노출·설계 문서용 용어표 권고. aidlc-docs/GLOSSARY.md 생성(FR/NFR/BR/DoD/PBT·UOW·도메인·확장 용어). "계속 진행"을 UOW-0F Functional Design 승인으로 처리 → Functional Design(UOW-0F) 완료 표시, NFR Requirements(UOW-0F) Part 1 착수.
+**Context**: CONSTRUCTION - Functional Design(UOW-0F) GATE 승인 → NFR Requirements(UOW-0F) 착수
+
+---
