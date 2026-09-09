@@ -1,0 +1,82 @@
+# .trace/knowledge/overview.md — 생성된 온보딩 맵 (Markdown 본문 발췌)
+# trace map 이 저장한 파일. Mermaid 다이어그램이 그대로 임베드된다(GitHub·IDE에서 렌더).
+
+# 프로젝트 온보딩 맵
+
+Start with the REST entry point: `petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerRestController.java` is a @RestController that exposes the Owner Registration endpoint. It builds and validates an `Owner` (`owner/Owner.java`), whose fields — including `telephone` — map onto the persistence schema in `resources/db/schema.sql` and the documented contract in `resources/openapi.yaml`. `owner/OwnerRegistrationTests.java` exercises this flow end to end. As a newcomer, read OwnerRestController first, then Owner, then confirm the field constraints against schema.sql and openapi.yaml — note these two sources disagree on telephone length, so treat that constraint as low-confidence until confirmed.
+
+## 진입점
+
+- **OwnerRestController** (`petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerRestController.java`) — rest_controller: @RestController/@Controller 애노테이션
+- **PostMapping** (`petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerRestController.java`) — rest_endpoint: @PostMapping 라우트
+- **RequestMapping "/api/owners"** (`petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerRestController.java`) — rest_endpoint: @RequestMapping 라우트
+- **__main__** (`tools/gen_requirements_pdf.py`) — main: if __name__ == '__main__' 블록
+
+## 의존 관계
+
+```mermaid
+flowchart LR
+    n_README_md["README (config)"]
+    n_petclinic_src_main_java_org_springframework_samples_petclinic_owner_Owner_java["Owner (code)"]
+    n_petclinic_src_main_java_org_springframework_samples_petclinic_owner_OwnerRestController_java["OwnerRestController (code)"]
+    n_petclinic_src_main_resources_db_schema_sql["schema (db)"]
+    n_petclinic_src_main_resources_openapi_yaml["openapi (api)"]
+    n_petclinic_src_test_java_org_springframework_samples_petclinic_owner_OwnerRegistrationTests_java["OwnerRegistrationTests (test)"]
+    n_replay_analyze_task_add_sms_verification_to_owner_registration_json["analyze_task.add-sms-verification-to-owner-registration (config)"]
+    n_replay_describe_relations_json["describe_relations (config)"]
+    n_replay_extract_claims_owner_registration_json["extract_claims.owner-registration (api)"]
+    n_replay_generate_knowledge_owner_registration_json["generate_knowledge.owner-registration (config)"]
+    n_replay_identify_features_json["identify_features (config)"]
+    n_requirements_owner_registration_spec_pdf["owner-registration-spec (config)"]
+    n_tools_gen_requirements_pdf_py["gen_requirements_pdf (code)"]
+    n_jakarta_persistence_Column["jakarta.persistence.Column"]
+    n_jakarta_persistence_Entity["jakarta.persistence.Entity"]
+    n_jakarta_persistence_Table["jakarta.persistence.Table"]
+    n_jakarta_validation_constraints_Digits["jakarta.validation.constraints.Digits"]
+    n_jakarta_validation_constraints_NotBlank["jakarta.validation.constraints.NotBlank"]
+    n_jakarta_validation_constraints_Size["jakarta.validation.constraints.Size"]
+    n_jakarta_validation_Valid["jakarta.validation.Valid"]
+    n_org_springframework_http_HttpStatus["org.springframework.http.HttpStatus"]
+    n_org_springframework_http_ResponseEntity["org.springframework.http.ResponseEntity"]
+    n_org_springframework_web_bind_annotation_PostMapping["org.springframework.web.bind.annotation.PostMapping"]
+    n_org_springframework_web_bind_annotation_RequestBody["org.springframework.web.bind.annotation.RequestBody"]
+    n_org_springframework_web_bind_annotation_RequestMapping["org.springframework.web.bind.annotation.RequestMapping"]
+    n_org_springframework_web_bind_annotation_RestController["org.springframework.web.bind.annotation.RestController"]
+    n_org_junit_jupiter_api_Assertions_assertEquals["org.junit.jupiter.api.Assertions.assertEquals"]
+    n_org_junit_jupiter_api_Test["org.junit.jupiter.api.Test"]
+    n_pathlib["pathlib"]
+    n_fpdf["fpdf"]
+    n_petclinic_src_main_java_org_springframework_samples_petclinic_owner_Owner_java --> n_jakarta_persistence_Column
+    n_petclinic_src_main_java_org_springframework_samples_petclinic_owner_Owner_java --> n_jakarta_persistence_Entity
+    n_petclinic_src_main_java_org_springframework_samples_petclinic_owner_Owner_java --> n_jakarta_persistence_Table
+    n_petclinic_src_main_java_org_springframework_samples_petclinic_owner_Owner_java --> n_jakarta_validation_constraints_Digits
+    n_petclinic_src_main_java_org_springframework_samples_petclinic_owner_Owner_java --> n_jakarta_validation_constraints_NotBlank
+    n_petclinic_src_main_java_org_springframework_samples_petclinic_owner_Owner_java --> n_jakarta_validation_constraints_Size
+    n_petclinic_src_main_java_org_springframework_samples_petclinic_owner_OwnerRestController_java --> n_jakarta_validation_Valid
+    n_petclinic_src_main_java_org_springframework_samples_petclinic_owner_OwnerRestController_java --> n_org_springframework_http_HttpStatus
+    n_petclinic_src_main_java_org_springframework_samples_petclinic_owner_OwnerRestController_java --> n_org_springframework_http_ResponseEntity
+    n_petclinic_src_main_java_org_springframework_samples_petclinic_owner_OwnerRestController_java --> n_org_springframework_web_bind_annotation_PostMapping
+    n_petclinic_src_main_java_org_springframework_samples_petclinic_owner_OwnerRestController_java --> n_org_springframework_web_bind_annotation_RequestBody
+    n_petclinic_src_main_java_org_springframework_samples_petclinic_owner_OwnerRestController_java --> n_org_springframework_web_bind_annotation_RequestMapping
+    n_petclinic_src_main_java_org_springframework_samples_petclinic_owner_OwnerRestController_java --> n_org_springframework_web_bind_annotation_RestController
+    n_petclinic_src_test_java_org_springframework_samples_petclinic_owner_OwnerRegistrationTests_java --> n_org_junit_jupiter_api_Assertions_assertEquals
+    n_petclinic_src_test_java_org_springframework_samples_petclinic_owner_OwnerRegistrationTests_java --> n_org_junit_jupiter_api_Test
+    n_tools_gen_requirements_pdf_py --> n_pathlib
+    n_tools_gen_requirements_pdf_py --> n_fpdf
+```
+
+## 핵심 흐름
+
+```mermaid
+sequenceDiagram
+    participant OwnerRestController_java
+    participant Owner_java
+    participant schema_sql
+    Note over OwnerRestController_java: addOwner (POST /owners)
+    OwnerRestController_java->>Owner_java: Owner
+    Owner_java->>schema_sql: owners table
+```
+
+## Feature → 파일
+
+- **Owner Registration** (`owner-registration`): `petclinic/src/main/java/org/springframework/samples/petclinic/owner/Owner.java`, `petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerRestController.java`, `petclinic/src/main/resources/db/schema.sql`, `petclinic/src/main/resources/openapi.yaml`, `petclinic/src/test/java/org/springframework/samples/petclinic/owner/OwnerRegistrationTests.java`, `requirements/owner-registration-spec.pdf`

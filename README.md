@@ -41,7 +41,10 @@ trace map ./demo --refresh               # 신입 온보딩 맵: 진입점·의�
 > 그래프, Feature→파일 매핑, 핵심 흐름을 근거와 함께 요약하고 Mermaid 다이어그램이 포함된
 > `.trace/knowledge/overview.md`를 남깁니다.
 
-실제 실행 전사는 [`result/hero-run.txt`](result/hero-run.txt)에 있습니다.
+실제 실행 전사는 [`result/hero-run.txt`](result/hero-run.txt)(Hero)·
+[`result/onboarding-map-run.txt`](result/onboarding-map-run.txt)(온보딩 맵)에 있고,
+시연 스크린샷은 [`screenshots/`](screenshots/)에 있습니다 — Hero(`01`~`03`, live Bedrock)와
+온보딩 맵(`04`~`05`, replay). 자세한 설명은 [`screenshots/README.md`](screenshots/README.md).
 
 ---
 

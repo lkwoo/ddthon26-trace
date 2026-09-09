@@ -29,10 +29,27 @@ replay가 아니라 **실제 Claude 호출**(Amazon Bedrock · `global.anthropic
 리전 `ap-northeast-2`)로 동일 Hero 흐름을 실행한 전사입니다. 실제 모델도 value_mismatch를
 검출하고 충돌을 인지한 Change Plan을 생성함을 보여줍니다.
 
+## `onboarding-map-run.txt` — 온보딩 맵 CLI 전사 (신규 기능, replay)
+
+낯선 프로젝트에 처음 앉은 신입 관점의 온보딩 맵 생성 전사입니다:
+
+1. `trace analyze-project ./demo --refresh` — 맵의 Feature→파일 매핑 근거가 될 지식 적재.
+2. `trace map ./demo --refresh` — **진입점**(OwnerRestController REST·엔드포인트) 검출,
+   **파일 의존 17건·함수 호출 24건** 그래프, **Feature→파일** 매핑, 근거 인용 **내러티브**
+   (telephone 값 불일치를 저신뢰로 표기), `.trace/knowledge/overview.md` 저장.
+3. `trace map ./demo` — 2회차 **캐시 재사용**(정적 추출·LLM 생략).
+
+## `overview-shot.txt` / `overview-excerpt.txt` — 생성된 overview.md
+
+`trace map` 이 저장한 온보딩 맵 파일입니다. 내러티브 + 진입점 + **임베드 Mermaid**
+(`flowchart LR` 의존 그래프 · `sequenceDiagram` 핵심 흐름) + Feature→파일 매핑을 담습니다.
+`overview-shot.txt` 는 스크린샷용 발췌, `overview-excerpt.txt` 는 전체 본문 발췌입니다.
+
 ## 시연 스크린샷 → `../screenshots/`
 
-위 live 실행의 터미널 화면을 PNG로 렌더링해 저장소 루트 `screenshots/` 에 두었습니다
-(`01-analyze-project.png`, `02-conflicts.png`, `03-analyze-task.png`). 렌더러는
+터미널 화면을 PNG로 렌더링해 저장소 루트 `screenshots/` 에 두었습니다
+(`01-analyze-project.png`, `02-conflicts.png`, `03-analyze-task.png` = live Hero,
+`04-onboarding-map.png`, `05-overview-mermaid.png` = replay 온보딩 맵). 렌더러는
 `render_screenshot.py`, 상세 설명은 `screenshots/README.md` 참조.
 
 ### Claude Code GUI 캡처(선택)

@@ -1,0 +1,42 @@
+# .trace/knowledge/overview.md — trace map 이 저장한 온보딩 맵 (발췌)
+# Mermaid 다이어그램이 그대로 임베드되어 GitHub·IDE에서 렌더된다. (전체는 overview.md)
+
+# 프로젝트 온보딩 맵
+
+Start with the REST entry point: OwnerRestController.java is a @RestController that
+exposes the Owner Registration endpoint. It builds and validates an Owner (Owner.java),
+whose fields — including telephone — map onto the persistence schema in schema.sql and the
+documented contract in openapi.yaml. As a newcomer, read OwnerRestController first, then
+Owner, then confirm the field constraints — note schema.sql and openapi.yaml disagree on
+telephone length, so treat that constraint as low-confidence until confirmed.
+
+## 진입점
+- OwnerRestController (owner/OwnerRestController.java) — rest_controller
+- PostMapping (owner/OwnerRestController.java) — rest_endpoint
+- RequestMapping "/api/owners" (owner/OwnerRestController.java) — rest_endpoint
+
+## 의존 관계  (flowchart LR · 노드 27 / 의존 17 — 전체는 overview.md)
+```mermaid
+flowchart LR
+    Owner --> jakarta.persistence.Entity
+    Owner --> jakarta.validation.constraints.Size
+    OwnerRestController --> Owner
+    OwnerRestController --> org.springframework.web.bind.annotation.PostMapping
+    OwnerRegistrationTests --> org.junit.jupiter.api.Test
+```
+
+## 핵심 흐름
+```mermaid
+sequenceDiagram
+    participant OwnerRestController_java
+    participant Owner_java
+    participant schema_sql
+    Note over OwnerRestController_java: addOwner (POST /owners)
+    OwnerRestController_java->>Owner_java: Owner
+    Owner_java->>schema_sql: owners table
+```
+
+## Feature → 파일
+- Owner Registration (owner-registration): 6개 파일
+    Owner.java, OwnerRestController.java, schema.sql, openapi.yaml,
+    OwnerRegistrationTests.java, owner-registration-spec.pdf

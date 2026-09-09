@@ -1,0 +1,45 @@
+# TRACE 온보딩 맵 — 실제 CLI 실행 전사 (replay 백엔드, API 키 불필요)
+# 생성: 2026-09-09T02:29:14Z / demo/ 데이터셋(Spring Petclinic REST + 합성 충돌)
+# 재현: TRACE_LLM_BACKEND=replay TRACE_REPLAY_DIR=<repo>/demo/replay trace map <repo>/demo --refresh
+
+# 1) 먼저 프로젝트를 분석해 Feature 지식을 적재한다(맵의 Feature→파일 매핑 근거).
+$ trace analyze-project ./demo --refresh
+2026-09-09 11:29:14,500 [INFO] trace.llm: replay step: identify_features
+2026-09-09 11:29:14,500 [INFO] trace.workflow: Feature 검출: 1개
+2026-09-09 11:29:14,501 [INFO] trace.llm: replay step: generate_knowledge.owner-registration
+2026-09-09 11:29:14,501 [INFO] trace.llm: replay step: extract_claims.owner-registration
+2026-09-09 11:29:14,501 [INFO] trace.workflow: Claim 추출: owner-registration → 4개
+2026-09-09 11:29:14,501 [INFO] trace.conflict: 보강 owner-registration: claim 4, conflict 1
+2026-09-09 11:29:14,508 [INFO] trace.knowledge: 지식 저장: /tmp/trace-map-shot/.trace/knowledge/features/owner-registration.md
+  • owner-registration — Owner Registration (신뢰도 LOW) ⚠️ 충돌 1건
+'./demo' 분석 완료: Feature 1개, 충돌 1건, 자산 13개
+
+# 2) 온보딩 맵 생성: 진입점 · 파일 의존/함수 호출 그래프 · Feature→파일 · 내러티브.
+$ trace map ./demo --refresh
+2026-09-09 11:29:14,944 [INFO] trace.llm: replay step: describe_relations
+2026-09-09 11:29:14,991 [INFO] trace.map.overview: 온보딩 맵 저장: /tmp/trace-map-shot/.trace/knowledge/overview.md
+2026-09-09 11:29:14,992 [INFO] trace.map: 온보딩 맵 생성: 진입점 4, 노드 13, 의존 17, 호출 24
+  [진입점]
+    - OwnerRestController (petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerRestController.java) — rest_controller
+    - PostMapping (petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerRestController.java) — rest_endpoint
+    - RequestMapping "/api/owners" (petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerRestController.java) — rest_endpoint
+    - __main__ (tools/gen_requirements_pdf.py) — main
+  [Feature → 파일]
+    - Owner Registration: 6개 파일
+  [관계] 파일 13개, 의존 17건, 호출 24건
+  [저장] /tmp/trace-map-shot/.trace/knowledge/overview.md
+Start with the REST entry point: `petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerRestController.java` is a @RestController that exposes the Owner Registration endpoint. It builds and validates an `Owner` (`owner/Owner.java`), whose fields — including `telephone` — map onto the persistence schema in `resources/db/schema.sql` and the documented contract in `resources/openapi.yaml`. `owner/OwnerRegistrationTests.java` exercises this flow end to end. As a newcomer, read OwnerRestController first, then Owner, then confirm the field constraints against schema.sql and openapi.yaml — note these two sources disagree on telephone length, so treat that constraint as low-confidence until confirmed.
+
+# 3) 2회차: overview.md 캐시 재사용(refresh 없음) — 정적 추출·LLM 생략.
+$ trace map ./demo
+2026-09-09 11:29:15,152 [INFO] trace.map: 캐시된 온보딩 맵 재사용: /tmp/trace-map-shot/.trace/knowledge/overview.md
+  [진입점]
+    - OwnerRestController (petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerRestController.java) — rest_controller
+    - PostMapping (petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerRestController.java) — rest_endpoint
+    - RequestMapping "/api/owners" (petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerRestController.java) — rest_endpoint
+    - __main__ (tools/gen_requirements_pdf.py) — main
+  [Feature → 파일]
+    - Owner Registration: 6개 파일
+  [관계] 파일 13개, 의존 17건, 호출 24건
+  [저장] /tmp/trace-map-shot/.trace/knowledge/overview.md
+Start with the REST entry point: `petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerRestController.java` is a @RestController that exposes the Owner Registration endpoint. It builds and validates an `Owner` (`owner/Owner.java`), whose fields — including `telephone` — map onto the persistence schema in `resources/db/schema.sql` and the documented contract in `resources/openapi.yaml`. `owner/OwnerRegistrationTests.java` exercises this flow end to end. As a newcomer, read OwnerRestController first, then Owner, then confirm the field constraints against schema.sql and openapi.yaml — note these two sources disagree on telephone length, so treat that constraint as low-confidence until confirmed.
