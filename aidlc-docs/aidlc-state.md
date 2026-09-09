@@ -63,8 +63,8 @@
 
 ### 🟢 CONSTRUCTION PHASE (per-unit loop)
 - [ ] Functional Design — EXECUTE (per-unit) — ✅ UOW-0F, ✅ UOW-00, ✅ UOW-01, ✅ UOW-02 / 🔄 UOW-03 진행
-- [ ] NFR Requirements — EXECUTE (per-unit) — ✅ UOW-0F 완료, ✅ UOW-00 완료(2026-09-09 승인)
-- [ ] NFR Design — EXECUTE (per-unit) — ✅ UOW-0F / UOW-00 SKIP / ✅ UOW-01 / ✅ UOW-02 완료(2026-09-09)
+- [ ] NFR Requirements — EXECUTE (per-unit) — ✅ UOW-0F 완료, ✅ UOW-00 완료 / ✅ UOW-03 완료(2026-09-09 승인)
+- [ ] NFR Design — EXECUTE (per-unit) — ✅ UOW-0F / UOW-00 SKIP / ✅ UOW-01 / ✅ UOW-02 완료 / ✅ UOW-03 산출물 생성(2026-09-09, GATE)
 - [ ] Infrastructure Design — SKIP
 - [ ] Code Generation — EXECUTE (per-unit) — ✅ UOW-0F 완료·승인(2026-09-09, 31 tests pass) / 🔄 UOW-00~06 진행
 - [ ] Build and Test — EXECUTE
@@ -74,9 +74,9 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: NFR Requirements — UOW-03 (Claims/Evidence/Conflict), 산출물 생성 완료 — 승인 대기 (GATE)
-- **Next Stage**: UOW-03 NFR Requirements 승인 → NFR Design(UOW-03) → Code Generation
-- **Status(NFR)**: 모두 권장(Q1=A,B,C,D/Q2=A/Q3=A). PBT 4속성(검출 건전성·결정성·유형분류 전결정성·Confidence 정합), FakeLLM+llm_integration 옵트인, 발췌 4000 상속. 확장 Resiliency·PBT Compliant. 신규 런타임 의존성 없음.
+- **Current Stage**: NFR Design — UOW-03 (Claims/Evidence/Conflict), 산출물 생성 완료 — 승인 대기 (GATE)
+- **Next Stage**: UOW-03 NFR Design 승인 → Code Generation(UOW-03)
+- **Status(NFR-Design UOW-03)**: nfr-design-patterns(P1 원자추출·P2 Feature격리강등·P3 비-LLM 결정적 코어[구조적 충돌비교]·P4 유형분류 국소화+value_mismatch 폴백·P5 완본화·캐시-완본 스테이지·P6 조회·P7 프롬프트·P8 테스트 5종·P9 결정성/보안), logical-components(models/extraction·workflow/claims·conflict/{detect,summarize}·engine/analyze·프롬프트·테스트). ConflictType 2개 추가(하위호환), 신규 런타임 의존성 없음. 확장 Resiliency·PBT Compliant.
 - **Status(코드)**: UOW-02 코드 생성 완료 — models/feature_candidate + knowledge/{ids,store,cache} + workflow/{catalog,features} + 프롬프트 2종. `pytest` 90 passed·1 skipped(옵트인 llm_integration), 신규 모듈 mypy-clean. FakeLLM 실증: demo/ 식별→지식셸 저장, 2회차 캐시 히트(LLM 0콜). Q2=A 셸(claims/evidence/conflicts=[], UOW-03 보강). build_knowledge가 前반부 재사용 단위.
 - **Status(NFR)**: NFR Design 완료 — nfr-design-patterns(P1 카탈로그·P2 구조화 LLM 강등·P3 id 안전화·P4 저장소·P5 콘텐츠해시 캐시·P6 build_knowledge·P7 프롬프트·P8 테스트 배치·P9 결정성/보안), logical-components(models/feature_candidate·workflow/{catalog,features}·knowledge/{ids,store,cache}·프롬프트 2종·테스트 5종·llm_integration 마커). 신규 런타임 의존성 없음.
 - **Status**: UOW-02 Functional Design 완료 — Q1=B(식별상한)/Q2=A(지식 셸)/Q3=A(자산 카탈로그)/Q4=A(콘텐츠해시 캐시)/Q5=A(.trace 프로젝트 루트). 산출물 3종: FeatureCandidate·저장소(KnowledgeStore)·캐시(compute_assets_hash/AnalysisCache) 계약, BR-IDF/KN/STORE/CACHE/FAIL/DET/SEC 규칙, workflow/·knowledge/ 배치·식별/지식/캐시 알고리즘. Claim/Evidence/Conflict는 UOW-03.
