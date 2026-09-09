@@ -316,3 +316,10 @@
 **AI Response**: 계획 체크박스 S1~S8 [x]. 산출물 3종: domain-entities.md(FeatureCandidate/List·AssetCatalog·CacheEntry 신규모델 + KnowledgeStore[save/load/list_feature_summaries/read_resource] + AnalysisCache/compute_assets_hash + workflow/features 시그니처), business-rules.md(BR-IDF 식별/BR-KN 지식셸/BR-STORE 저장/BR-CACHE 캐시/BR-FAIL 부분실패/BR-DET/BR-SEC), business-logic-model.md(workflow·knowledge 배치·식별/지식셸/캐시 오케스트레이션 build_knowledge·demo 기대·DoD·테스트 전략). 단위 경계: 식별+지식 셸+캐시(UOW-02), Claim/Evidence/Conflict는 UOW-03.
 **Status**: 승인 대기 (GATE)
 **Context**: CONSTRUCTION - Functional Design(UOW-02) 산출물 생성 완료
+
+## Functional Design (UOW-02) GATE 승인 & NFR Requirements 착수
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인"
+**AI Response**: UOW-02 Functional Design 승인 → NFR Requirements(UOW-02) 착수. uow-02-nfr-requirements-plan.md 작성(S1~S7 + Q1~Q4). 질문: Q1 LLM 입력 상한(발췌 1200자·max_features=12), Q2 PBT 대상(id 안전화·캐시 해시 안정성·발췌 상한·저장 round-trip, 복수선택), Q3 LLM 테스트 정책(FakeLLM 오프라인), Q4 캐시 손상 처리.
+**Status**: 승인 대기 (GATE, 계획+질문)
+**Context**: CONSTRUCTION - NFR Requirements(UOW-02) 계획 작성 완료

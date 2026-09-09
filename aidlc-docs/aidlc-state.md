@@ -74,6 +74,6 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: Functional Design — UOW-02 (Feature & Knowledge), 산출물 생성 완료 — 승인 대기 (GATE)
-- **Next Stage**: UOW-02 Functional Design 승인 → NFR Requirements(UOW-02) → NFR Design → Code Generation
+- **Current Stage**: NFR Requirements — UOW-02 (Feature & Knowledge), 계획·질문 작성 중
+- **Next Stage**: UOW-02 NFR Requirements 승인 → NFR Design(UOW-02) → Code Generation
 - **Status**: UOW-02 Functional Design 완료 — Q1=B(식별상한)/Q2=A(지식 셸)/Q3=A(자산 카탈로그)/Q4=A(콘텐츠해시 캐시)/Q5=A(.trace 프로젝트 루트). 산출물 3종: FeatureCandidate·저장소(KnowledgeStore)·캐시(compute_assets_hash/AnalysisCache) 계약, BR-IDF/KN/STORE/CACHE/FAIL/DET/SEC 규칙, workflow/·knowledge/ 배치·식별/지식/캐시 알고리즘. Claim/Evidence/Conflict는 UOW-03.
