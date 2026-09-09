@@ -64,7 +64,7 @@
 ### 🟢 CONSTRUCTION PHASE (per-unit loop)
 - [ ] Functional Design — EXECUTE (per-unit) — ✅ UOW-0F/00/01/02/03 / ✅ UOW-04 산출물 생성(2026-09-09, GATE)
 - [ ] NFR Requirements — EXECUTE (per-unit) — ✅ UOW-0F/00/01/02/03/04 완료 / ✅ UOW-05 산출물 생성(2026-09-09, GATE)
-- [ ] NFR Design — EXECUTE (per-unit) — ✅ UOW-0F / UOW-00 SKIP / ✅ UOW-01/02/03 완료 / ✅ UOW-04 산출물 생성(2026-09-09, GATE)
+- [ ] NFR Design — EXECUTE (per-unit) — ✅ UOW-0F / UOW-00 SKIP / ✅ UOW-01/02/03/04 완료 / ✅ UOW-05 산출물 생성(2026-09-09, GATE)
 - [ ] Infrastructure Design — SKIP
 - [ ] Code Generation — EXECUTE (per-unit) — ✅ UOW-0F/00/01/02/03 완료 / ✅ UOW-04 완료·승인대기(2026-09-09, 131 pass·3 skip) / 🔄 UOW-05~06 진행
 - [ ] Build and Test — EXECUTE
@@ -74,8 +74,9 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: NFR Requirements — UOW-05 (MCP 서버), 산출물 생성 완료 — 승인 대기 (GATE). (FD SKIP)
-- **Next Stage**: UOW-05 NFR Requirements 승인 → NFR Design → Code Generation
+- **Current Stage**: NFR Design — UOW-05 (MCP 서버), 산출물 생성 완료 — 승인 대기 (GATE). (FD SKIP)
+- **Next Stage**: UOW-05 NFR Design 승인 → Code Generation(UOW-05)
+- **Status(NFR-Design UOW-05)**: build_server 팩토리+데코레이터·얇은 핸들러 오류 격리·_root(cwd/env)·serialize_result 핵심우선·코어 래퍼 list_features/get_feature_knowledge·trace:// 리소스·P1 프롬프트. mcp_server/{__main__,server,serialize}, pyproject mcp>=2.0, mcp 지연임포트. 확장 Resiliency Compliant·PBT N/A.
 - **Status(NFR UOW-05)**: Q1~Q4=A. mcp>=2.0 상향(설치 2.x MCPServer), 5도구=코어 1:1(타입힌트 스키마)·stdio·cwd+TRACE_PROJECT_ROOT·오류 격리 무크래시·직렬화 핵심우선·trace:// 리소스·P1 프롬프트. 코어 래퍼 list_features/get_feature_knowledge 추가 예정. mcp 지연임포트. 확장 Resiliency Compliant·PBT N/A.
 - **Status(코드 UOW-04)**: models/impact + impact/{context,analyze} + engine.analyze_task_impact + analyze_task 프롬프트. pytest 131 pass·3 skip(옵트인), 신규 mypy-clean. 지식 그라운딩·허구 path/근거부족 review 강등·기존 conflicts related_conflicts 노출(LLM 실패에도 유지)·순서형 Change Plan·소스 자동수정 없음. to_impact_out 정렬 완전 순서화(PBT-04-C). 코어 5함수 중 analyze_project/get_conflicts/analyze_task_impact 완비(scan_project·list_features 잔여는 UOW-05 배선).
 - **Status(NFR-Design UOW-04)**: nfr-design-patterns(P1 컨텍스트/랭킹·P2 LLM step 상위강등·P3 매핑/강등 순수함수·P4 충돌 독립노출·P5 조립·P6 프롬프트·P7 테스트 5종·P8 결정성/보안), logical-components(models/impact·impact/{context,analyze}·engine analyze_task_impact). 신규 의존성 없음. 확장 Resiliency·PBT Compliant.

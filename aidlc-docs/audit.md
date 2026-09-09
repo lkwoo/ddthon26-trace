@@ -470,3 +470,17 @@
 **AI Response**: 계획 S1~S8 [x]. 산출물 2종: nfr-requirements.md(IF 5도구 1:1·타입힌트 스키마, RUN stdio·cwd+TRACE_PROJECT_ROOT, REL 도구 오류 격리 무크래시, UX 직렬화 핵심우선 순서, SEC 로컬 stdio·trace:// 리소스, TST 오프라인·mcp 지연임포트, 확장 Resiliency Compliant·PBT N/A), tech-stack-decisions.md(mcp>=2.0 상향[설치 2.x MCPServer], 코어 래퍼 list_features/get_feature_knowledge, serialize_result, mcp_server/ 배치). 승인 대기(GATE).
 **Status**: 승인 대기 (GATE)
 **Context**: CONSTRUCTION - NFR Requirements(UOW-05) 산출물 생성 완료
+
+## NFR Requirements (UOW-05) GATE 승인 & NFR Design 착수/생성
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인"
+**AI Response**: UOW-05 NFR Requirements 승인 → NFR Design(UOW-05) 착수. 추가 질문 없음(패턴 일의적 도출). uow-05-nfr-design-plan.md(S1~S6 [x]) + 산출물 2종 생성.
+**Status**: 산출물 생성 진행
+**Context**: CONSTRUCTION - NFR Design(UOW-05) 착수
+
+## NFR Design (UOW-05) — 산출물 생성
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: (승인 연속 — 추가 질문 없음)
+**AI Response**: 계획 S1~S6 [x]. 산출물 2종: nfr-design-patterns.md(P1 build_server 팩토리·데코레이터·P2 얇은 핸들러+오류 격리·_root()·P3 serialize_result 핵심우선·P4 코어 래퍼·P5 리소스/프롬프트·P6 테스트 3종·P7 결정성/보안·P8 컴플라이언스), logical-components.md(mcp_server/{__main__,server,serialize}·engine list_features/get_feature_knowledge·pyproject mcp>=2.0·mcp 지연임포트). 승인 대기(GATE).
+**Status**: 승인 대기 (GATE)
+**Context**: CONSTRUCTION - NFR Design(UOW-05) 산출물 생성 완료
