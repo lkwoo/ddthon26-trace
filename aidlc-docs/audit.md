@@ -428,3 +428,17 @@
 **AI Response**: 계획 체크박스 S1~S7 [x]. 산출물 2종: nfr-requirements.md(COST 1회호출·발췌4000·focus N=3, PERF 순수·저장지식 재사용, REL LLM/지식부재/손상 강등·충돌 독립노출, SEC known_sources 화이트리스트, TST, PBT-04-A~D[매핑 건전성·근거부족 강등·정렬 결정성·related_conflicts 정합], 확장 Compliant), tech-stack-decisions.md(UOW-0F/02/03 상속·impact 모듈·중간스키마·focus N=3·신규 의존성 없음). 승인 대기(GATE).
 **Status**: 승인 대기 (GATE)
 **Context**: CONSTRUCTION - NFR Requirements(UOW-04) 산출물 생성 완료
+
+## NFR Requirements (UOW-04) GATE 승인 & NFR Design 착수
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인"
+**AI Response**: UOW-04 NFR Requirements 승인 → NFR Design(UOW-04) 착수. 추가 질문 없음(패턴이 앞 단계 결정에서 일의적 도출 — UOW-02/03과 동일). uow-04-nfr-design-plan.md 작성(S1~S7 [x]) + 산출물 2종 생성.
+**Status**: 산출물 생성 진행
+**Context**: CONSTRUCTION - NFR Design(UOW-04) 착수
+
+## NFR Design (UOW-04) — 산출물 생성
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: (승인 연속 — 추가 질문 없음)
+**AI Response**: 계획 S1~S7 [x]. 산출물 2종: nfr-design-patterns.md(P1 컨텍스트 조립+관련도 랭킹·P2 LLM step 상위강등·P3 매핑/강등 순수함수·P4 충돌 독립노출·P5 조립·P6 프롬프트·P7 테스트 5종·P8 결정성/보안·P9 컴플라이언스), logical-components.md(models/impact·impact/{context,analyze}·engine analyze_task_impact·프롬프트·테스트). 신규 런타임 의존성 없음.
+**Status**: 승인 대기 (GATE)
+**Context**: CONSTRUCTION - NFR Design(UOW-04) 산출물 생성 완료
