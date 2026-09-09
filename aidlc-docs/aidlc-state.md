@@ -4,7 +4,7 @@
 - **Project Name**: TRACE — 개발자 지식 인텔리전스 (작업명)
 - **Project Type**: Greenfield
 - **Start Date**: 2026-09-08T00:00:00Z
-- **Current Stage**: CONSTRUCTION - Functional Design (UOW-0F)
+- **Current Stage**: CONSTRUCTION - Functional Design (UOW-00 데모 데이터셋)
 
 ## Workspace State
 - **Existing Code**: No
@@ -66,7 +66,7 @@
 - [ ] NFR Requirements — EXECUTE (per-unit) — ✅ UOW-0F 완료(2026-09-09 승인)
 - [ ] NFR Design — EXECUTE (per-unit) — ✅ UOW-0F 완료(2026-09-09 승인)
 - [ ] Infrastructure Design — SKIP
-- [ ] Code Generation — EXECUTE (per-unit) — 🔄 UOW-0F 완료(31 tests pass), 승인 대기 / 이후 UOW-00~06
+- [ ] Code Generation — EXECUTE (per-unit) — ✅ UOW-0F 완료·승인(2026-09-09, 31 tests pass) / 🔄 UOW-00~06 진행
 - [ ] Build and Test — EXECUTE
 
 ### 🟡 OPERATIONS PHASE
@@ -74,6 +74,6 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: Code Generation — UOW-0F (Foundation), Part 2 완료 — 승인 대기 (GATE)
-- **Next Stage**: UOW-00(데모 데이터셋) per-unit 루프 (Functional Design부터, 3 페르소나 재현)
-- **Status**: UOW-0F 코드 생성 완료 — trace/(models·common·config·prompts·llm) + tests/ + pyproject·README·.gitignore·.env.example. `pytest` 31 passed(Python 3.11.9, .venv). 테스트가 잡은 버그 2건(get_prompt 인자충돌·직렬화 멱등) 수정. 승인 대기 중.
+- **Current Stage**: Functional Design — UOW-00 (데모 데이터셋), 계획·질문 작성 중
+- **Next Stage**: UOW-00 Functional Design 승인 → (NFR N/A 판단) → UOW-00 Code Generation(픽스처 생성)
+- **Status**: UOW-0F 코드 생성 완료·승인(31 tests pass). UOW-00 착수 — 3 페르소나(P1 데브·P2 마이라·P3 피엠) 흐름을 모두 재현하는 하이브리드 픽스처(Petclinic 발췌 + 합성 PDF + 의도적 value_mismatch) 설계 진행.
