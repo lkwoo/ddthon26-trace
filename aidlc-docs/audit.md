@@ -365,3 +365,10 @@
 **AI Response**: 계획 체크박스 S1~S8 [x]. 산출물 3종: domain-entities.md(ConflictType += STALE_KNOWLEDGE/POLICY_CONFLICT, extraction.py 중간모델 ExtractedClaim/ClaimExtractionResult, 코어 계약 extract_claims/assign_confidence/detect_conflicts/get_conflicts/analyze_project), business-rules.md(BR-CLAIM 원자/BR-EVID/BR-CONF 근거일치 규칙/BR-CONFLICT 결정적 검출+3유형 분류 순서/BR-OUT/BR-PIPE/BR-DET/BR-SEC), business-logic-model.md(conflict/·workflow/claims·engine/analyze 배치, 추출→confidence→detect→enrich→analyze_project 알고리즘, demo 3충돌 Ground Truth 매핑, 순수함수 PBT 전략). 충돌 존재는 결정적 구조 비교(RAG 차별점).
 **Status**: 승인 대기 (GATE)
 **Context**: CONSTRUCTION - Functional Design(UOW-03) 산출물 생성 완료
+
+## Functional Design (UOW-03) GATE 승인 & NFR Requirements 착수
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인"
+**AI Response**: UOW-03 Functional Design 승인 → NFR Requirements(UOW-03) 착수. uow-03-nfr-requirements-plan.md 작성(S1~S7 + Q1~Q3). 질문: Q1 PBT 대상(충돌 검출 건전성/결정성 멱등/유형분류 전결정성/Confidence 규칙 정합, 복수선택), Q2 LLM 테스트 정책(FakeLLM+llm_integration 상속), Q3 추출 입력 상한(UOW-02 4000 상속).
+**Status**: 승인 대기 (GATE, 계획+질문)
+**Context**: CONSTRUCTION - NFR Requirements(UOW-03) 계획 작성 완료

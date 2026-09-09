@@ -74,8 +74,8 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: Functional Design — UOW-03 (Claims/Evidence/Conflict), 산출물 생성 완료 — 승인 대기 (GATE)
-- **Next Stage**: UOW-03 Functional Design 승인 → NFR Requirements(UOW-03) → NFR Design → Code Generation
+- **Current Stage**: NFR Requirements — UOW-03 (Claims/Evidence/Conflict), 계획·질문 작성 중
+- **Next Stage**: UOW-03 NFR Requirements 승인 → NFR Design(UOW-03) → Code Generation
 - **Status(FD)**: 모두 권장(Q1~Q5=A). ConflictType 확장(value_mismatch+stale_knowledge+policy_conflict), 결정적 detect_conflicts(RAG 차별점), Feature당 1회 추출(ExtractedClaim), 근거 일치도 Confidence(비-LLM), analyze_project 완성. 산출물 3종: extraction 중간모델·conflict 분류규칙·enrich/analyze_project 알고리즘. demo 3충돌 매핑(C-1 value_mismatch/C-2 stale_knowledge/C-3 policy_conflict).
 - **Status(코드)**: UOW-02 코드 생성 완료 — models/feature_candidate + knowledge/{ids,store,cache} + workflow/{catalog,features} + 프롬프트 2종. `pytest` 90 passed·1 skipped(옵트인 llm_integration), 신규 모듈 mypy-clean. FakeLLM 실증: demo/ 식별→지식셸 저장, 2회차 캐시 히트(LLM 0콜). Q2=A 셸(claims/evidence/conflicts=[], UOW-03 보강). build_knowledge가 前반부 재사용 단위.
 - **Status(NFR)**: NFR Design 완료 — nfr-design-patterns(P1 카탈로그·P2 구조화 LLM 강등·P3 id 안전화·P4 저장소·P5 콘텐츠해시 캐시·P6 build_knowledge·P7 프롬프트·P8 테스트 배치·P9 결정성/보안), logical-components(models/feature_candidate·workflow/{catalog,features}·knowledge/{ids,store,cache}·프롬프트 2종·테스트 5종·llm_integration 마커). 신규 런타임 의존성 없음.
