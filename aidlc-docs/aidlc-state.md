@@ -66,7 +66,7 @@
 - [ ] NFR Requirements — EXECUTE (per-unit) — ✅ UOW-0F 완료(2026-09-09 승인)
 - [ ] NFR Design — EXECUTE (per-unit) — ✅ UOW-0F 완료(2026-09-09 승인)
 - [ ] Infrastructure Design — SKIP
-- [ ] Code Generation — EXECUTE (per-unit) — 🔄 UOW-0F Part 1(계획) 작성, 승인 대기
+- [ ] Code Generation — EXECUTE (per-unit) — 🔄 UOW-0F Part 1 승인, Part 2(생성) 진행 중
 - [ ] Build and Test — EXECUTE
 
 ### 🟡 OPERATIONS PHASE
@@ -74,6 +74,6 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: Code Generation — UOW-0F (Foundation), Part 1(계획) 작성 완료 — 승인 대기 (GATE)
-- **Next Stage**: (UOW-0F) Code Generation Part 2(생성) → 이후 UOW-00 per-unit 루프
-- **Status**: UOW-0F NFR Design 승인 완료. Code Generation Part 1 착수 — uow-0f-code-generation-plan.md 작성(trace/ Foundation 코드+테스트 생성 단계). Infrastructure Design SKIP. 계획 승인 대기 중.
+- **Current Stage**: Code Generation — UOW-0F (Foundation), Part 1 승인 → Part 2(생성) 진행 중
+- **Next Stage**: (UOW-0F) 코드 완료 → UOW-00 per-unit 루프
+- **Status**: UOW-0F Code Gen 계획 승인. Part 2 실행 중(Step 1~10: pyproject·common·models·config·prompts·llm·tests). 부가 결정(2026-09-09): 평가자용 페르소나 사용 여정 = UOW-06 산출물, 데모=3 페르소나 전부 재현(UOW-00 반영).

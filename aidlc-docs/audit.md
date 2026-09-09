@@ -195,3 +195,11 @@
 **Context**: CONSTRUCTION - Code Generation(UOW-0F) Part 1 계획 작성 완료
 
 ---
+
+## Code Generation (UOW-0F) Part 1 — 계획 승인 & 평가자용 사용 여정 방향 결정
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "응 좋아. 그리고 완성 후에 각 user의 입장에서 TRACE를 사용하는 과정을 정리해서 평가자들에게 누가, 언제, 어떻게 사용하고 어떤 이점이 있는지를 보여주고 싶어. 그러기 위해 수정이 필요한 부분이 있을까?" + (질문 답변) "데모 범위=3 페르소나 전부 재현"
+**AI Response**: UOW-0F 코드생성 계획 승인 처리. 평가자용 '페르소나별 사용 여정' 문서를 UOW-06 산출물로 등록. 데모 범위 결정=3 페르소나(P1 데브·P2 마이라·P3 피엠) 전부 재현 → UOW-00 데이터셋이 세 흐름 모두 지원하도록, UOW-06이 각 흐름 실제 스크린샷 포함 walkthrough 생성. UOW-0F Part 2(코드 생성) 착수.
+**Context**: CONSTRUCTION - Code Generation(UOW-0F) Part 1 GATE 승인 + 데모/시연 범위 결정 → Part 2 실행
+
+---
