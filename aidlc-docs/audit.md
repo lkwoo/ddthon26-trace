@@ -512,3 +512,17 @@
 **AI Response**: Part 1 승인 → Part 2 실행. 생성: trace/cli/{__init__,__main__}(C9 폴백 CLI), demo/run_demo.py(결정적 Hero 하니스), tests/test_hero_e2e.py, README.md 갱신, result/{usage-walkthrough.md,hero-demo-output.txt,README.md}, .env.example 갱신. 계획 C1~C9/V1~V4 전부 [x]. 결과: pytest 145 pass·3 skip. run_demo.py 무키 실행으로 3충돌(value_mismatch·policy_conflict·stale_knowledge)+영향+Change Plan 결정적 재현, 출력을 result/hero-demo-output.txt로 저장. 보안 위생 grep(하드코딩 시크릿 없음). 스크린샷 한계 정직 고지(GUI는 키+Claude Code 필요 → CLI 실행증거+캡처가이드 대체). Windows UTF-8 reconfigure. code-summary.md 작성. 승인 대기(GATE).
 **Status**: 승인 대기 (GATE)
 **Context**: CONSTRUCTION - Code Generation(UOW-06) Part 2 구현 완료 (per-unit loop 전체 완료)
+
+## Code Generation (UOW-06) GATE 승인 & Build and Test 착수
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "응 다음 단계 가자"
+**AI Response**: UOW-06 Code Generation 승인 → per-unit loop 전체 완료. Build and Test(ALWAYS) 착수. build-and-test/ 하위에 빌드·단위·통합·성능·요약 지침 문서 생성.
+**Status**: 진행
+**Context**: CONSTRUCTION - Build and Test 착수
+
+## Build and Test — 지침 문서 생성
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: (UOW-06 승인 연속)
+**AI Response**: build-and-test/ 하위 5종 생성: build-instructions(환경·의존성·엔트리포인트·스모크), unit-test-instructions(단위·PBT 16속성·mypy·유닛↔테스트 맵), integration-test-instructions(Hero E2E·데모 하니스·MCP·CLI·옵트인 실API), performance-test-instructions(LLM 호출 최소화·캐시·순수함수), build-and-test-summary(검증 상태·알려진 한계). 현재 pytest 145 pass·3 skip. 승인 대기(GATE: Operations 진행 여부).
+**Status**: 승인 대기 (GATE)
+**Context**: CONSTRUCTION - Build and Test 지침 생성 완료
