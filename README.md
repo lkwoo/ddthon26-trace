@@ -1,4 +1,4 @@
-# TRACE — 개발자 지식 인텔리전스
+# TRACE — Technical Relationship & Analysis for Change Evidence
 
 > 흩어진 프로젝트 산출물(요구사항·OpenAPI·소스·DB·설정·테스트·문서)을 **기능 단위 지식**으로 재구성하고,
 > 문서와 구현이 **어긋난 지점(충돌)을 근거와 함께** 드러내는 **로컬 MCP 서버**입니다.
