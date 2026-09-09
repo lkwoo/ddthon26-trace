@@ -248,3 +248,11 @@
 **Context**: INCEPTION - User Stories 완료(증분: 온보딩 맵). FR-MAP-* 요구사항이 US-07.1~5 AC에 1:1 추적 반영(앞 단계→뒤 단계 연결). 다음 Application Design(신규 컴포넌트/메서드/의존성).
 
 ---
+
+## Increment 2 온보딩 맵 — Application Design 완료
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인. 계속해줘."
+**AI Response**: Application Design 실행(신규 컴포넌트 필요 → EXECUTE). 정착 결정(Q1~Q5) 재사용. 신규 컴포넌트 C10 `map/` 설계: 진입점 식별·정적 관계추출(Java/Python import·호출, 그 외 LLM 폴백=FR-MAP-004)·Feature→파일 매핑(C4 재사용)·핵심 경로 함수 호출관계(하이브리드=FR-MAP-002)·Mermaid 렌더(flowchart+sequenceDiagram=FR-MAP-005)·온보딩 내러티브·overview.md 영속화(FR-MAP-006). 코어함수 generate_onboarding_map은 C2 engine 오케스트레이션(어댑터 C1/C9는 코어함수만 호출, NFR-CORE-001 유지), C3 신규 step describe_relations(근거·LOW표기=FR-MAP-007/NFR-AI-003), C8 onboarding_map.md 프롬프트. onboarding-map-design.md(설계결정 M1~M6·컴포넌트·메서드·데이터모델·데이터흐름·의존성·NFR/PBT 컴플라이언스·Construction 이연) 신규 작성. components.md(C10)·component-methods.md(시그니처)·component-dependency.md(C10 의존, 순환없음)·application-design.md(요약표)·unit-of-work.md(UOW-07·코드레이아웃 map/·검증 27스토리) 증분 반영. 순환 의존 없음(C7/C8←C4←C10←C2←C1/C9). aidlc-state.md Application Design [x], 다음 Units Generation(minimal, 단일 UOW-07).
+**Context**: INCEPTION - Application Design 완료(증분: 온보딩 맵). US-07.1~5 및 FR-MAP-001~007이 C10 메서드/데이터흐름에 1:1 반영(앞 단계→뒤 단계 연결). 다음 Units Generation.
+
+---

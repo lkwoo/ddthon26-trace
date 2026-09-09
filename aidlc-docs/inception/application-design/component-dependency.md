@@ -22,6 +22,11 @@
 - 순환 의존 없음. C7(config)·C8(prompts)은 잎(leaf). C4(knowledge)는 C5·C6·C3가 공유하는 모델 허브.
 - 어댑터(C1, C9)는 서비스/코어 함수에만 의존하고 C3(AI)에 직접 의존하지 않음 → 코어/인터페이스 분리(NFR-CORE-001).
 
+**Increment 2 (C10 map) 추가 의존** *(상세: `onboarding-map-design.md` §6)*:
+- **C10 map** → C4(knowledge), C3(workflow), C8(prompts), C7(config).
+- **C2 engine** → **+C10** (코어함수 `generate_onboarding_map` 오케스트레이션). C1/C9는 코어함수만 호출(변화 없음).
+- 위상 `C7/C8 ← C4 ← C10 ← C2 ← C1/C9`, `C2→C10→C3`(기존 C2→C3와 동형) — **순환 없음** 유지.
+
 ## 통신 패턴
 - **동기 함수 호출**(in-process, 로컬). 원격/네트워크 없음(NFR-LOCAL-001, stdio 전송은 C1↔클라이언트 경계에서만).
 - LLM 접근은 C3 내부 LLMService로 캡슐화(단일 창구). 시크릿은 C7 통해 환경변수로만(NFR-SEC-001).

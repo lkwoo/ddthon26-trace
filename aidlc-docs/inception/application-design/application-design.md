@@ -2,7 +2,7 @@
 
 **단계**: INCEPTION / Application Design
 **작성일**: 2026-09-08
-**상세 문서**: `components.md` · `component-methods.md` · `services.md` · `component-dependency.md`
+**상세 문서**: `components.md` · `component-methods.md` · `services.md` · `component-dependency.md` · **`onboarding-map-design.md`**(Increment 2)
 
 ---
 
@@ -33,6 +33,7 @@ TRACE는 **로컬 stdio MCP 서버**로, 흩어진 개발 자산을 기능 중�
 | C8 | `prompts/` | 프롬프트 템플릿(코드 분리) | UOW-02,03,04 |
 | C9 | `cli/` | 폴백 CLI(얇은 어댑터) | UOW-06 |
 | (data) | `demo/` | 데모 데이터셋·픽스처 | UOW-00 |
+| **C10** *(Inc.2)* | `map/` | **온보딩 맵 빌더**(관계 추출·Mermaid·내러티브·overview.md) | **UOW-07** |
 
 ## 3. 서비스 (오케스트레이션)
 - **S1 AnalysisService** = `analyze_project` 순차 파이프라인 (스캔→파싱→Feature→Claim/Evidence→Confidence→Conflict→지식→영속화, 캐시)

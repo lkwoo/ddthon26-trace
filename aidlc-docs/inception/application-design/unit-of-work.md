@@ -27,7 +27,8 @@ ddthon26-trace/
 │   ├── conflict/  C5 충돌 검출                   ← UOW-03
 │   ├── impact/    C6 Task Impact                 ← UOW-04
 │   ├── mcp_server/ C1 MCP 어댑터                 ← UOW-05
-│   └── cli/       C9 폴백 CLI                    ← UOW-06(or 05)
+│   ├── cli/       C9 폴백 CLI                    ← UOW-06(or 05)
+│   └── map/       C10 온보딩 맵 빌더 (Inc.2)      ← UOW-07
 ├── demo/                     # 데모 데이터셋·픽스처      ← UOW-00
 ├── tests/                    # 단위/속성/통합 테스트
 ├── result/ (screenshots/)    # 시연 스크린샷            ← UOW-06
@@ -114,6 +115,19 @@ ddthon26-trace/
 - **스토리**: US-06.1, US-06.2, US-06.3, US-06.4
 - **완료조건**: Hero 시나리오 무편집 E2E 통과 + 스크린샷 존재 + 시크릿 위생 확인
 
+### UOW-07 — 프로젝트 온보딩 맵 〔Increment 2, 신설〕
+- **책임**: C10 `map/` — 진입점 식별, 정적 관계 추출(Java/Python import·호출, 그 외 LLM 폴백),
+  Feature→파일 매핑(C4 재사용), 핵심 경로 함수 호출 관계(하이브리드), Mermaid 렌더(의존 flowchart +
+  흐름 sequenceDiagram), "여기서 시작하세요" 내러티브, `.trace/knowledge/overview.md` 영속화.
+  코어 함수 `generate_onboarding_map`(C2 오케스트레이션) + C3 신규 step `describe_relations` +
+  C8 `onboarding_map.md` 프롬프트 + C1 도구 + C9 `map` 서브커맨드.
+- **컴포넌트**: C10(신규), C2(코어함수), C3(LLM step), C8(프롬프트), C1·C9(어댑터 배선)
+- **의존**: UOW-0F(모델·Result·LLM·프롬프트 로더), UOW-01(assets), UOW-02(Feature 지식/저장소)
+- **스토리**: US-07.1, US-07.2, US-07.3, US-07.4, US-07.5
+- **완료조건**: 데모(Java Petclinic)에서 진입점+의존 그래프+Feature→파일+핵심 함수 흐름+내러티브를
+  Mermaid 포함 overview.md로 생성, 관계에 근거 인용, 정적추출 실패 시 LLM 폴백, 재실행 시 캐시 재사용.
+- **상세 설계**: `onboarding-map-design.md`
+
 ---
 
 ## 병렬 개발 계획 (Q3=A, 최대 4트랙)
@@ -138,5 +152,5 @@ ddthon26-trace/
 ---
 
 ## 검증
-- **순환 의존 없음**: 0F(leaf) ← 01 ← 02 ← 03 ← 04; 05·06은 소비측. (상세: unit-of-work-dependency.md)
-- **모든 스토리 배정 완료**: 22개 전부 UOW-01~06에 매핑, 0F는 enabler. (상세: unit-of-work-story-map.md)
+- **순환 의존 없음**: 0F(leaf) ← 01 ← 02 ← 03 ← 04; 05·06은 소비측. UOW-07(Inc.2)은 0F·01·02 소비측(C10). (상세: unit-of-work-dependency.md)
+- **모든 스토리 배정 완료**: Inc.1 22개(UOW-01~06) + Inc.2 5개(US-07.1~5 → UOW-07) = 27개, 0F는 enabler. (상세: unit-of-work-story-map.md)

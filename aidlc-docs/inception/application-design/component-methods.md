@@ -103,3 +103,30 @@ def get_prompt(name: str, **vars) -> str        # 파일 템플릿 로드+렌더
 # cli (얇은 어댑터)
 def main(argv) -> int                           # engine 코어 함수 호출·출력
 ```
+
+---
+
+## 온보딩 맵 (Increment 2 — UOW-07) 시그니처 요약
+> 상세·데이터흐름·모델은 `onboarding-map-design.md`. 아래는 시그니처 요약.
+
+```python
+# C2 engine — 신규 코어 함수(= MCP 도구/CLI 구현 대상)
+def generate_onboarding_map(path=".", feature_id: str | None = None, refresh: bool = False) -> Result:
+    """스캔(캐시 재사용)→C10 정적 관계추출→C4 Feature 매핑→C3 LLM 내러티브→C10 Mermaid→C4 overview.md.
+       data: {entry_points, file_graph, feature_file_maps, call_relations, mermaid{dependency,sequence}}.
+       summary: 온보딩 내러티브. evidence: 관계 근거. warnings: 정적실패/폴백/저신뢰."""
+
+# C10 map — building blocks
+def extract_relations(assets) -> RelationGraph          # Java/Python 정적, 그 외 needs_llm 표시
+def find_entry_points(assets, relations) -> list[EntryPoint]
+def map_features_to_files(features, assets) -> list[FeatureFileMap]
+def render_dependency_graph(graph) -> str               # Mermaid flowchart
+def render_sequence(call_path) -> str                   # Mermaid sequenceDiagram
+def build_map(assets, features, relations, entry_points, narrative) -> OnboardingMap
+def save_overview(m, store) -> str                      # .trace/knowledge/overview.md
+def load_overview(store) -> OnboardingMap | None        # 캐시 재사용
+
+# C3 workflow — 신규 AI step
+def describe_relations(map_context: str, llm: LLMService) -> dict
+    # {narrative, relation_notes:[{from,to,rationale,evidence,confidence}], key_flow:[...]}
+```

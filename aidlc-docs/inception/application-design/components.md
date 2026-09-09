@@ -87,3 +87,11 @@ trace/
 
 ## (데이터) UOW-00 데모 데이터셋
 - 코드 컴포넌트 아님. `demo/` 아래 픽스처(Petclinic Owner 조각 + 합성 PDF + 의도적 충돌). C2의 분석 대상 입력.
+
+## C10. 온보딩 맵 빌더 (`map/`) *(Increment 2 신설)*
+- **매핑**: 요구사항 §4.10 FR-MAP-001~007, UOW-07
+- **책임**: 진입점 식별 · 정적 관계 추출(Java/Python import·호출, 그 외 LLM 폴백) · Feature→파일 매핑(C4 재사용) · 핵심 경로 함수 호출 관계 · Mermaid 렌더(의존 flowchart + 흐름 sequenceDiagram) · "여기서 시작하세요" 온보딩 내러티브 · `.trace/knowledge/overview.md` 직렬화.
+- **인터페이스(제공)**: `extract_relations`, `find_entry_points`, `map_features_to_files`, `render_dependency_graph`, `render_sequence`, `build_map`, `save_overview`, `load_overview`.
+- **의존**: C4(knowledge), C3(workflow: LLM 서술·폴백), C8(prompts), C7(config).
+- **불변식**: 정적 추출은 best-effort(실패=warning+LLM 폴백); 관계 서술은 Evidence 인용, 근거부족은 LOW 표기; 프롬프트는 C8 사용.
+- **상세**: `onboarding-map-design.md` 참조. 코어 함수 `generate_onboarding_map`은 C2 engine이 오케스트레이션(C10을 building block으로 사용), 어댑터 C1/C9는 코어함수만 호출.
