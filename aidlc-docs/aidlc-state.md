@@ -74,6 +74,6 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: Functional Design — UOW-01 (스캐너 & 파서), 계획·질문 작성 중
-- **Next Stage**: UOW-01 Functional Design 승인 → NFR Requirements(UOW-01, 파서 라이브러리·성능·보안) → NFR Design → Code Generation
-- **Status**: UOW-00 코드 생성 완료·승인(43 tests pass, 충돌 3건 고정). UOW-01 착수 — scan_project 진입점, Asset 모델 정의, 다형식 파서(MD/텍스트/PDF/OpenAPI/SQL/설정/소스/테스트), 제외규칙(C7 소비), 경로검증(NFR-SEC-004), 부분실패 허용(FR-ANALYSIS-003) 설계.
+- **Current Stage**: Functional Design — UOW-01 (스캐너 & 파서), 산출물 생성 완료 — 승인 대기 (GATE)
+- **Next Stage**: UOW-01 Functional Design 승인 → NFR Requirements(UOW-01: 파서 확정·성능상한·보안·PBT) → NFR Design → Code Generation
+- **Status**: UOW-00 승인(43 tests). UOW-01 Functional Design 완료 — 답변 전부 A(pypdf/PyYAML/텍스트·텍스트추출까지·확장자+내용분류·eager+상한·Result엔 메타만). 산출물 3종: Asset/AssetType(EvidenceType 정렬)/ParseStatus 모델, scan_project 계약, BR-PATH/EXCLUDE/CLASSIFY/PARSE/SIZE/FAIL/DET/SEC 규칙, 스캔 알고리즘. 단위 경계=스캔+텍스트화+분류.

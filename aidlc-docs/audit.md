@@ -260,3 +260,10 @@
 **AI Response**: UOW-00 Code Generation 승인 처리(데모 데이터셋 완료) → 위상순 다음 단위 UOW-01(스캐너/파서) Functional Design 착수. uow-01-functional-design-plan.md 작성(S1~S8 + Q1~Q5). 단위 경계=스캔+텍스트화+분류(구조 해석은 UOW-02/03 위임). 질문: Q1 파서 라이브러리(pypdf/PyYAML), Q2 파싱 깊이, Q3 분류 기준(OpenAPI 판별), Q4 적재 시점, Q5 Result에 text 포함 여부.
 **Status**: 승인 대기 (GATE, 계획+질문)
 **Context**: CONSTRUCTION - Functional Design(UOW-01) 계획 작성 완료
+
+## Functional Design (UOW-01) — 답변 수신 & 산출물 생성
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인" (Q1=A pypdf/PyYAML/텍스트, Q2=A 텍스트 추출까지, Q3=A 확장자+내용판별, Q4=A eager+크기상한, Q5=A Result엔 메타만)
+**AI Response**: 계획 체크박스 S1~S8 [x]. UOW-0F 계약(Result/Warning/EvidenceType) 확인 후 정합 설계. 산출물 3종: domain-entities.md(Asset/AssetType[EvidenceType 정렬]/ParseStatus 모델 + scan_project 데이터계약 + 내부 scan_project_assets[content 포함]), business-rules.md(BR-PATH 경로검증/BR-EXCLUDE 제외/BR-CLASSIFY 분류/BR-PARSE 추출/BR-SIZE 상한/BR-FAIL 부분실패/BR-DET 결정성/BR-SEC 보안), business-logic-model.md(engine/ 배치·스캔 알고리즘·classify·parse·demo 기대 동작·DoD). 단위 경계=스캔+텍스트화+분류(구조 해석 위임).
+**Status**: 승인 대기 (GATE)
+**Context**: CONSTRUCTION - Functional Design(UOW-01) 산출물 생성 완료

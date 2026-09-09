@@ -14,14 +14,14 @@
 ---
 
 ## 계획 스텝 (체크박스)
-- [ ] S1. `Asset` 도메인 모델 정의(path, rel_path, filename, asset_type, parse_status, content, size, error?)
-- [ ] S2. `AssetType` 분류 taxonomy 및 분류 규칙(확장자 + 내용 판별) 정의
-- [ ] S3. 파서 전략 — 유형별 텍스트 추출 방식(PDF/YAML/JSON/SQL/소스/설정/MD/텍스트) 정의
-- [ ] S4. 경로 검증 규칙(NFR-SEC-004: 존재·디렉터리·심볼릭/트래버설 안전) 정의
-- [ ] S5. 제외 규칙 적용(FR-PROJECT-003, C7 `get_exclusions()` 소비) 및 바이너리·대용량 처리
-- [ ] S6. 부분 실패 허용 흐름(FR-ANALYSIS-003) — 파일 단위 실패→warning, 전체 계속
-- [ ] S7. `scan_project(path)->Result` 데이터 계약(data: {project_name, assets:[...]}, warnings, meta) 확정
-- [ ] S8. business-logic-model / business-rules / domain-entities 산출물 작성
+- [x] S1. `Asset` 도메인 모델 정의(path, rel_path, filename, asset_type, parse_status, content, size, truncated, error)
+- [x] S2. `AssetType` 분류 taxonomy(EvidenceType 정렬) 및 분류 규칙(확장자 + 내용 판별) 정의
+- [x] S3. 파서 전략 — 유형별 텍스트 추출 방식(PDF=pypdf/YAML=PyYAML/나머지 텍스트) 정의
+- [x] S4. 경로 검증 규칙(NFR-SEC-004: 존재·디렉터리·심볼릭/트래버설 안전) 정의 — BR-PATH
+- [x] S5. 제외 규칙 적용(FR-PROJECT-003, C7 `get_exclusions()` 소비) 및 바이너리·대용량 처리 — BR-EXCLUDE/BR-SIZE
+- [x] S6. 부분 실패 허용 흐름(FR-ANALYSIS-003) — BR-FAIL
+- [x] S7. `scan_project(path)->Result` 데이터 계약 확정(Q5=A: 메타만, 내부 scan_project_assets는 content 포함)
+- [x] S8. business-logic-model / business-rules / domain-entities 산출물 작성
 
 ---
 
@@ -32,33 +32,33 @@
 - **B. PDF=pdfplumber(레이아웃 정밀)**, 나머지 A와 동일 — 추출 품질↑, 무거운 의존성 추가
 - **C. 기타(직접 지정)**
 
-[Answer]:
+[Answer]: A
 
 ### Q2. 자산의 "파싱" 깊이 — UOW-01은 어디까지 구조화하나?
 - **A. 텍스트 추출까지만**(각 Asset에 정규화된 text 보관). SQL/소스/OpenAPI의 구조 해석은 UOW-02/03 LLM에 위임 (권장) — 단위 경계 명확, 결정적, 파서 부담 최소
 - **B. OpenAPI/SQL은 경량 구조 파싱까지**(예: OpenAPI 경로·스키마 dict, SQL 테이블/컬럼 추출) — 후속 AI 그라운딩 정밀↑, 파서 복잡도·유지보수 부담↑
 - **C. 혼합(직접 지정)**
 
-[Answer]:
+[Answer]: A
 
 ### Q3. 자산 유형 분류 기준 — 특히 OpenAPI vs 일반 설정 YAML 구분
 - **A. 확장자 1차 분류 + 내용 판별 보정**(YAML/JSON 안에 `openapi:`/`swagger:` 키 있으면 api_spec, 아니면 config; `*Test*`·`test_*`·`/test/` 경로면 test) (권장) — 실용적·결정적
 - **B. 확장자만으로 분류** — 단순하나 OpenAPI/테스트 오분류 가능
 - **C. 기타(직접 지정)**
 
-[Answer]:
+[Answer]: A
 
 ### Q4. 자산 내용을 언제 메모리에 적재하나(성능/메모리)?
 - **A. 스캔 시 즉시 텍스트 적재(eager) + 파일당 최대 크기 상한**(초과 시 truncate + warning) (권장) — 데모/로컬 규모에 단순·충분, 결정적
 - **B. 지연 로딩(lazy) — 경로만 들고 있다가 필요 시 읽기** — 대규모 대응, 상태관리 복잡
 
-[Answer]:
+[Answer]: A
 
 ### Q5. `scan_project`가 반환하는 Asset 필드에 전체 text를 포함할까, 요약만 포함할까?
 - **A. Result.data.assets에는 메타(path/type/status/size)만, 전체 text는 엔진 내부 오케스트레이션이 보유**(MCP 응답 비대화 방지, NFR-MCP-UX) (권장)
 - **B. data.assets에 text까지 포함** — 단순하나 MCP 응답이 커짐
 
-[Answer]:
+[Answer]: A
 
 ---
 
