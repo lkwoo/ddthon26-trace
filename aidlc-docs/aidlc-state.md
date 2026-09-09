@@ -74,6 +74,6 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: NFR Requirements — UOW-01 (스캐너 & 파서), 계획·질문 작성 중
+- **Current Stage**: NFR Requirements — UOW-01 (스캐너 & 파서), 산출물 생성 완료 — 승인 대기 (GATE)
 - **Next Stage**: UOW-01 NFR Requirements 승인 → NFR Design(UOW-01) → Code Generation
-- **Status**: UOW-00 승인(43 tests). UOW-01 Functional Design 완료 — 답변 전부 A(pypdf/PyYAML/텍스트·텍스트추출까지·확장자+내용분류·eager+상한·Result엔 메타만). 산출물 3종: Asset/AssetType(EvidenceType 정렬)/ParseStatus 모델, scan_project 계약, BR-PATH/EXCLUDE/CLASSIFY/PARSE/SIZE/FAIL/DET/SEC 규칙, 스캔 알고리즘. 단위 경계=스캔+텍스트화+분류.
+- **Status**: UOW-01 NFR Requirements 완료 — Q1=A(순차)/Q2=B(파일 5MB·총량 200MB)/Q3=A,B,C,D(PBT 4속성)/Q4=A(config 분리). 확장 컴플라이언스: Resiliency Compliant, PBT Compliant(4속성 채택). pypdf 런타임 승격 예정. NFR Design은 EXECUTE.

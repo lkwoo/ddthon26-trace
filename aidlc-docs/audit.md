@@ -274,3 +274,10 @@
 **AI Response**: UOW-01 Functional Design 승인 → NFR Requirements(UOW-01) 착수. 실제 코드 단위라 PBT 확장 적용. uow-01-nfr-requirements-plan.md 작성(S1~S6 + Q1~Q4). 질문: Q1 성능/규모 목표, Q2 파일/총량 크기 상한, Q3 PBT 속성 대상(분류 전결정성/경로 안전성/부분실패 격리/결정성 멱등, 복수선택), Q4 스캔 설정 관리 위치.
 **Status**: 승인 대기 (GATE, 계획+질문)
 **Context**: CONSTRUCTION - NFR Requirements(UOW-01) 계획 작성 완료
+
+## NFR Requirements (UOW-01) — 답변 수신 & 산출물 생성
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인" (Q1=A 순차, Q2=B 파일당 5MB/총량 200MB, Q3=A,B,C,D PBT 4속성 전부, Q4=A config 분리)
+**AI Response**: 계획 체크박스 S1~S6 [x]. 산출물 2종 생성: nfr-requirements.md(성능 NFR-01-PERF-1~5[순차·5MB·200MB], 신뢰성 REL-1~4[Resiliency], 보안 SEC-1~4[NFR-SEC-004], 유지보수 MAINT-1~3[config 분리·파서 확장], PBT 4속성 PBT-01-A~D, 확장 컴플라이언스 Resiliency/PBT Compliant), tech-stack-decisions.md(pypdf 런타임 승격·PyYAML·hypothesis·os.walk, MAX_FILE_BYTES=5MB/MAX_TOTAL_BYTES=200MB config 배치). NFR Design EXECUTE.
+**Status**: 승인 대기 (GATE)
+**Context**: CONSTRUCTION - NFR Requirements(UOW-01) 산출물 생성 완료
