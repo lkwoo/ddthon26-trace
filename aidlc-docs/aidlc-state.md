@@ -4,7 +4,7 @@
 - **Project Name**: TRACE — 개발자 지식 인텔리전스 (작업명)
 - **Project Type**: Greenfield
 - **Start Date**: 2026-09-08T00:00:00Z
-- **Current Stage**: CONSTRUCTION - Per-Unit Loop 완료 (UOW-0F ~ UOW-06) → Build and Test
+- **Current Stage**: Increment 1(TRACE 코어) CONSTRUCTION 완료 → **Increment 2(온보딩 맵) INCEPTION/Requirements Analysis 진행 중** (아래 "Increment 2" 섹션)
 
 ## Workspace State
 - **Existing Code**: No
@@ -81,10 +81,25 @@
 ### 🟡 OPERATIONS PHASE
 - [ ] Operations (placeholder)
 
+---
+
+## Increment 2 — 프로젝트 온보딩 맵 (2026-09-09 착수, 브라운필드 적응형)
+**목표**: TRACE 사용 신입 개발자가 낯선 프로젝트의 전체 흐름·파일 관계·함수 관계를 온보딩 관점에서 파악하도록 돕는 신규 기능. 사용자가 기능 확장(=B)을 선택 → 요구사항부터 재정의.
+
+| 단계 | 상태 | 비고 |
+|---|---|---|
+| Requirements Analysis | [~] 진행 중 | onboarding-map-questions.md 작성(질문 5개), 답변·requirements.md FR-MAP-* 추가 대기 |
+| User Stories | [ ] 대기 | 온보딩 페르소나 + end-to-end 유저 시나리오 (요구사항 확정 후) |
+| Application Design | [ ] 대기 | 새 컴포넌트/메서드/의존성 |
+| Units Generation | [ ] 대기 | 신규 UOW 경계 |
+| Construction (Functional Design → Code Gen → Build/Test) | [ ] 대기 | |
+
+- **확정 대기 결정(질문)**: Q1 관계 추출 방식(하이브리드 정적+LLM 추천), Q2 산출물 형태(MCP tool+CLI+overview.md 추천), Q3 맵 범위(파일+함수 레벨 추천), Q4 시각화(Mermaid 추천), Q5 언어 범위(Java/Python 정적+LLM 폴백 추천).
+
 ## Current Status
-- **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: CONSTRUCTION 완료 (Per-Unit Loop 8개 단위 + Build and Test)
-- **Next Stage**: OPERATIONS (placeholder — 향후 배포·모니터링 확장)
+- **Lifecycle Phase**: INCEPTION (Increment 2) — Increment 1은 CONSTRUCTION 완료
+- **Current Stage**: Increment 2 "온보딩 맵" — Requirements Analysis 진행 중 (질문 작성·답변 대기)
+- **Next Stage**: 답변 확정 → requirements.md FR-MAP-* 추가 → User Stories(온보딩 페르소나·시나리오)
 - **완료**: UOW-0F ~ UOW-06 전 단위. 전체 62 테스트 통과. 설치된 `trace`/`trace-mcp` 명령이 저장소 밖에서도 동작(replay Hero E2E 검증). value_mismatch(전화번호 20 vs 10) 검출·영향분석·Change Plan 확인.
 - **Status**: 8개 단위 코드 생성 완료. import 패키지 `trace`→`traceki` 개명(파이썬 stdlib `trace` 충돌 해소, 명령어명·로거명·`.trace/` 디렉터리는 유지). result/hero-run.txt 실행 전사 갱신.
 - **핵심 Construction 결정**: LLMService는 (1) live Anthropic 다이렉트(sk-ant) + (2) bedrock(Amazon Bedrock, bearer 토큰) + (3) cache/replay 백엔드를 지원.
