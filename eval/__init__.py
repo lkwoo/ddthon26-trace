@@ -13,6 +13,15 @@ Public API:
 * :mod:`eval.report`      — human-readable + JSON reporting.
 """
 
+import sys as _sys
+from pathlib import Path as _Path
+
+# src-layout: make ``knowledge_store`` importable when running ``python -m eval``
+# from the repo root without an editable install.
+_SRC = _Path(__file__).resolve().parent.parent / "src"
+if str(_SRC) not in _sys.path:
+    _sys.path.insert(0, str(_SRC))
+
 from eval.dataset import EvalDataset, EvalQuestion
 from eval.metrics import EvalScore, evaluate_ranking, mrr, recall_at_k, reciprocal_rank
 

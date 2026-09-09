@@ -1,96 +1,96 @@
 {
   "name": "repo-dogfood",
-  "corpus": ["knowledge_store"],
+  "corpus": ["src/knowledge_store"],
   "questions": [
     {
       "id": "q-chunking",
       "intent": "how are documents and code split into semantic-unit chunks",
-      "gold_files": ["knowledge_store/ingestion/chunker.py"]
+      "gold_files": ["src/knowledge_store/ingestion/chunker.py"]
     },
     {
       "id": "q-versioning",
       "intent": "how are chunk versions matched using minhash and jaccard similarity",
-      "gold_files": ["knowledge_store/ingestion/versioner.py"]
+      "gold_files": ["src/knowledge_store/ingestion/versioner.py"]
     },
     {
       "id": "q-provider-fallback",
       "intent": "how does the embedding provider fall back to a hashing embedding when fastembed is missing",
-      "gold_files": ["knowledge_store/embedding/provider.py"]
+      "gold_files": ["src/knowledge_store/embedding/provider.py"]
     },
     {
       "id": "q-semantic-search",
       "intent": "how is intent-based semantic search over embedding vectors performed",
-      "gold_files": ["knowledge_store/embedding/search.py"]
+      "gold_files": ["src/knowledge_store/embedding/search.py"]
     },
     {
       "id": "q-vector-store",
       "intent": "how are vectors stored and searched with sqlite-vec or a brute-force cosine fallback",
-      "gold_files": ["knowledge_store/store/repositories.py"]
+      "gold_files": ["src/knowledge_store/store/repositories.py"]
     },
     {
       "id": "q-mcp-tools",
       "intent": "where is the semantic_query MCP tool defined and registered",
-      "gold_files": ["knowledge_store/mcp/tools.py"]
+      "gold_files": ["src/knowledge_store/mcp/tools.py"]
     },
     {
       "id": "q-analyzer",
       "intent": "how does the code structure analyzer detect functions and classes and calls",
-      "gold_files": ["knowledge_store/codegraph/analyzer.py"]
+      "gold_files": ["src/knowledge_store/codegraph/analyzer.py"]
     },
     {
       "id": "q-relationships",
       "intent": "how are relationships between chunks built from embedding similarity and tags",
-      "gold_files": ["knowledge_store/codegraph/relationships.py"]
+      "gold_files": ["src/knowledge_store/codegraph/relationships.py"]
     },
     {
       "id": "q-snippet",
       "intent": "how is a token-budget-aware smart snippet built",
-      "gold_files": ["knowledge_store/retrieval/snippet.py"]
+      "gold_files": ["src/knowledge_store/retrieval/snippet.py"]
     },
     {
       "id": "q-tokens",
       "intent": "how are tokens estimated for a piece of text",
-      "gold_files": ["knowledge_store/retrieval/tokens.py"]
+      "gold_files": ["src/knowledge_store/retrieval/tokens.py"]
     },
     {
       "id": "q-extractors",
       "intent": "how are different file formats extracted such as markdown csv and pdf",
-      "gold_files": ["knowledge_store/ingestion/extractors.py"]
+      "gold_files": ["src/knowledge_store/ingestion/extractors.py"]
     },
     {
       "id": "q-schema",
       "intent": "how is the sqlite database schema for the knowledge store defined",
-      "gold_files": ["knowledge_store/store/schema.py"]
+      "gold_files": ["src/knowledge_store/store/schema.py"]
     },
     {
       "id": "q-ingestion-orchestration",
       "intent": "how does ingestion orchestrate chunk version graph embed and relate steps",
-      "gold_files": ["knowledge_store/services/services.py"]
+      "gold_files": ["src/knowledge_store/services/services.py"]
     },
     {
       "id": "q-system-wiring",
       "intent": "how is the whole knowledge system wired together from store and components",
-      "gold_files": ["knowledge_store/services/system.py"]
+      "gold_files": ["src/knowledge_store/services/system.py"]
     },
     {
       "id": "q-installer",
       "intent": "how does the installer configure MCP clients for the knowledge store",
-      "gold_files": ["knowledge_store/install/service.py"]
+      "gold_files": ["src/knowledge_store/install/service.py"]
     },
     {
       "id": "q-wiki-export",
       "intent": "how is the static wiki viewer exported to html and json",
-      "gold_files": ["knowledge_store/wiki/exporter.py"]
+      "gold_files": ["src/knowledge_store/wiki/exporter.py"]
     },
     {
       "id": "q-summaries",
       "intent": "how are agent-provided summaries stored and pending summaries tracked",
-      "gold_files": ["knowledge_store/retrieval/summary_store.py"]
+      "gold_files": ["src/knowledge_store/retrieval/summary_store.py"]
     },
     {
       "id": "q-mcp-server",
       "intent": "how does the MCP server start and serve tools over stdio",
-      "gold_files": ["knowledge_store/mcp/server.py"]
+      "gold_files": ["src/knowledge_store/mcp/server.py"]
     }
   ]
 }

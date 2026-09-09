@@ -28,7 +28,7 @@ def _load(corpus: str) -> tuple[EvalDataset, Path, list[str]]:
     if corpus == "repo":
         dataset = EvalDataset.load(_DATASETS / "repo_questions.json")
         root = _REPO_ROOT
-        entries = dataset.corpus or ["knowledge_store"]
+        entries = dataset.corpus or ["src/knowledge_store"]
         return dataset, root, resolve_corpus(root, entries)
     if corpus == "fixture":
         dataset = EvalDataset.load(_DATASETS / "fixture_questions.json")

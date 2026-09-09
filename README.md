@@ -50,6 +50,26 @@ python -m http.server -d /path/to/your/project/.knowledge-store/wiki
 All data lives in `<project>/.knowledge-store/` (SQLite DB + generated wiki
 assets). Nothing is written outside that directory.
 
+## Supported file formats
+
+Ingestion resolves each file to the first matching extractor. Unrecognized
+extensions are skipped (reported as `UNSUPPORTED`), never fatal. Extraction of
+the formats below works with the **core** install; only PDF and xlsx need the
+optional `docs` extra.
+
+| Category | Extensions | Extra required |
+|----------|-----------|----------------|
+| Prose / docs | `.md`, `.markdown`, `.txt`, `.rst` | — (core) |
+| Source code | `.py`, `.js`, `.jsx`, `.ts`, `.tsx`, `.java`, `.go`, `.rs`, `.c`, `.h`, `.cpp`, `.cc`, `.hpp`, `.rb`, `.php`, `.cs`, `.kt`, `.swift`, `.scala`, `.sql` | — (core) |
+| Markup | `.xml` | — (core) |
+| Tabular | `.csv` | — (core) |
+| Spreadsheet | `.xlsx` | `.[docs]` (openpyxl) |
+| PDF | `.pdf` | `.[docs]` (pypdf) |
+
+Source files are also parsed into a **code graph** (functions, classes, calls,
+imports) when the `code` extra (tree-sitter) is installed; without it, code is
+still ingested and searchable as text.
+
 ## Connect an AI agent (MCP over stdio)
 
 `knowledge-store install` auto-detects **Claude Code** (`.mcp.json` / `.claude`)

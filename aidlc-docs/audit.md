@@ -246,3 +246,21 @@ AI-DLC 워크플로우를 시작해봅시다."
 **Context**: CONSTRUCTION — small feature/fix (auto-adopt, minimal depth)
 
 ---
+
+## Repo restructure — permanent src/ layout (separate code from dev docs)
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "배포할때 프로젝트 전체 복사가 아닌 필요한 파일들을 src 폴더로 옮겨서 개발에 사용된 문서들과 별개로 관리하고 싶어."
+**AI Response**: "Clarified via question: user chose a PERMANENT src/ layout move (not a deploy script) including knowledge_store + viewer + packaging files. Moved with git mv (history preserved): knowledge_store/ -> src/knowledge_store/ and viewer/ -> src/viewer/. Updated pyproject.toml ([tool.setuptools.packages.find] where=[\"src\"]; added [tool.pytest.ini_options] pythonpath=[\"src\"]). Updated tests/conftest.py sys.path bootstrap to point at src/. Added a src/ sys.path bootstrap to eval/__init__.py so `python -m eval` still imports the package without an editable install. Repointed eval corpus/gold paths knowledge_store/... -> src/knowledge_store/... in eval/datasets/repo_questions.json and eval/__main__.py default. Verified: viewer resolver (exporter.py parent.parent.parent/viewer) still resolves to src/viewer since viewer moved into src too; full suite 58 passed (unchanged from baseline); fixture eval + repo dogfood eval both resolve corpus (34 files) with gold files matching. Flagged a pre-existing (behavior-preserved) packaging gap: pyproject package-data `knowledge_store = [\"viewer/**/*\"]` matches nothing because viewer is a sibling of the package, not inside it — left unchanged as fixing it would alter runtime path resolution (separate decision)."
+**Status**: COMPLETE (src/ layout; 58 passed)
+**Context**: CONSTRUCTION — repo restructure / packaging (auto-adopt, minimal depth)
+
+---
+
+## README — supported file formats + audit reflection
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "README.md 에 지원되는 파일 확장자 리스트도 추가해줘. 그리고 작업한 내용을 audit.md 문서에도 반영해줘."
+**AI Response**: "Derived the supported-extension list from the actual extractor registry in src/knowledge_store/ingestion/extractors.py (default_registry: Markdown, Code, Xml, Spreadsheet, Pdf extractors). Added a 'Supported file formats' section to README.md (after Quick start) with a category table: prose (.md/.markdown/.txt/.rst), source code (.py/.js/.jsx/.ts/.tsx/.java/.go/.rs/.c/.h/.cpp/.cc/.hpp/.rb/.php/.cs/.kt/.swift/.scala/.sql), markup (.xml), tabular (.csv) — all core — plus .xlsx and .pdf requiring the `docs` extra; noted code-graph parsing needs the `code` (tree-sitter) extra while text ingestion works without it, and that unsupported extensions are skipped non-fatally. Reflected both this and the src/ restructure work in aidlc-docs/audit.md (appended, not overwritten)."
+**Status**: COMPLETE (README updated; audit reflected)
+**Context**: CONSTRUCTION — documentation (auto-adopt, minimal depth)
+
+---

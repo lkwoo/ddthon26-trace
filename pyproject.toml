@@ -39,6 +39,7 @@ knowledge-store = "knowledge_store.install.cli:main"
 knowledge-store-mcp = "knowledge_store.mcp.server:main"
 
 [tool.setuptools.packages.find]
+where = ["src"]
 include = ["knowledge_store*"]
 
 [tool.setuptools.package-data]
@@ -47,6 +48,8 @@ knowledge_store = ["viewer/**/*"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra"
+# src-layout: make the package importable without an editable install.
+pythonpath = ["src"]
 
 [tool.hypothesis]
 # PBT-08: deterministic reproducibility — seed logged on failure; CI-friendly.
