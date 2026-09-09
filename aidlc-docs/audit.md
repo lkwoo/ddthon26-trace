@@ -407,3 +407,10 @@
 **AI Response**: UOW-03 Code Generation 승인(per-unit loop UOW-03 완료). → UOW-04(Task Impact) Functional Design 착수. unit-of-work.md(UOW-04 책임: analyze_task_impact — 지식 그라운딩 3범주 분류·충돌경고 P1·순서형 Change Plan, 소스 자동수정 없음), stories US-04.1~04.4, FR-IMPACT-001~006, component-methods(C6 analyze_task_impact, C3 analyze_task step, result.py ImpactOut/ImpactItem/EvidenceRef 기존 모델) 검토. uow-04-functional-design-plan.md 작성(계획+질문). 승인 대기(GATE).
 **Status**: 승인 대기 (GATE, 계획+질문)
 **Context**: CONSTRUCTION - Functional Design(UOW-04) 계획 작성
+
+## Functional Design (UOW-04) — 답변 수신(모두 권장) & 산출물 생성
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인" (Q1=A 저장지식 한정, Q2=A 전체요약+관련상세, Q3=A 기존 conflicts 노출, Q4=A LLM 순서 Change Plan, Q5=A 1회 호출·강등)
+**AI Response**: 계획 체크박스 S1~S8 [x]. 산출물 3종: domain-entities.md(models/impact.py 중간 스키마 ImpactCandidate/TaskImpactResult, KnowledgeContext 뷰, 기존 ImpactOut/ImpactItem/EvidenceRef 재사용·매핑), business-rules.md(BR-CTX 그라운딩/BR-IMP 3범주·근거참조·허구path 강등·근거부족 LOW/BR-CONFWARN 충돌경고 P1/BR-PLAN 순서형·자동수정금지/BR-PIPE 강등/BR-SEC/DET), business-logic-model.md(impact/ 배치, build_context·analyze_task·to_impact_out·analyze_task_impact 알고리즘, Hero Task SMS 인증→telephone 충돌 경고 기대, 순수함수 테스트 전략). 지식 그라운딩이 차별점.
+**Status**: 승인 대기 (GATE)
+**Context**: CONSTRUCTION - Functional Design(UOW-04) 산출물 생성 완료
