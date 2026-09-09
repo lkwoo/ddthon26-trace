@@ -31,11 +31,15 @@ _DEFAULT_EXCLUSIONS = [
 _DEFAULT_MODEL = "claude-sonnet-5"
 _DEFAULT_KEY_ENV = "ANTHROPIC_API_KEY"
 _DEFAULT_KNOWLEDGE_DIR = ".trace/knowledge"
+_DEFAULT_PROVIDER = "anthropic"        # "anthropic"(1st-party) | "bedrock"(Amazon Bedrock)
+_PROVIDERS = ("anthropic", "bedrock")
 
 
 class LLMSettings(BaseModel):
     model: str = _DEFAULT_MODEL
-    api_key_env: str = _DEFAULT_KEY_ENV  # 키 '이름' — 값 아님 (BR-SEC-001)
+    provider: str = _DEFAULT_PROVIDER   # 백엔드 선택 (BR-SEC-002 유지: 값은 late lookup)
+    api_key_env: str = _DEFAULT_KEY_ENV  # 키 '이름' — 값 아님 (BR-SEC-001, provider=anthropic)
+    bedrock_region: str | None = None    # provider=bedrock 리전 (미지정 시 AWS 표준 체인)
     temperature: float = 0.0            # 결정성 (BR-DET-001)
     max_tokens: int = 4096
     max_retries: int = 2                # 제약 교정 재시도 (NFR-0F-REL-3)
@@ -45,6 +49,7 @@ class LLMSettings(BaseModel):
         """소비 직전 환경변수에서 키를 조회 (late lookup, P7).
 
         미설정 시 ConfigError — 값은 메시지에 노출하지 않는다.
+        provider=anthropic 경로 전용. Bedrock은 AWS 자격증명 체인을 사용한다.
         """
         key = os.environ.get(self.api_key_env)
         if not key:
@@ -96,11 +101,21 @@ def _apply_raw(config: Config, raw: dict) -> Config:
 
 
 def _apply_env(config: Config) -> Config:
-    # 모델·키 이름만 환경변수로 오버라이드 (값 자체는 late lookup)
+    # 모델·provider·키 이름만 환경변수로 오버라이드 (자격증명 값 자체는 late lookup)
     if model := os.environ.get("TRACE_LLM_MODEL"):
         config.llm.model = model
+    if provider := os.environ.get("TRACE_LLM_PROVIDER"):
+        provider = provider.strip().lower()
+        if provider not in _PROVIDERS:
+            raise ConfigError(
+                f"지원하지 않는 TRACE_LLM_PROVIDER='{provider}'. "
+                f"허용: {', '.join(_PROVIDERS)}"
+            )
+        config.llm.provider = provider
     if key_env := os.environ.get("TRACE_API_KEY_ENV"):
         config.llm.api_key_env = key_env
+    if region := (os.environ.get("TRACE_BEDROCK_REGION") or os.environ.get("AWS_REGION")):
+        config.llm.bedrock_region = region
     return config
 
 

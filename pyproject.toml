@@ -21,6 +21,10 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# Amazon Bedrock 백엔드(provider=bedrock) 사용 시: pip install 'trace-ki[bedrock]'
+bedrock = [
+    "anthropic[bedrock]>=0.40.0",
+]
 dev = [
     "pytest>=8.0",
     "hypothesis>=6.100",

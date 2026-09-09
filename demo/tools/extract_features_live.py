@@ -49,7 +49,20 @@ def _load_dotenv(path: Path) -> None:
 
 def main() -> int:
     _load_dotenv(_ENV_FILE)
-    if not os.environ.get("ANTHROPIC_API_KEY"):
+    provider = (os.environ.get("TRACE_LLM_PROVIDER") or "anthropic").strip().lower()
+    if provider == "bedrock":
+        missing = [k for k in ("AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY")
+                   if not os.environ.get(k)]
+        if missing:
+            print(f"✗ Bedrock 자격증명이 없습니다: {', '.join(missing)}. "
+                  ".env/셸에 AWS 자격증명과 TRACE_LLM_MODEL(Bedrock 모델 ID)을 지정하세요.")
+            return 2
+        if not os.environ.get("TRACE_LLM_MODEL"):
+            print("✗ Bedrock 사용 시 TRACE_LLM_MODEL 에 Bedrock 모델 ID 를 지정하세요 "
+                  "(예: anthropic.claude-3-5-sonnet-20241022-v2:0).")
+            return 2
+        print(f"provider=bedrock, model={os.environ['TRACE_LLM_MODEL']}")
+    elif not os.environ.get("ANTHROPIC_API_KEY"):
         print("✗ ANTHROPIC_API_KEY 가 환경/`.env` 에 없습니다. "
               ".env 에 ANTHROPIC_API_KEY=sk-ant-... 를 넣고 다시 실행하세요.")
         return 2
