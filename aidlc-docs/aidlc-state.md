@@ -74,6 +74,6 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: Code Generation — UOW-01 (스캐너 & 파서), Part 1 계획 작성 완료 — 승인 대기 (GATE)
-- **Next Stage**: Code Gen Part 1 승인 → Part 2(engine/·models/asset·config/scan_settings 구현 + 테스트 3종, pytest)
-- **Status**: UOW-01 NFR Design 승인. Code Generation Part 1 계획 작성 — models/asset.py·config/scan_settings.py·engine/{scanner,classifier,parsers,scan}.py + tests/{test_classifier,test_scanner_scan,test_scanner_properties(PBT 4속성)}.py + pyproject(pypdf 런타임 승격) 열거.
+- **Current Stage**: Code Generation — UOW-01 (스캐너 & 파서), Part 2 완료 — 승인 대기 (GATE)
+- **Next Stage**: UOW-01 승인 → UOW-02(Feature & Knowledge 생성) per-unit 루프 (Functional Design부터)
+- **Status**: UOW-01 코드 생성 완료 — trace/engine/{classifier,parsers,scanner,scan}.py + models/asset.py + config/scan_settings.py + errors.sanitize_error. `pytest` 70 passed(43+27, PBT 4속성 포함). demo/ 스캔 실증: 13자산 전부 parsed·7종 유형·PDF 추출·무효경로 오류 Result. pypdf 런타임 승격. UOW-01 신규 모듈 mypy-clean(잔여 2건은 UOW-0F 선재). analyze_project는 훅만(UOW-02+ 완성).

@@ -295,3 +295,10 @@
 **AI Response**: UOW-01 NFR Design 승인 → Code Generation(UOW-01) Part 1 계획 작성. uow-01-code-generation-plan.md: A(models/asset.py·config/scan_settings.py) B(engine/{classifier,parsers,scanner,scan}.py) C(errors PathValidationError+sanitize) D(tests: test_classifier·test_scanner_scan·test_scanner_properties[PBT 4속성]) E(pyproject pypdf 런타임 승격·pytest·code-summary·커밋). 경계=스캔+텍스트화+분류, 결정성·보안·오케스트레이션 훅 준수.
 **Status**: 승인 대기 (GATE, Part 1)
 **Context**: CONSTRUCTION - Code Generation(UOW-01) Part 1 계획 작성 완료
+
+## Code Generation (UOW-01) Part 1 승인 & Part 2 완료
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인"
+**AI Response**: UOW-01 Code Generation Part 1 계획 승인 → Part 2 실행. 애플리케이션 코드: trace/models/asset.py, trace/config/scan_settings.py, trace/common/errors.py(sanitize_error 추가), trace/engine/{__init__,classifier,parsers,scanner,scan}.py. 테스트: tests/{test_classifier,test_scanner_scan,test_scanner_properties}.py. pyproject: pypdf [dev]→런타임 승격 + types-PyYAML dev 추가. `pytest` 70 passed(43+27, PBT 4속성 포함). demo/ 스캔 실증: 13자산 전부 parsed·by_type 7종(source6/markdown2/config1/sql1/openapi1/pdf1/test1)·PDF 텍스트 추출 성공·무효경로 PATH_VALIDATION_ERROR. UOW-01 신규 모듈 mypy-clean(잔여 2건은 UOW-0F 선재 이슈). code-summary.md 작성, 계획 체크박스 전부 [x].
+**Status**: 승인 대기 (GATE, Part 2)
+**Context**: CONSTRUCTION - Code Generation(UOW-01) Part 2 완료

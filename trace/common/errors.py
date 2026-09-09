@@ -45,6 +45,24 @@ class StorageError(TraceError):
     code = "STORAGE_ERROR"
 
 
+def sanitize_error(exc: BaseException) -> str:
+    """예외를 사용자/로그용 안전 요약으로 변환 (UOW-01 P5, BR-SEC-001).
+
+    파일 내용·시크릿·전체 절대경로·스택 트레이스를 노출하지 않고,
+    예외 타입명과 (있으면) 짧은 메시지 첫 줄만 남긴다.
+    """
+    name = type(exc).__name__
+    message = str(exc).splitlines()[0].strip() if str(exc) else ""
+    # 절대경로로 보이는 토큰 제거 (드라이브 문자/슬래시 시작)
+    safe_tokens = [
+        tok
+        for tok in message.split()
+        if not (tok.startswith(("/", "\\")) or (len(tok) > 1 and tok[1] == ":"))
+    ]
+    safe_message = " ".join(safe_tokens)
+    return f"{name}: {safe_message}" if safe_message else name
+
+
 def error_to_result(error: TraceError) -> "Result":
     """TraceError를 사용자용 Result로 변환 (어댑터 경계 전용, P3).
 
