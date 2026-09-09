@@ -225,3 +225,10 @@
 **AI Prompt**: uow-00-functional-design-plan.md 작성(S1~S8 체크박스 + Q1~Q5 질문). UOW-00은 코드 아닌 픽스처 데이터 → Functional Design=데이터셋 논리 구조/의도적 충돌/3 페르소나 시나리오 매핑 설계. 질문: Q1 충돌 개수, Q2 PDF 커밋 방식, Q3 Hero Feature, Q4 Petclinic 발췌 범위, Q5 결정성 수준.
 **Status**: 승인 대기 (GATE, 계획+질문 답변)
 **Context**: CONSTRUCTION - Functional Design(UOW-00) 계획 작성 완료
+
+## Functional Design (UOW-00) — 답변 수신 & 산출물 생성
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인" (Q1=C 충돌 3건, Q2=A .pdf 커밋, Q3=A Hero=Owner 관리, Q4=B Owner+Pet 발췌, Q5=A 완전 고정)
+**AI Response**: 계획 체크박스 S1~S8 [x]. Functional Design 산출물 3종 생성 — domain-entities.md(demo/ 레이아웃·자산↔UOW-0F 동결모델 매핑), business-rules.md(의도적 충돌 3건 INV-C1~C3 불변식·데이터셋 무결성 R1~R5), business-logic-model.md(파이프라인 데이터흐름·P1/P2/P3 페르소나 시나리오 매핑·Hero E2E 앵커). 충돌 3건 확정: C-1 telephone max_length value_mismatch(P0, P1), C-2 Pet.birthDate 검증 드리프트 stale_knowledge(P2), C-3 Owner.email 신규 필수정책 부재 policy_conflict(P3).
+**Status**: 승인 대기 (GATE)
+**Context**: CONSTRUCTION - Functional Design(UOW-00) 산출물 생성 완료

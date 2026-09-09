@@ -22,14 +22,14 @@
 
 ## 계획 스텝 (체크박스)
 
-- [ ] S1. 데이터셋 디렉터리 레이아웃 확정 (`demo/` 하위: `requirements/`, `openapi/`, `db/`, `src/`, `config/`, `tests/`)
-- [ ] S2. Hero Feature 확정 및 해당 Feature를 구성하는 소스 자산 목록 정의
-- [ ] S3. 의도적 충돌 세트 정의 — value_mismatch(전화번호 max_length) + 페르소나별 추가 충돌/낡은 지식
-- [ ] S4. P1/P2/P3 페르소나별 대표 시나리오 ↔ 데이터 자산 매핑표 작성
-- [ ] S5. 합성 PDF 생성 방식 확정(리포 커밋 vs 빌드시 생성) 및 PDF 내용 개요
-- [ ] S6. Petclinic 발췌 범위·라이선스 표기 방침 확정
-- [ ] S7. 데이터셋 매니페스트/README(각 파일이 무엇을 위한 픽스처인지) 설계
-- [ ] S8. Functional Design 산출물 3종 작성(business-logic-model=데이터흐름, business-rules=충돌불변식, domain-entities=자산↔모델 매핑)
+- [x] S1. 데이터셋 디렉터리 레이아웃 확정 (`demo/` 하위: `requirements/`, `openapi/`, `db/`, `src/`, `config/`, `tests/`)
+- [x] S2. Hero Feature 확정 및 해당 Feature를 구성하는 소스 자산 목록 정의 — Q3=A(Owner 관리)
+- [x] S3. 의도적 충돌 세트 정의 — Q1=C(충돌 3건, 페르소나별 1건)
+- [x] S4. P1/P2/P3 페르소나별 대표 시나리오 ↔ 데이터 자산 매핑표 작성
+- [x] S5. 합성 PDF 생성 방식 확정 — Q2=A(.pdf 바이너리 커밋)
+- [x] S6. Petclinic 발췌 범위·라이선스 표기 방침 확정 — Q4=B(Owner+Pet 인접 도메인)
+- [x] S7. 데이터셋 매니페스트/README(각 파일이 무엇을 위한 픽스처인지) 설계
+- [x] S8. Functional Design 산출물 3종 작성(business-logic-model=데이터흐름, business-rules=충돌불변식, domain-entities=자산↔모델 매핑)
 
 ---
 
@@ -45,34 +45,34 @@
 - **B. 충돌 2건 — 전화번호 value_mismatch + 추가 1건(예: 이메일 필수 여부 요구/코드 불일치)** (권장) — P2/P3 흐름이 각자 대표 충돌을 가짐, 여전히 관리 가능
 - **C. 충돌 3건 — 페르소나별 1건씩** — 가장 풍부하나 데이터·검증 부담 큼
 
-[Answer]:
+[Answer]: C
 
 ### Q2. 합성 PDF 요구사항 문서를 리포지토리에 어떻게 둘 것인가? (PDF는 P0 파서 대상)
 - **A. 완성된 .pdf 바이너리를 `demo/requirements/`에 커밋** (권장) — 데모 재현성 최고, 별도 생성 단계 불필요. (바이너리라 diff 안 됨은 감수)
 - **B. Markdown 원본 + 빌드시 PDF 생성 스크립트(reportlab 등)** — diff 가능하나 의존성·생성 단계 추가, 결정성 관리 필요
 - **C. 둘 다 — md 원본 보관 + 생성 .pdf도 커밋** — 투명성+재현성, 약간의 중복
 
-[Answer]:
+[Answer]: A
 
 ### Q3. Hero Feature를 무엇으로 고정할까? (Petclinic Owner 중심 기결정)
 - **A. "Owner 관리"(반려동물 주인 등록/조회) — 전화번호 필드가 자연스럽게 등장** (권장) — 확정된 전화번호 충돌과 정확히 맞물림
 - **B. "Pet/Visit 예약"** — 더 복잡하나 전화번호 충돌과 연결이 약함
 - **C. 기타(직접 지정)**
 
-[Answer]:
+[Answer]: A
 
 ### Q4. Petclinic 코드 발췌 범위 — 실제 spring-petclinic-rest 조각을 얼마나 넣을까?
 - **A. Owner 관련 최소 조각만**(REST 컨트롤러 1 + 엔티티/DTO + 매핑 + OpenAPI 일부 + schema.sql 일부) (권장) — 결정적·경량, Hero에 집중
 - **B. Owner+Pet 등 인접 도메인까지 확장** — 스캔 다양성↑, 노이즈·용량↑
 - **C. 발췌 대신 요구사항에 맞춘 자체 합성 소스** — 라이선스 부담 없음, 그러나 "실제 프로젝트" 설득력↓
 
-[Answer]:
+[Answer]: B 
 
 ### Q5. 데이터셋 결정성 수준 — 파일 내용을 완전히 고정할까?
 - **A. 완전 고정(정적 파일만, 타임스탬프·난수 없음)** (권장) — 데모/테스트 재현성, 캐시 검증 용이
 - **B. 일부 동적 생성 허용** — 유연하나 결정성 약화
 
-[Answer]:
+[Answer]: A
 
 ---
 
