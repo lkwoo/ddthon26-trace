@@ -13,26 +13,26 @@
 ## 생성/수정 파일 (logical-components 청사진)
 
 ### 코드
-- [ ] C1. `trace/models/impact.py` **[신설]** — `ImpactCandidate{path,category:ImpactCategory,reason,evidence:list[EvidenceRef]}`, `TaskImpactResult{candidates,change_plan}`.
-- [ ] C2. `trace/impact/__init__.py` **[신설]** — 패키지 공개 API.
-- [ ] C3. `trace/impact/context.py` **[신설]** — `KnowledgeContext`(dataclass), `rank_by_relevance`(순수), `build_context`(focus 로드·known_sources·손상 skip).
-- [ ] C4. `trace/impact/analyze.py` **[신설]** — `analyze_task`(LLM 1회, 실패 raise), `to_impact_out`(허구 path·근거부족 review 강등·카테고리 정렬).
-- [ ] C5. `trace/engine/analyze.py` **[수정]** — `analyze_task_impact(task, feature_id=None, *, path=".", llm=None)`(컨텍스트→LLM→매핑→build_result, 지식부재/실패 강등, 파일쓰기 없음).
-- [ ] C6. `trace/engine/__init__.py` **[수정]** — `analyze_task_impact` export.
-- [ ] C7. `trace/prompts/templates/analyze_task.md` **[신설]** — `${task}/${features}/${knowledge}/${known_sources}`, "화이트리스트 내 path·근거참조·근거없으면 review·순서형 change_plan(충돌해소 우선)·유효 JSON만" 명시.
+- [x] C1. `trace/models/impact.py` **[신설]** — `ImpactCandidate{path,category:ImpactCategory,reason,evidence:list[EvidenceRef]}`, `TaskImpactResult{candidates,change_plan}`.
+- [x] C2. `trace/impact/__init__.py` **[신설]** — 패키지 공개 API.
+- [x] C3. `trace/impact/context.py` **[신설]** — `KnowledgeContext`(dataclass), `rank_by_relevance`(순수), `build_context`(focus 로드·known_sources·손상 skip).
+- [x] C4. `trace/impact/analyze.py` **[신설]** — `analyze_task`(LLM 1회, 실패 raise), `to_impact_out`(허구 path·근거부족 review 강등·카테고리 정렬).
+- [x] C5. `trace/engine/analyze.py` **[수정]** — `analyze_task_impact(task, feature_id=None, *, path=".", llm=None)`(컨텍스트→LLM→매핑→build_result, 지식부재/실패 강등, 파일쓰기 없음).
+- [x] C6. `trace/engine/__init__.py` **[수정]** — `analyze_task_impact` export.
+- [x] C7. `trace/prompts/templates/analyze_task.md` **[신설]** — `${task}/${features}/${knowledge}/${known_sources}`, "화이트리스트 내 path·근거참조·근거없으면 review·순서형 change_plan(충돌해소 우선)·유효 JSON만" 명시.
 
 ### 테스트 (PBT/단위/통합)
-- [ ] T1. `tests/test_impact_context.py` — rank_by_relevance 결정성, build_context focus 선정·known_sources·손상 skip, 지식부재.
-- [ ] T2. `tests/test_impact_mapping.py` — to_impact_out: 허구 path→review, 근거부족→review+Insufficient, 카테고리 path 정렬.
-- [ ] T3. `tests/test_impact_properties.py` — PBT-04-A(매핑 건전성)·B(근거부족)·C(정렬 결정성/멱등)·D(related_conflicts 정합). hypothesis derandomize.
-- [ ] T4. `tests/test_analyze_task_impact.py` — FakeLLM: Hero Task(SMS 인증) 3범주+telephone 충돌 경고, 지식부재/LLM실패 강등, 소스 자동수정 없음.
-- [ ] T5. `tests/test_llm_integration.py` **[수정]** — `@pytest.mark.llm_integration` analyze_task_impact 실 API 통합 1건.
+- [x] T1. `tests/test_impact_context.py` — rank_by_relevance 결정성, build_context focus 선정·known_sources·손상 skip, 지식부재.
+- [x] T2. `tests/test_impact_mapping.py` — to_impact_out: 허구 path→review, 근거부족→review+Insufficient, 카테고리 path 정렬.
+- [x] T3. `tests/test_impact_properties.py` — PBT-04-A(매핑 건전성)·B(근거부족)·C(정렬 결정성/멱등)·D(related_conflicts 정합). hypothesis derandomize.
+- [x] T4. `tests/test_analyze_task_impact.py` — FakeLLM: Hero Task(SMS 인증) 3범주+telephone 충돌 경고, 지식부재/LLM실패 강등, 소스 자동수정 없음.
+- [x] T5. `tests/test_llm_integration.py` **[수정]** — `@pytest.mark.llm_integration` analyze_task_impact 실 API 통합 1건.
 
 ### DoD 검증
-- [ ] V1. `pytest -q` 전체 green(기존 113 pass 유지 + 신규), `llm_integration`는 skip.
-- [ ] V2. 신규 모듈 mypy-clean.
-- [ ] V3. Hero Task 시나리오: related_conflicts에 telephone 충돌 노출 + 3범주 분류 재현(FakeLLM 픽스처).
-- [ ] V4. code-summary.md 작성.
+- [x] V1. `pytest -q` 전체 green(기존 113 pass 유지 + 신규), `llm_integration`는 skip.
+- [x] V2. 신규 모듈 mypy-clean.
+- [x] V3. Hero Task 시나리오: related_conflicts에 telephone 충돌 노출 + 3범주 분류 재현(FakeLLM 픽스처).
+- [x] V4. code-summary.md 작성.
 
 ---
 

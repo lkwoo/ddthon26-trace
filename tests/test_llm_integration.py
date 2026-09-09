@@ -70,3 +70,21 @@ def test_analyze_project_live(tmp_path) -> None:  # type: ignore[no-untyped-def]
     result = analyze_project(str(tmp_path))  # 실제 클라이언트 조립(late lookup)
     assert "assets_count" in result.data
     assert result.meta.get("conflicts_count", 0) >= 0  # 스모크: 예외 없이 완주
+
+
+@pytest.mark.skipif(not _RUN, reason="옵트인: TRACE_RUN_LLM_INTEGRATION=1 일 때만 실행")
+@pytest.mark.skipif(not _has_key(), reason="유효한 Anthropic API 키 필요")
+def test_analyze_task_impact_live(tmp_path) -> None:  # type: ignore[no-untyped-def]
+    """UOW-04: 실제 LLM으로 analyze_task_impact가 근거 그라운딩 Result를 반환하는지 최소 검증."""
+    from trace.engine.analyze import analyze_project, analyze_task_impact
+
+    (tmp_path / "src").mkdir()
+    (tmp_path / "docs").mkdir()
+    (tmp_path / "src" / "Owner.java").write_text(
+        "class Owner { @Size(max=10) String telephone; }", encoding="utf-8")
+    (tmp_path / "docs" / "spec.md").write_text(
+        "# Spec\nowner telephone must allow up to 20 characters.", encoding="utf-8")
+
+    analyze_project(str(tmp_path))  # 지식 선행 생성
+    result = analyze_task_impact("Add SMS verification to Owner registration", path=str(tmp_path))
+    assert result.impact is not None  # 스모크: 예외 없이 ImpactOut 반환

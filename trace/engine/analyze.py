@@ -11,13 +11,16 @@ from __future__ import annotations
 from trace.common.errors import PathValidationError, error_to_result, sanitize_error
 from trace.common.logging import get_logger
 from trace.config.settings import get_llm_settings
+from trace.common.errors import TraceError
 from trace.conflict.summarize import summarize_conflicts
 from trace.engine.scan import scan_project_assets
+from trace.impact.analyze import analyze_task, to_impact_out
+from trace.impact.context import build_context
 from trace.knowledge.cache import AnalysisCache
 from trace.knowledge.store import KnowledgeStore
 from trace.llm.client import AnthropicClient
 from trace.llm.service import LLMService
-from trace.models.result import Result, Warning, build_result
+from trace.models.result import ImpactOut, Result, Warning, build_result
 from trace.workflow.claims import enrich_feature_knowledge
 from trace.workflow.features import build_knowledge
 
@@ -136,4 +139,62 @@ def get_conflicts(feature_id: str | None = None, *, path: str = ".") -> Result:
     )
 
 
-__all__ = ["analyze_project", "get_conflicts"]
+def analyze_task_impact(
+    task: str,
+    feature_id: str | None = None,
+    *,
+    path: str = ".",
+    llm: LLMService | None = None,
+) -> Result:
+    """자연어 작업의 영향을 저장 지식에 그라운딩해 분석한다 (FR-IMPACT-001~006, BR-PIPE).
+
+    Must/Likely/Review 분류(+근거)·관련 기존 충돌 경고(P1)·순서형 Change Plan을 반환한다.
+    **소스 코드를 자동 수정하지 않는다**(자문용, BR-PLAN-002 — 파일 쓰기 없음).
+    지식 부재·LLM 실패는 warning으로 강등한다(예외 전파 없음).
+    """
+    store = KnowledgeStore(path)
+    ctx, warnings = build_context(task, feature_id, store)
+
+    if not ctx.focus:  # 저장 지식 없음 (BR-PIPE-003)
+        return build_result(
+            "분석할 지식이 없습니다. 먼저 analyze_project를 실행하세요.",
+            data={"feature_scope": feature_id or "전체", "candidates_count": 0},
+            warnings=[Warning(code="no_knowledge",
+                              message="저장된 지식이 없습니다(analyze_project 필요)",
+                              source=feature_id or "project")],
+            meta={"confidence": "LOW"},
+        )
+
+    service = llm or _build_llm_service()
+    try:
+        result = analyze_task(ctx, service)
+        impact = to_impact_out(result, ctx)
+    except TraceError as exc:  # LLM 실패 강등 (BR-PIPE-002) — 충돌은 그래도 노출
+        _log.warning("event=task_analysis_failed")
+        warnings.append(Warning(code="task_analysis_failed",
+                                message=f"작업 영향 분석 실패: {sanitize_error(exc)}",
+                                source=feature_id or "task"))
+        impact = ImpactOut(related_conflicts=summarize_conflicts(ctx.conflicts))
+
+    candidates_count = len(impact.must_change) + len(impact.likely_change) + len(impact.review)
+    low = any(
+        not it.evidence
+        for bucket in (impact.must_change, impact.likely_change, impact.review)
+        for it in bucket
+    )
+    summary_text = (
+        f"영향 후보 {candidates_count}건 "
+        f"(must {len(impact.must_change)} / likely {len(impact.likely_change)} / review {len(impact.review)}), "
+        f"관련 충돌 {len(impact.related_conflicts)}건"
+    )
+    return build_result(
+        summary_text,
+        data={"feature_scope": feature_id or "전체", "candidates_count": candidates_count},
+        impact=impact,
+        conflicts=impact.related_conflicts,
+        warnings=warnings,
+        meta={"confidence": "LOW" if (low or warnings) else "MEDIUM"},
+    )
+
+
+__all__ = ["analyze_project", "get_conflicts", "analyze_task_impact"]

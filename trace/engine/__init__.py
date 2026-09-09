@@ -4,7 +4,10 @@
 구조적 의미 해석(Feature/Claim)은 상위 단위(UOW-02/03)의 몫이다.
 """
 
-from trace.engine.analyze import analyze_project, get_conflicts
+from trace.engine.analyze import analyze_project, analyze_task_impact, get_conflicts
 from trace.engine.scan import scan_project, scan_project_assets
 
-__all__ = ["scan_project", "scan_project_assets", "analyze_project", "get_conflicts"]
+__all__ = [
+    "scan_project", "scan_project_assets",
+    "analyze_project", "get_conflicts", "analyze_task_impact",
+]

@@ -66,7 +66,7 @@
 - [ ] NFR Requirements — EXECUTE (per-unit) — ✅ UOW-0F/00/01/02/03 완료 / ✅ UOW-04 산출물 생성(2026-09-09, GATE)
 - [ ] NFR Design — EXECUTE (per-unit) — ✅ UOW-0F / UOW-00 SKIP / ✅ UOW-01/02/03 완료 / ✅ UOW-04 산출물 생성(2026-09-09, GATE)
 - [ ] Infrastructure Design — SKIP
-- [ ] Code Generation — EXECUTE (per-unit) — ✅ UOW-0F/00/01/02 완료 / ✅ UOW-03 완료·승인대기(2026-09-09, 113 pass·2 skip) / 🔄 UOW-04~06 진행
+- [ ] Code Generation — EXECUTE (per-unit) — ✅ UOW-0F/00/01/02/03 완료 / ✅ UOW-04 완료·승인대기(2026-09-09, 131 pass·3 skip) / 🔄 UOW-05~06 진행
 - [ ] Build and Test — EXECUTE
 
 ### 🟡 OPERATIONS PHASE
@@ -74,8 +74,9 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: Code Generation — UOW-04 (Task Impact), Part 1 계획 작성 완료 — 승인 대기 (GATE)
-- **Next Stage**: UOW-04 Code Generation Part 1 승인 → Part 2 구현 → UOW-05 (MCP 서버)
+- **Current Stage**: Code Generation — UOW-04 (Task Impact), Part 2 구현 완료 — 승인 대기 (GATE)
+- **Next Stage**: UOW-04 Code Generation 승인 → UOW-05 (MCP 서버 인터페이스) Functional Design 또는 (계약 고정으로) 코드 생성
+- **Status(코드 UOW-04)**: models/impact + impact/{context,analyze} + engine.analyze_task_impact + analyze_task 프롬프트. pytest 131 pass·3 skip(옵트인), 신규 mypy-clean. 지식 그라운딩·허구 path/근거부족 review 강등·기존 conflicts related_conflicts 노출(LLM 실패에도 유지)·순서형 Change Plan·소스 자동수정 없음. to_impact_out 정렬 완전 순서화(PBT-04-C). 코어 5함수 중 analyze_project/get_conflicts/analyze_task_impact 완비(scan_project·list_features 잔여는 UOW-05 배선).
 - **Status(NFR-Design UOW-04)**: nfr-design-patterns(P1 컨텍스트/랭킹·P2 LLM step 상위강등·P3 매핑/강등 순수함수·P4 충돌 독립노출·P5 조립·P6 프롬프트·P7 테스트 5종·P8 결정성/보안), logical-components(models/impact·impact/{context,analyze}·engine analyze_task_impact). 신규 의존성 없음. 확장 Resiliency·PBT Compliant.
 - **Status(NFR UOW-04)**: Q1=A,B,C,D/Q2=A/Q3=A. PBT-04-A~D(매핑 건전성·근거부족 강등·정렬 결정성·related_conflicts 정합), FakeLLM+llm_integration 옵트인, 발췌 4000 상속·focus top-N=3. 순수함수(build_context/to_impact_out/rank), 저장지식 재사용(무재스캔). 확장 Resiliency·PBT Compliant. 신규 의존성 없음.
 - **Status(FD UOW-04)**: Q1~Q5=A. models/impact.py(ImpactCandidate/TaskImpactResult) + impact/{context,analyze} + engine/analyze.analyze_task_impact + analyze_task 프롬프트. 지식 그라운딩(저장 FeatureKnowledge/Evidence 컨텍스트)·3범주 분류+근거참조·허구path review 강등·근거부족 LOW·기존 conflicts related_conflicts 노출(P1)·순서형 Change Plan(충돌해소 우선)·소스 자동수정 없음. 기존 ImpactOut/ImpactItem/EvidenceRef(UOW-0F) 재사용.
