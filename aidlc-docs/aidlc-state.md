@@ -74,8 +74,9 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: Code Generation — UOW-04 (Task Impact), Part 2 구현 완료 — 승인 대기 (GATE)
-- **Next Stage**: UOW-04 Code Generation 승인 → UOW-05 (MCP 서버 인터페이스) Functional Design 또는 (계약 고정으로) 코드 생성
+- **Current Stage**: NFR Requirements — UOW-05 (MCP 서버), 계획+질문 작성 완료 — 승인 대기 (GATE). (UOW-05 Functional Design SKIP — 얇은 어댑터)
+- **Next Stage**: UOW-05 NFR Requirements 답변 → 산출물 → NFR Design → Code Generation
+- **환경 사실**: 설치 `mcp`=2.x(MCPServer, 구 FastMCP). pyproject `mcp>=1.2.0` → 상향 필요(Q1).
 - **Status(코드 UOW-04)**: models/impact + impact/{context,analyze} + engine.analyze_task_impact + analyze_task 프롬프트. pytest 131 pass·3 skip(옵트인), 신규 mypy-clean. 지식 그라운딩·허구 path/근거부족 review 강등·기존 conflicts related_conflicts 노출(LLM 실패에도 유지)·순서형 Change Plan·소스 자동수정 없음. to_impact_out 정렬 완전 순서화(PBT-04-C). 코어 5함수 중 analyze_project/get_conflicts/analyze_task_impact 완비(scan_project·list_features 잔여는 UOW-05 배선).
 - **Status(NFR-Design UOW-04)**: nfr-design-patterns(P1 컨텍스트/랭킹·P2 LLM step 상위강등·P3 매핑/강등 순수함수·P4 충돌 독립노출·P5 조립·P6 프롬프트·P7 테스트 5종·P8 결정성/보안), logical-components(models/impact·impact/{context,analyze}·engine analyze_task_impact). 신규 의존성 없음. 확장 Resiliency·PBT Compliant.
 - **Status(NFR UOW-04)**: Q1=A,B,C,D/Q2=A/Q3=A. PBT-04-A~D(매핑 건전성·근거부족 강등·정렬 결정성·related_conflicts 정합), FakeLLM+llm_integration 옵트인, 발췌 4000 상속·focus top-N=3. 순수함수(build_context/to_impact_out/rank), 저장지식 재사용(무재스캔). 확장 Resiliency·PBT Compliant. 신규 의존성 없음.

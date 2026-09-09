@@ -456,3 +456,10 @@
 **AI Response**: Part 1 계획 승인 → Part 2 실행. 생성: models/impact.py, impact/{__init__,context,analyze}.py, prompts/templates/analyze_task.md + engine/analyze.py(analyze_task_impact)·engine/__init__.py 수정. 테스트 4종 신설 + test_llm_integration analyze_task_impact 케이스. 계획 체크박스 C1~C7/T1~T5/V1~V4 전부 [x]. 결과: pytest 131 passed·3 skipped(옵트인 llm_integration), 신규 모듈 mypy-clean. 지식 그라운딩·허구 path/근거부족 review 강등·기존 충돌 related_conflicts 노출(LLM 실패에도)·순서형 Change Plan·소스 자동수정 없음. to_impact_out 정렬 완전 순서화(PBT-04-C). code-summary.md 작성. 승인 대기(GATE).
 **Status**: 승인 대기 (GATE)
 **Context**: CONSTRUCTION - Code Generation(UOW-04) Part 2 구현 완료
+
+## Code Generation (UOW-04) GATE 승인 & UOW-05 단계 심도 판정
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인"
+**AI Response**: UOW-04 Code Generation 승인(per-unit loop UOW-04 완료). → UOW-05(MCP 서버 인터페이스) 착수. 적응형 판정: UOW-05는 얇은 어댑터(5 도구=코어함수 1:1, 새 비즈니스 로직 없음, list_features/get_feature_knowledge는 store 위임 트리비얼 래퍼)로 **Functional Design SKIP**. 단, 신규 의존성(mcp SDK)·stdio 전송·Result 직렬화·입력검증·오류매핑·엔트리포인트는 실질 NFR/기술결정 → **NFR Requirements EXECUTE**. uow-05-nfr-requirements-plan.md 작성(계획+질문 Q1~Q4).
+**Status**: 승인 대기 (GATE, 계획+질문)
+**Context**: CONSTRUCTION - UOW-05 NFR Requirements 계획 작성 (FD SKIP)
