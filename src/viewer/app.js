@@ -433,13 +433,16 @@ function renderGraph() {
     .map((e) => ({ source: e.src, target: e.dst, type: e.type, resolved: e.resolved }));
   const color = { file: "#4f9cf9", function: "#7bd88f", class: "#f9c74f", module: "#c792ea" };
   const svg = d3.select(host).append("svg").attr("viewBox", [0, 0, width, height]);
+  // Everything drawable lives in this container <g> so the whole graph can be
+  // panned/zoomed as one unit (see the d3.zoom setup below).
+  const container = svg.append("g");
   const sim = d3.forceSimulation(nodes)
     .force("link", d3.forceLink(links).id((d) => d.id).distance(60))
     .force("charge", d3.forceManyBody().strength(-140))
     .force("center", d3.forceCenter(width / 2, height / 2));
-  const link = svg.append("g").selectAll("line").data(links).join("line")
+  const link = container.append("g").selectAll("line").data(links).join("line")
     .attr("class", (d) => "gedge" + (d.resolved ? "" : " unresolved"));
-  const node = svg.append("g").selectAll("circle").data(nodes).join("circle")
+  const node = container.append("g").selectAll("circle").data(nodes).join("circle")
     .attr("class", (d) => "gnode" + (d.path && state.pages.has(d.path) ? " has-page" : ""))
     .attr("r", 6)
     .attr("fill", (d) => color[d.kind] || "#8a94a6")
@@ -470,8 +473,19 @@ function renderGraph() {
     if (box) box.hidden = true;
   });
 
-  const label = svg.append("g").selectAll("text").data(nodes).join("text")
+  const label = container.append("g").selectAll("text").data(nodes).join("text")
     .attr("class", "glabel").attr("dx", 8).attr("dy", 3).text((d) => d.name);
+
+  // Pan (drag background) and zoom (wheel / dbl-click) the whole canvas. Node
+  // drag still works: each node's drag container sits inside `container`, so its
+  // pointer coordinates already account for the zoom transform.
+  const zoom = d3.zoom()
+    .scaleExtent([0.1, 8])
+    .on("zoom", (event) => container.attr("transform", event.transform));
+  svg.call(zoom).style("cursor", "grab");
+  svg.on("mousedown.cursor", () => svg.style("cursor", "grabbing"));
+  svg.on("mouseup.cursor", () => svg.style("cursor", "grab"));
+
   sim.on("tick", () => {
     link.attr("x1", (d) => d.source.x).attr("y1", (d) => d.source.y)
         .attr("x2", (d) => d.target.x).attr("y2", (d) => d.target.y);

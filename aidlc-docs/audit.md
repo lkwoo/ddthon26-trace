@@ -282,3 +282,12 @@ AI-DLC 워크플로우를 시작해봅시다."
 **Context**: CONSTRUCTION — packaging / developer experience (auto-adopt, minimal depth)
 
 ---
+
+## Dependency Graph — pan/zoom fix (viewer)
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "사용자 wiki Dependency Graph 보기에서 마우스 드래그로 화면 이동이 안되서 볼 수 없는 내용들이 많아." / "변경사항을 문서에 기록해줘."
+**AI Response**: "Small brownfield bug fix (minimal AI-DLC depth), unit u7-wiki-export-viewer, branch shortFix1. Root cause: renderGraph (src/viewer/app.js) drew the dependency graph into a fixed-viewBox SVG with d3.drag bound only to individual nodes and NO d3.zoom on the canvas, so nodes pushed outside the initial viewport by the force simulation were unreachable. Fix: wrapped the edge/node/label groups in a single container <g> and attached d3.zoom to the svg, applying event.transform to that container (pan on background drag; wheel/dbl-click zoom, scaleExtent 0.1-8x; grab/grabbing cursor). Node drag preserved because each node drag container now sits inside the transformed <g>, so d3.pointer accounts for the zoom via getScreenCTM; node/background click handlers unaffected (d3.zoom uses namespaced handlers). No exporter/JSON-contract/store change; exporter still copies src/viewer/* into <store>/wiki so the fix propagates on next regeneration (no build copy to sync). Verified delimiter balance (node unavailable locally for node --check). Documented in aidlc-docs/construction/u7-wiki-export-viewer/code/graph-pan-zoom-fix.md. Structure Tree shares the same structure but was out of scope (flagged as possible follow-up)."
+**Status**: COMPLETE (viewer graph pan/zoom fix; change note added)
+**Context**: CONSTRUCTION — small bug fix (auto-adopt, minimal depth)
+
+---
