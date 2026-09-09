@@ -312,3 +312,35 @@
 **Context**: 유지보수성 및 보안(평가기준 6) — 시크릿 관리. Increment 2 마감 이후 후속 하드닝. 코드/설계 변경 없음, 설정·문서 산출물만 변경.
 
 ---
+
+## 사용성 — README 비개발자용 셋업·실행 가이드 보강
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "aidlc에 맞게 터미널과 코딩 배경지식이 없는 사람도 쉽게 따라할 수 있도록 셋업 방법과 실행 방법을 readme에 보충해줘."
+**AI Response**: pyproject.toml(진입점 trace/trace-mcp, requires-python>=3.10)·.env.example·.mcp.json.example 확인 후 README에 "처음이신가요? — 터미널·코딩 경험 없이 따라하기" 6단계 추가: (1)터미널 열기(Windows PowerShell/macOS Terminal) (2)Python 확인·설치(Add Python to PATH 주의) (3)프로젝트 내려받기(ZIP/git) (4)폴더 이동(cd, 폴더 끌어놓기 팁) (5)pip install -e . (6)데모 실행. 기존 데모가 bash `export`만 있어 Windows 사용자가 막히는 문제를 발견 → macOS/Linux(export)·Windows(PowerShell $env:) 상자를 나란히 제공. "30초 데모"에 초보자 섹션 링크·OS 차이 안내, Claude Code 연결 섹션에 Claude Code 한 줄 설명 추가. 평가기준 5(사용성 — 시작 경로) 대응. 커밋 81c7e6e.
+**Context**: 사용성(평가기준 5). Increment 2 마감 이후 문서 하드닝 — 코드 변경 없음, README만.
+
+---
+
+## 사용성 — README 셋업 가이드에 실제 저장소 URL 반영
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "https://github.com/lkwoo/ddthon26-trace"
+**AI Response**: 3단계 프로젝트 내려받기의 `<저장소-주소>` 플레이스홀더를 실제 URL로 확정 — Download ZIP 안내에 GitHub 링크 연결, `git clone https://github.com/lkwoo/ddthon26-trace.git`. 비개발자 시작 경로 완결. 커밋 9ffd8fa.
+**Context**: 사용성(평가기준 5) — 시작 경로 완결.
+
+---
+
+## 사용성 — README에 live 모드(API 키) 실제 실행법 추가
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "api키를 가지고 있을 때의 실행 방법도 알려줘. 그게 사실 메인이잖아"
+**AI Response**: traceki/config get_llm_settings 백엔드 선택 로직(live: ANTHROPIC_API_KEY/TRACE_LLM_MODEL, bedrock: AWS_BEARER_TOKEN_BEDROCK/AWS_REGION/TRACE_BEDROCK_MODEL) 및 .env 자동 로드(load_config가 대상 경로+cwd의 .env 병합, CLI/MCP 공통) 확인. README에 "API 키로 내 프로젝트 분석하기 (live 모드) — 이게 실제 사용법입니다" 섹션 추가: replay는 demo/ 전용임을 명시, (1)console.anthropic.com에서 sk-ant 키 발급 (2-권장).env.example→.env 복사·편집(터미널 기록에 키 안 남고 gitignore됨) (2-대안)OS별 환경변수(export/$env:) + "창 닫으면 사라짐" 주의, Bedrock(ABSK bearer·리전 접두사·IAM 권한) 안내. NFR-SEC-001(키 하드코딩/커밋 금지) 반영. 커밋 8b7bb3a.
+**Context**: 사용성(평가기준 5) + 보안(평가기준 6). live 모드를 메인 사용 경로로 문서화.
+
+---
+
+## AI-DLC 기록 점검 — audit.md 소급 기록
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "aidlc 관련 문서도 작성하고 있어?"
+**AI Response**: 이번 세션의 README 보강 3건을 [AI-DLC:...] 커밋 메시지로는 남겼으나 CLAUDE.md가 요구하는 audit.md 기록을 누락했음을 솔직히 확인. 위 3개 상호작용을 소급하여 append. aidlc-state는 Increment 2 마감/OPERATIONS(placeholder) 상태 유지 — 이번 작업은 새 단계가 아니라 마감 후 문서 하드닝이므로 상태 전이 없음(.mcp.json.example 추가 건과 동일 성격).
+**Context**: AI-DLC 사용 충실성(평가기준 1) — 감사 로그 정합성 복구.
+
+---

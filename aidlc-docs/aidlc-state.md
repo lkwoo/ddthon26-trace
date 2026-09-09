@@ -111,3 +111,4 @@
   - LLM 백엔드에 **bedrock** 추가(AnthropicBedrock, Authorization: Bearer). config: AWS_BEARER_TOKEN_BEDROCK·TRACE_BEDROCK_MODEL·AWS_REGION. 테스트 격리(tests/conftest.py)로 실제 .env 오염 차단. 커밋 e81c16a.
   - **live 실증**: Amazon Bedrock 크로스리전 프로파일 `global.anthropic.claude-opus-4-8`(리전 ap-northeast-2)로 데모 실제 분석 성공. 계정 IAM 권한 문제로 us./apac. 리전 프로파일은 불가, global 프로파일만 호출됨.
   - **extract_claims 프롬프트 개선**: live Opus가 값 20/10을 한 claim으로 병합해 충돌 미검출 → "값이 다르면 값마다 별도 claim(병합 금지)" 규칙 추가. 재실행 시 value_mismatch(전화번호 10 vs 20) live 검출·Change Plan 충돌 인지 확인. result/hero-run-live-opus48.txt 저장. 전체 63 테스트 통과. 커밋 c6fa45d.
+  - **README 사용성 하드닝(2026-09-09, 사용자 요청)**: 비개발자용 "처음이신가요?" 6단계 셋업(터미널·Python·다운로드·설치·데모)·OS별 명령(export/$env:)·실제 저장소 URL 추가, **live 모드(API 키) 실제 실행법**을 메인 경로로 문서화(.env 권장/환경변수 대안/Bedrock). 평가기준 5(사용성)+6(보안, 시크릿 위생) 대응. 코드 변경 없음. 커밋 81c7e6e·9ffd8fa·8b7bb3a.
