@@ -68,6 +68,21 @@ Bedrock, `global.anthropic.claude-opus-4-8`)로 라이브 실행**한 결과입�
 | [**마이라 · Maintain**](demo/scenario/maira/README.md) | "세금(VAT)이 안 붙는다" 운영 이슈 조사 | 원인을 **설정 `disabled` + 코드 `absent`** 이중 드리프트로, 양쪽 근거·위치와 함께 지목 |
 | [**피엠 · Plan Change**](demo/scenario/pm/README.md) | "Owner 등록에 SMS 인증 추가" 영향 검토 | 착수 전 충돌 6건 경고 + 영향 11건(Must/Likely/Review) + **충돌 선결 8단계 Change Plan** |
 
+**시연 스크린샷** (실제 tool 출력을 터미널 화면으로 렌더링 — [`screenshots/`](screenshots/)):
+
+<p align="center">
+  <img src="screenshots/dev-owner-knowledge.png" alt="데브 — get_feature_knowledge(owner-registration) 실제 출력" width="760"><br/>
+  <sub>데브 · <code>get_feature_knowledge</code> — owner-registration의 claims·conflicts를 근거와 함께</sub>
+</p>
+<p align="center">
+  <img src="screenshots/maira-tax-rootcause.png" alt="마이라 — get_conflicts 세금 이슈 근본 원인" width="760"><br/>
+  <sub>마이라 · <code>get_conflicts</code> — 세금 미적용의 원인(설정 disabled + 코드 absent)을 양쪽 근거로</sub>
+</p>
+<p align="center">
+  <img src="screenshots/pm-impact-plan.png" alt="피엠 — analyze_task_impact 영향·Change Plan" width="760"><br/>
+  <sub>피엠 · <code>analyze_task_impact</code> — 착수 전 충돌 경고 + Must/Likely/Review + 순서형 Change Plan</sub>
+</p>
+
 > 세 페르소나는 **동일한 코어 지식**을 각자의 진입점(MCP tool)에서 소비합니다. 세 명 요약 여정은
 > [`result/usage-walkthrough.md`](result/usage-walkthrough.md), API 키 없는 결정적 전체 출력은
 > [`result/hero-demo-output.txt`](result/hero-demo-output.txt)를 참고하세요.
@@ -133,9 +148,9 @@ python demo/scenario/dev/capture_dev_scenario.py  # 데브 여정 결정적 캡�
 기본 모드는 스캔·파싱·Conflict 검출·Impact 매핑을 **실제 코드로 수행**하고 LLM만 고정 응답으로 대체하므로
 **매 실행 결과가 동일**합니다. 전체 Conflict 목록은 [`demo/README.md`](demo/README.md)의 Ground Truth 표를 참고하세요.
 
-> **실행 증거**: 위 커맨드의 실제 콘솔 출력을 [`demo/scenario/`](demo/scenario/)(페르소나별 라이브 화면)와
-> [`result/hero-demo-output.txt`](result/hero-demo-output.txt)(결정적 전체 흐름)에 그대로 담았습니다.
-> 스크린샷 대신 **재현 가능한 텍스트 트랜스크립트**로 제공하므로, 같은 명령으로 직접 확인할 수 있습니다.
+> **실행 증거**: 시연 스크린샷은 [`screenshots/`](screenshots/), 페르소나별 라이브 화면 전문은
+> [`demo/scenario/`](demo/scenario/), 결정적 전체 흐름은 [`result/hero-demo-output.txt`](result/hero-demo-output.txt)에
+> 있습니다. 스크린샷은 `python demo/tools/render_screens.py`로 실제 출력에서 재생성할 수 있습니다.
 
 ### 문제가 생기면 — Troubleshooting
 - `환경변수 ANTHROPIC_API_KEY 가 설정되지 않았습니다` → `.env`에 키를 넣거나 셸에 export. (결정적

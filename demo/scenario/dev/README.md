@@ -12,6 +12,11 @@
 > - **라이브 재현**: `python demo/tools/extract_features_live.py` (Bedrock 자격증명 필요, `.env` 참고)
 > - **API 키 없이 결정적 재현**: `python demo/scenario/dev/capture_dev_scenario.py` (FakeLLM, 매번 동일)
 
+<p align="center">
+  <img src="../../../screenshots/dev-owner-knowledge.png" alt="데브 — get_feature_knowledge(owner-registration) 실제 출력" width="820"><br/>
+  <sub>시연 스크린샷 · STEP 3 <code>get_feature_knowledge("owner-registration")</code> 실제 출력</sub>
+</p>
+
 ---
 
 ## 👤 업무 명세 (Task Spec)

@@ -11,6 +11,11 @@
 > - **라이브 지식 생성**: `python demo/tools/extract_features_live.py` (Bedrock 자격증명 필요, `.env` 참고)
 > - **API 키 없이 결정적 재현**: `python demo/run_demo.py` (FakeLLM, 큐레이션된 9충돌)
 
+<p align="center">
+  <img src="../../../screenshots/maira-tax-rootcause.png" alt="마이라 — get_conflicts 세금 이슈 근본 원인" width="820"><br/>
+  <sub>시연 스크린샷 · 세금 미적용의 근본 원인(설정 disabled + 코드 absent)을 양쪽 근거로</sub>
+</p>
+
 ---
 
 ## 👤 업무 명세 (Task Spec)

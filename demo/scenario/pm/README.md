@@ -11,6 +11,11 @@
 > - **라이브 재현**: `.env`(Bedrock 자격증명) 설정 후 아래 "재현 방법" 참고
 > - **API 키 없이 결정적 재현**: `python demo/run_demo.py` (FakeLLM, 매번 동일)
 
+<p align="center">
+  <img src="../../../screenshots/pm-impact-plan.png" alt="피엠 — analyze_task_impact 영향·Change Plan" width="820"><br/>
+  <sub>시연 스크린샷 · 착수 전 충돌 경고 + Must/Likely/Review + 순서형 Change Plan</sub>
+</p>
+
 ---
 
 ## 👤 업무 명세 (Task Spec)
