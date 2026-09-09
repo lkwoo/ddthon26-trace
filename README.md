@@ -112,6 +112,87 @@ trace map ./demo --refresh
 
 ---
 
+## API 키로 내 프로젝트 분석하기 (live 모드) — 이게 실제 사용법입니다
+
+위 데모는 미리 저장해 둔 응답을 재생하는 것이라 **동봉된 `demo/` 폴더에만** 동작합니다.
+**여러분의 진짜 프로젝트**를 분석하려면 Claude API 키를 넣고 `live` 모드로 실행하세요.
+
+### 1단계 — Claude API 키 발급받기
+
+1. [console.anthropic.com](https://console.anthropic.com) 에 로그인 (없으면 가입)
+2. 왼쪽 메뉴 **API Keys → Create Key** → 만들어진 `sk-ant-...` 문자열을 복사
+
+> 🔐 이 키는 **비밀번호**입니다. 남에게 보여주거나, 코드·깃(GitHub)에 넣지 마세요. 사용량만큼 요금이 부과됩니다.
+
+### 2단계 — 키를 `.env` 파일에 저장 (권장, 가장 안전)
+
+터미널에 키를 직접 치면 명령 기록에 남습니다. 대신 프로젝트 폴더의 **`.env` 파일**에 넣으면 TRACE가
+자동으로 읽고, 이 파일은 깃에 커밋되지 않습니다.
+
+1. `ddthon26-trace` 폴더 안의 **`.env.example`** 파일을 복사해 이름을 **`.env`** 로 바꿉니다.
+   (메모장·텍스트 편집기로 열어 "다른 이름으로 저장" 해도 됩니다.)
+2. `.env` 를 열어 아래 두 줄을 이렇게 고칩니다:
+
+```bash
+TRACE_LLM_BACKEND=live
+ANTHROPIC_API_KEY=sk-ant-...        # 1단계에서 복사한 실제 키로 교체
+```
+
+3. 저장한 뒤 분석을 실행합니다 (환경변수 설정 없이 바로 됩니다):
+
+```bash
+trace analyze-project ./분석할/프로젝트/경로 --refresh
+trace conflicts
+trace map ./분석할/프로젝트/경로 --refresh
+```
+
+> `./분석할/프로젝트/경로` 자리에 실제 분석 대상 폴더를 넣으세요. `cd `를 친 뒤 폴더를 터미널로
+> 끌어다 놓으면 경로가 자동으로 채워집니다. 지금 폴더를 분석하려면 그냥 `.` 을 쓰면 됩니다.
+
+### 2단계 (대안) — 파일 대신 환경변수로 넣기
+
+`.env`를 만들지 않고 그때그때 넣어도 됩니다.
+
+**macOS / Linux (터미널)**
+
+```bash
+export TRACE_LLM_BACKEND=live
+export ANTHROPIC_API_KEY=sk-ant-...        # 발급받은 키
+export TRACE_LLM_MODEL=claude-sonnet-5     # (선택) 기본값이라 생략 가능
+
+trace analyze-project ./분석할/프로젝트/경로 --refresh
+trace conflicts
+```
+
+**Windows (PowerShell)**
+
+```powershell
+$env:TRACE_LLM_BACKEND="live"
+$env:ANTHROPIC_API_KEY="sk-ant-..."
+$env:TRACE_LLM_MODEL="claude-sonnet-5"
+
+trace analyze-project ./분석할/프로젝트/경로 --refresh
+trace conflicts
+```
+
+> 이렇게 넣은 값은 **터미널 창을 닫으면 사라집니다.** 창을 다시 열면 다시 넣어야 하므로,
+> 계속 쓸 거라면 위 `.env` 파일 방식을 권합니다.
+
+### Amazon Bedrock을 쓰는 경우
+
+회사 AWS 계정 등으로 Bedrock을 통해 Claude를 쓴다면 `sk-ant` 키 대신 Bedrock API 키(bearer 토큰, `ABSK...`)를 씁니다:
+
+```bash
+TRACE_LLM_BACKEND=bedrock
+AWS_BEARER_TOKEN_BEDROCK=ABSK...
+AWS_REGION=ap-northeast-2
+TRACE_BEDROCK_MODEL=apac.anthropic.claude-sonnet-4-5-20250929-v1:0   # 리전 접두사(us./eu./apac.)를 맞추세요
+```
+
+> IAM 사용자에 `bedrock:InvokeModel` 권한이 있고, Bedrock 콘솔에서 해당 모델 액세스가 활성화돼 있어야 합니다.
+
+---
+
 ## 30초 데모 (API 키 불필요)
 
 > 터미널이 익숙하다면 이 섹션으로 바로 시작하세요. 처음이라면 위
