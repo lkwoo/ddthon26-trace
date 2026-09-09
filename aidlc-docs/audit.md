@@ -219,3 +219,9 @@
 **Context**: CONSTRUCTION - Code Generation(UOW-0F) 승인 완료 → UOW-00 per-unit 루프 착수
 
 ---
+
+## Functional Design (UOW-00) — 계획·질문 작성
+**Timestamp**: 2026-09-09T00:00:00Z
+**AI Prompt**: uow-00-functional-design-plan.md 작성(S1~S8 체크박스 + Q1~Q5 질문). UOW-00은 코드 아닌 픽스처 데이터 → Functional Design=데이터셋 논리 구조/의도적 충돌/3 페르소나 시나리오 매핑 설계. 질문: Q1 충돌 개수, Q2 PDF 커밋 방식, Q3 Hero Feature, Q4 Petclinic 발췌 범위, Q5 결정성 수준.
+**Status**: 승인 대기 (GATE, 계획+질문 답변)
+**Context**: CONSTRUCTION - Functional Design(UOW-00) 계획 작성 완료
