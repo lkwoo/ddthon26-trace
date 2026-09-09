@@ -116,6 +116,8 @@ trace map ./demo --refresh               # 신입 온보딩 맵: 진입점·의�
 
 `.env.example`를 복사해 `.env`로 두거나 환경변수로 지정합니다. `.env`는 `.gitignore` 처리됩니다.
 
+MCP 클라이언트(Claude Code 등)에 TRACE 서버를 등록하려면 `.mcp.json.example`을 `.mcp.json`으로 복사해 값을 채웁니다. `.mcp.json`은 실제 시크릿(Bedrock bearer 토큰 등)을 담으므로 `.env`와 마찬가지로 `.gitignore` 처리됩니다.
+
 | 변수 | 기본 | 설명 |
 |---|---|---|
 | `TRACE_LLM_BACKEND` | `replay` | `live` 또는 `replay` |
