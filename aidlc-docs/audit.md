@@ -533,3 +533,10 @@
 **AI Response**: "현재 어디 단계까지 왔지?" 확인 후 제시한 선택지 중 1번(Build and Test 승인 → CONSTRUCTION 마무리)을 선택. Build and Test 지침 5종 승인 확정 → CONSTRUCTION 페이즈 전체 완료. OPERATIONS는 placeholder(미실행). aidlc-state.md Stage Progress에서 Functional Design/NFR Requirements/NFR Design/Build and Test 체크 완료 처리, Current Stage를 "CONSTRUCTION 완료"로 갱신.
 **Status**: 완료 (CONSTRUCTION 전체 완료)
 **Context**: CONSTRUCTION - Build and Test 승인 → 페이즈 종료
+
+## 데모 데이터셋 확장 — 실제 프로젝트 수준 (UOW-00/06 개선)
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "데모 프로젝트의 크기가 너무 작아서 이 기능의 효용성이 잘 전달되지 않는 것 같아. 실제 프로젝트에 준하는 수준이었으면 좋겠어."
+**AI Response**: 규모 확장 방식 질문(4지선다) → 사용자 선택: (1)리치 합성 멀티도메인 프로젝트, (2)결정적 FakeLLM 유지 + --live 실 API 모드 둘 다. 코어 파이프라인 계약(스캔 분류·LLM 응답 스키마·충돌검출 의미론·호출순서)을 서브에이전트로 정밀 조사 후, 드리프트 없이 확장. demo/를 5개 도메인(owner/pet/vet/visit/billing)·약 48개 자산으로 키우고, 의도적 충돌을 3→9건(value_mismatch 3·policy_conflict 3·stale_knowledge 3)으로 확대. 스펙 PDF 4종을 재현 가능한 생성기(demo/tools/generate_specs.py, reportlab)로 결정적 생성. run_demo.py를 6 Feature/9 충돌 스크립트 + --live(실 Claude) 모드로 재작성. 무결성 테스트(C-4~C-9 추가)·Hero E2E(9충돌·6Feature·owner 관련충돌 3)·스캐너 테스트(PDF 4)·README(루트/demo/result)·usage-walkthrough·result 실행증거 전부 갱신. 결과: pytest 157 pass·3 skip(기존 145→+12), 신규 mypy 대상 외(trace 무회귀, 기존 client.py 경고 1건 유지). 규모용 Java 파일에 TODO/스텁 없음.
+**Status**: 완료 (테스트 통과)
+**Context**: CONSTRUCTION 후속 개선 — 데모 데이터셋/하니스 확장

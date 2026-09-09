@@ -34,7 +34,7 @@ _DEMO = _REPO / "demo"
 @pytest.fixture
 def demo_root(tmp_path: Path) -> str:
     root = tmp_path / "demo"
-    shutil.copytree(_DEMO, root, ignore=shutil.ignore_patterns("run_demo.py", "__pycache__", ".trace"))
+    shutil.copytree(_DEMO, root, ignore=shutil.ignore_patterns("run_demo.py", "tools", "__pycache__", ".trace"))
     return str(root)
 
 
@@ -45,11 +45,15 @@ def _run_analysis(demo_root: str):
     return result, assets, hero_fid
 
 
-def test_hero_analyze_detects_three_conflicts(demo_root: str) -> None:
+def test_hero_analyze_detects_nine_conflicts(demo_root: str) -> None:
     result, _, _ = _run_analysis(demo_root)
-    assert result.data["conflicts_count"] == 3
-    types = {c.type for c in result.conflicts}
-    assert types == {"value_mismatch", "policy_conflict", "stale_knowledge"}
+    # 5개 도메인에 걸친 9건 (value_mismatch 3 / policy_conflict 3 / stale_knowledge 3)
+    assert result.data["conflicts_count"] == 9
+    types = [c.type for c in result.conflicts]
+    assert set(types) == {"value_mismatch", "policy_conflict", "stale_knowledge"}
+    assert types.count("value_mismatch") == 3
+    assert types.count("policy_conflict") == 3
+    assert types.count("stale_knowledge") == 3
 
 
 def test_hero_full_flow(demo_root: str) -> None:
@@ -57,18 +61,22 @@ def test_hero_full_flow(demo_root: str) -> None:
 
     # list_features / get_feature_knowledge (저장 지식, LLM 미호출)
     features = list_features(path=demo_root).data["features"]
-    assert {f["id"] for f in features} == {"owner-registration", "pet-management"}
+    assert {f["id"] for f in features} == {
+        "billing-invoicing", "clinic-configuration", "owner-registration",
+        "pet-management", "vet-directory", "visit-scheduling",
+    }
     fk = get_feature_knowledge("owner-registration", path=demo_root)
     assert fk.data["resource_uri"] == "trace://feature/owner-registration"
 
     # get_conflicts
-    assert get_conflicts(path=demo_root).meta["conflicts_count"] == 3
+    assert get_conflicts(path=demo_root).meta["conflicts_count"] == 9
 
     # analyze_task_impact — 충돌 경고 + 3범주 + Change Plan
     impact = analyze_task_impact("Add SMS verification to Owner registration", hero_fid,
                                  path=demo_root, llm=LLMService(_ScriptedLLM(_impact_script(assets))))
     assert impact.impact is not None
-    assert len(impact.impact.related_conflicts) == 2  # owner-registration의 기존 충돌(telephone·email)
+    # owner-registration의 기존 충돌 3건(telephone·email·address)
+    assert len(impact.impact.related_conflicts) == 3
     assert impact.impact.must_change and impact.impact.change_plan
     assert "충돌" in impact.summary  # 구현 권고 전 경고 상단 노출
 

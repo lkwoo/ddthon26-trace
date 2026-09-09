@@ -69,6 +69,39 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Pet"
+  /vets:
+    get:
+      summary: List veterinarians
+      operationId: listVets
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Vet"
+  /pets/{petId}/visits:
+    post:
+      summary: Add a visit for a pet
+      operationId: addVisit
+      parameters:
+        - name: petId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Visit"
+      responses:
+        "201":
+          description: Created
 components:
   schemas:
     Owner:
@@ -124,3 +157,39 @@ components:
         name:
           type: string
           maxLength: 80
+    Vet:
+      type: object
+      required:
+        - firstName
+        - lastName
+      properties:
+        id:
+          type: integer
+          format: int32
+        firstName:
+          type: string
+          maxLength: 30
+        lastName:
+          type: string
+          maxLength: 30
+        # NOTE(demo): specialties 최소 개수 제약을 스펙에 표기하지 않음 (충돌 C-5 맥락)
+        specialties:
+          type: array
+          items:
+            type: string
+    Visit:
+      type: object
+      required:
+        - date
+      properties:
+        id:
+          type: integer
+          format: int32
+        date:
+          type: string
+          format: date
+          # NOTE(demo): 과거일자 금지 제약을 스펙에 표기하지 않음 (충돌 C-6 맥락)
+        description:
+          type: string
+          # NOTE(demo): 명세(spec)는 255자이나 여기서는 8192 (충돌 C-4)
+          maxLength: 8192

@@ -29,4 +29,6 @@ python demo/run_demo.py > result/hero-demo-output.txt 2>/dev/null
    - "Owner 등록에 SMS 인증 추가 시 영향과 리스크는?" → `analyze_task_impact`
 4. 각 단계의 화면(도구 호출 → 충돌 경고 → Change Plan)을 `result/screenshots/`에 저장.
 
-예상 화면 내용은 `hero-demo-output.txt`와 동일한 3충돌·영향·Change Plan입니다.
+예상 화면 내용은 `hero-demo-output.txt`와 동일한 9충돌(5도메인)·영향·Change Plan입니다.
+
+> 실제 Claude 자동 검출을 시연하려면 `python demo/run_demo.py --live` (ANTHROPIC_API_KEY 필요, 비결정적).

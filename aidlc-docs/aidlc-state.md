@@ -73,6 +73,7 @@
 - [ ] Operations (placeholder)
 
 ## Current Status
+- **Status(데모 확장 2026-09-09)**: demo/를 5도메인(owner/pet/vet/visit/billing)·~48자산으로 확장, 의도적 충돌 3→9건(value/policy/stale 각 3). 스펙 PDF 4종=demo/tools/generate_specs.py(reportlab, 결정적 재생성). run_demo.py=6 Feature/9충돌 스크립트 + --live(실 Claude) 모드. 무결성(C-4~C-9)·Hero E2E(9충돌·6Feature·owner 관련충돌 3)·스캐너(PDF4)·README(루트/demo/result)·walkthrough·result 실행증거 갱신. pytest 157 pass·3 skip. 규모용 Java 스텁/TODO 없음. → "효용 전달"(문제정의·창의성·완성도) 강화.
 - **Lifecycle Phase**: CONSTRUCTION
 - **Current Stage**: ✅ CONSTRUCTION 완료 — Build and Test 승인(2026-09-09). per-unit loop 전체 완료.
 - **Next Stage**: OPERATIONS (placeholder — 미실행). 산출물 보강(스크린샷/실행증거) 또는 마무리.

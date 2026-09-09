@@ -24,10 +24,11 @@ def test_scan_demo_returns_diverse_assets() -> None:
 def test_scan_demo_pdf_is_parsed() -> None:
     assets, _ = scan_project_assets(str(DEMO))
     pdfs = [a for a in assets if a.asset_type == AssetType.PDF]
-    assert len(pdfs) == 1
-    pdf = pdfs[0]
-    assert pdf.parse_status == ParseStatus.PARSED
-    assert pdf.content and "20 characters" in pdf.content  # PDF 텍스트 추출 확인
+    # 4개 도메인 스펙 PDF (owner/vet/visit/billing)
+    assert len(pdfs) == 4
+    assert all(p.parse_status == ParseStatus.PARSED for p in pdfs)
+    owner_spec = next(p for p in pdfs if "owner-management-spec" in p.rel_path)
+    assert owner_spec.content and "20 characters" in owner_spec.content  # PDF 텍스트 추출 확인
 
 
 def test_scan_result_data_excludes_content() -> None:

@@ -80,9 +80,13 @@ trace conflicts --json              # 구조화(JSON) 출력
 ## 키 없이 결정적 데모
 
 ```bash
-python demo/run_demo.py     # demo/(Petclinic+의도적 충돌)에 스크립트 LLM 주입 → Hero 흐름 재현
+python demo/run_demo.py          # 결정적 재현 (API 키 불필요)
+python demo/run_demo.py --live   # 실제 Claude 자동 검출 (ANTHROPIC_API_KEY 필요, 비결정적)
 ```
-스캔·파싱·충돌검출·영향매핑은 실제 코드가 수행하고 LLM만 고정 응답으로 대체 → **매 실행 동일**.
+`demo/`는 spring-petclinic-rest 스타일의 **5개 도메인·약 48개 자산**(소스·스펙 PDF·스키마·설정·테스트)에
+**의도적 충돌 9건**(값 불일치·정책 충돌·오래된 지식 각 3)을 심은 프로젝트다. 기본 모드는 스캔·파싱·
+충돌검출·영향매핑을 실제 코드로 수행하고 LLM만 고정 응답으로 대체 → **매 실행 동일**. 충돌 목록은
+[`demo/README.md`](demo/README.md)의 Ground Truth 표 참고.
 
 ---
 
