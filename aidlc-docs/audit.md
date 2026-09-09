@@ -197,3 +197,11 @@
 **Context**: CONSTRUCTION - Build and Test (NFR-REL-001/AI-004 반복가능 E2E, NFR-SEC-001 시크릿 위생) — CONSTRUCTION 종료
 
 ---
+
+## Construction — 후속: Bedrock 백엔드 + extract_claims 프롬프트 개선 (사용자 요청)
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: ".env에 키를 넣었어. 한번 돌려보자." / "리전은 ap-northeast-2이고, 모델을 opus 4.8로 설정해서 다시 되는지 확인해볼래?" / "(global.anthropic.claude-opus-4-8) 혹시 이거야? 지금 이 세션에서 사용하는 키를 프로젝트에서도 사용할거야."
+**AI Response**: 사용자가 제공한 키가 sk-ant 다이렉트가 아닌 AWS Bedrock bearer 토큰(ABSK…)임을 확인 → LLM 백엔드에 bedrock 추가(anthropic.AnthropicBedrock, Authorization: Bearer). config에서 TRACE_LLM_BACKEND=bedrock 시 AWS_BEARER_TOKEN_BEDROCK·TRACE_BEDROCK_MODEL·AWS_REGION 사용. 테스트 격리(tests/conftest.py autouse)로 실제 .env 오염 차단. 모델 ID 탐색: us./apac. 리전 프로파일은 INVALID/403(계정 bedrock:InvokeModel 권한 없음), 최종적으로 크로스리전 global 프로파일 `global.anthropic.claude-opus-4-8`가 200 OK. live 첫 실행에서 충돌 0건 → 원인 규명: Opus가 값 20/10을 한 claim으로 병합(차별점 미작동). extract_claims 프롬프트에 "값이 다르면 값마다 별도 claim(병합 금지)" 규칙+예시 추가 → 재실행 시 Owner.telephone.max_length 10(코드/DB/openapi/테스트) vs 20(spec.pdf) value_mismatch 정상 검출, analyze-task Change Plan이 충돌 해소를 1단계로 지시. result/hero-run-live-opus48.txt(LIVE 전사) 저장. 회귀 없음(전체 63 통과). 커밋 e81c16a, c6fa45d.
+**Context**: CONSTRUCTION - 후속 개선 (live LLM 백엔드 실증: Bedrock/Opus 4.8, 구조적 차별점 live 검증). 키는 env 전용·gitignore 유지(NFR-SEC-001).
+
+---

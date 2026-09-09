@@ -87,5 +87,9 @@
 - **Next Stage**: OPERATIONS (placeholder — 향후 배포·모니터링 확장)
 - **완료**: UOW-0F ~ UOW-06 전 단위. 전체 62 테스트 통과. 설치된 `trace`/`trace-mcp` 명령이 저장소 밖에서도 동작(replay Hero E2E 검증). value_mismatch(전화번호 20 vs 10) 검출·영향분석·Change Plan 확인.
 - **Status**: 8개 단위 코드 생성 완료. import 패키지 `trace`→`traceki` 개명(파이썬 stdlib `trace` 충돌 해소, 명령어명·로거명·`.trace/` 디렉터리는 유지). result/hero-run.txt 실행 전사 갱신.
-- **핵심 Construction 결정**: LLMService는 (1) live Anthropic Claude 백엔드 + (2) cache/replay 백엔드를 지원.
+- **핵심 Construction 결정**: LLMService는 (1) live Anthropic 다이렉트(sk-ant) + (2) bedrock(Amazon Bedrock, bearer 토큰) + (3) cache/replay 백엔드를 지원.
   데모 Hero 시나리오는 사전 캐시된 응답으로 API 키 없이 결정적 재현 가능(NFR-AI-004, NFR-REL-001).
+- **후속 개선(2026-09-09, 사용자 요청 — Build and Test 이후)**:
+  - LLM 백엔드에 **bedrock** 추가(AnthropicBedrock, Authorization: Bearer). config: AWS_BEARER_TOKEN_BEDROCK·TRACE_BEDROCK_MODEL·AWS_REGION. 테스트 격리(tests/conftest.py)로 실제 .env 오염 차단. 커밋 e81c16a.
+  - **live 실증**: Amazon Bedrock 크로스리전 프로파일 `global.anthropic.claude-opus-4-8`(리전 ap-northeast-2)로 데모 실제 분석 성공. 계정 IAM 권한 문제로 us./apac. 리전 프로파일은 불가, global 프로파일만 호출됨.
+  - **extract_claims 프롬프트 개선**: live Opus가 값 20/10을 한 claim으로 병합해 충돌 미검출 → "값이 다르면 값마다 별도 claim(병합 금지)" 규칙 추가. 재실행 시 value_mismatch(전화번호 10 vs 20) live 검출·Change Plan 충돌 인지 확인. result/hero-run-live-opus48.txt 저장. 전체 63 테스트 통과. 커밋 c6fa45d.
