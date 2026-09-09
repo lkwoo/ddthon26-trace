@@ -264,3 +264,11 @@
 **Context**: INCEPTION 종료(증분: 온보딩 맵). 다음 CONSTRUCTION per-unit 루프(UOW-07): Functional Design → Code Generation → Build and Test.
 
 ---
+
+## Increment 2 온보딩 맵 — CONSTRUCTION UOW-07 Functional Design 완료
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인. 진행" (직전 승인 흐름 연속)
+**AI Response**: 실제 코드(Asset·Evidence·Feature·FeatureKnowledge·KnowledgeStore·LLMService.structured·get_prompt)를 확인해 접지한 07-map/functional-design.md 작성. 도메인 모델(EntryPoint/FileNode/DependencyEdge/CallEdge/FeatureFileMap/RelationGraph/OnboardingMap), 비즈니스 로직(generate_onboarding_map 코어함수 오케스트레이션, relations.py Python=ast·Java=정규식 정적추출+unresolved 폴백, describe_relations C3 step, mermaid.py 렌더, save/load_overview .trace/knowledge/overview.md), 비즈니스 규칙 8개(하이브리드 병합·근거인용·불확실성 LOW·부분실패·경로검증·캐시·시크릿마스킹·Mermaid 이스케이프), PBT 속성 P1~P4(노드⊇엣지·무크래시·overview 왕복·라벨안전화 멱등), 검증 계획(test_map/test_map_integration + replay). FR-MAP-001~007·US-07.1~5 접지. aidlc-state UOW-07 Functional Design [x].
+**Context**: CONSTRUCTION - UOW-07 Functional Design (기존 모델 재사용, 신규 traceki/map/). 다음 Code Generation(Part1 계획→Part2 구현).
+
+---

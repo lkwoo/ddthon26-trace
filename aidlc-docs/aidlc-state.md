@@ -92,7 +92,7 @@
 | User Stories | [x] 완료 | P4 '뉴비' 페르소나 신설 + UOW-07 Epic 5개 스토리(US-07.1~5, Given/When/Then·추적성). 총 27스토리/7Epic |
 | Application Design | [x] 완료 | C10 `map/` 신설(관계추출·Mermaid·내러티브·overview.md). onboarding-map-design.md + components/methods/dependency/unit-of-work 증분 반영. FR-MAP→메서드 1:1 |
 | Units Generation | [x] 완료 (minimal) | 단일 UOW-07 확정. story-map(27스토리)·dependency 매트릭스에 UOW-07 반영. 순환 없음 |
-| Construction — UOW-07 Functional Design | [~] 진행 예정 | 정적 추출기 파서 세부·overview.md YAML 스키마·PBT 속성 |
+| Construction — UOW-07 Functional Design | [x] 완료 | 07-map/functional-design.md: 도메인(EntryPoint/RelationGraph/OnboardingMap)·로직·규칙 8개·PBT P1~P4. 기존 모델 재사용 |
 | Construction — UOW-07 Code Generation | [ ] 대기 | C10 map/ 구현 + C2/C3/C8/C1/C9 배선 + replay 픽스처 |
 | Construction — Build and Test | [ ] 대기 | UOW-07 단위/통합/PBT + Hero 온보딩 E2E |
 
