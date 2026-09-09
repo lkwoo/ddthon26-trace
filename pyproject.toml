@@ -39,6 +39,9 @@ packages = ["trace"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
+markers = [
+    "llm_integration: 실제 Anthropic API를 호출하는 옵트인 통합 테스트 (기본 skip)",
+]
 
 [tool.mypy]
 python_version = "3.11"

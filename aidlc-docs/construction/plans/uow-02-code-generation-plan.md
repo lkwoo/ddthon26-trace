@@ -11,35 +11,35 @@ PBT 4속성·llm_integration 옵트인) + NFR Design(P1~P9, logical-components)�
 ## 생성/수정 대상 (체크박스)
 
 ### A. 모델
-- [ ] A1. `trace/models/feature_candidate.py` — `FeatureCandidate`·`FeatureCandidateList`·`KnowledgeBody`
+- [x] A1. `trace/models/feature_candidate.py` — `FeatureCandidate`·`FeatureCandidateList`·`KnowledgeBody`
 
 ### B. 지식 계층 (knowledge/, C4)
-- [ ] B1. `trace/knowledge/__init__.py`
-- [ ] B2. `trace/knowledge/ids.py` — `safe_feature_id()` (P3, 항상 안전)
-- [ ] B3. `trace/knowledge/store.py` — `KnowledgeStore`(save/load/list_feature_summaries/read_resource, P4)
-- [ ] B4. `trace/knowledge/cache.py` — `compute_assets_hash`·`CacheEntry`·`AnalysisCache`(손상=미스, P5)
+- [x] B1. `trace/knowledge/__init__.py`
+- [x] B2. `trace/knowledge/ids.py` — `safe_feature_id()`·`dedupe_ids` (P3)
+- [x] B3. `trace/knowledge/store.py` — `KnowledgeStore` (P4)
+- [x] B4. `trace/knowledge/cache.py` — `compute_assets_hash`·`CacheEntry`·`AnalysisCache`(손상=미스, P5)
 
 ### C. 워크플로 (workflow/, C3)
-- [ ] C1. `trace/workflow/__init__.py`
-- [ ] C2. `trace/workflow/catalog.py` — `build_catalog`(발췌 4000)·`render_catalog` (P1)
-- [ ] C3. `trace/workflow/features.py` — `identify_features`·`generate_feature_knowledge`·`build_knowledge` (P2/P6, 부분실패 강등)
+- [x] C1. `trace/workflow/__init__.py`
+- [x] C2. `trace/workflow/catalog.py` — `build_catalog`(발췌 4000)·`render_catalog` (P1)
+- [x] C3. `trace/workflow/features.py` — `identify_features`·`generate_feature_knowledge`·`build_knowledge` (P2/P6)
 
 ### D. 프롬프트 (prompts/templates/, C8)
-- [ ] D1. `identify_features.md` — 카탈로그→FeatureCandidateList JSON 지시(유효 JSON만)
-- [ ] D2. `feature_knowledge.md` — Feature 개요 본문→KnowledgeBody JSON
+- [x] D1. `identify_features.md`
+- [x] D2. `feature_knowledge.md`
 
 ### E. 테스트
-- [ ] E1. `tests/test_knowledge_store.py` — save/load round-trip·list(손상 skip)·read_resource·경로 루트 하위
-- [ ] E2. `tests/test_analysis_cache.py` — 히트 시 LLM 미호출(호출 카운트)·내용 변경 미스·손상=미스
-- [ ] E3. `tests/test_features_workflow.py` — FakeLLM 주입: 식별→지식셸→저장, 부분실패 강등, 본문 폴백
-- [ ] E4. `tests/test_features_properties.py` — PBT-02-A/B/C/D (hypothesis, derandomize)
-- [ ] E5. `tests/test_llm_integration.py` — 옵트인: `@pytest.mark.llm_integration`, env+키 없으면 skip
+- [x] E1. `tests/test_knowledge_store.py`
+- [x] E2. `tests/test_analysis_cache.py`
+- [x] E3. `tests/test_features_workflow.py` (캐시 히트 LLM 미호출·부분실패 격리·폴백)
+- [x] E4. `tests/test_features_properties.py` — PBT-02-A/B/C/D
+- [x] E5. `tests/test_llm_integration.py` — 옵트인(기본 skip)
 
 ### F. 의존성 & 마무리
-- [ ] F1. `pyproject.toml` — `[tool.pytest.ini_options].markers` 에 `llm_integration` 추가
-- [ ] F2. 로컬 `pytest` 전체 실행 → 전부 pass(기존 70 + UOW-02 신규), 신규 모듈 mypy-clean
-- [ ] F3. `aidlc-docs/construction/uow-02/code/code-summary.md` 작성
-- [ ] F4. 계획 체크박스 전부 [x], 커밋
+- [x] F1. `pyproject.toml` — `llm_integration` 마커 등록
+- [x] F2. `pytest` 90 passed, 1 skipped(70+20+옵트인1), 신규 모듈 mypy-clean
+- [x] F3. `code-summary.md` 작성
+- [x] F4. 계획 체크박스 전부 [x], 커밋
 
 ---
 
