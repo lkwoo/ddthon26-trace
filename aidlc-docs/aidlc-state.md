@@ -66,7 +66,7 @@
 - [ ] NFR Requirements — EXECUTE (per-unit) — ✅ UOW-0F 완료(2026-09-09 승인)
 - [ ] NFR Design — EXECUTE (per-unit) — ✅ UOW-0F 완료(2026-09-09 승인)
 - [ ] Infrastructure Design — SKIP
-- [ ] Code Generation — EXECUTE (per-unit) — 🔄 UOW-0F Part 1 승인, Part 2(생성) 진행 중
+- [ ] Code Generation — EXECUTE (per-unit) — 🔄 UOW-0F 완료(31 tests pass), 승인 대기 / 이후 UOW-00~06
 - [ ] Build and Test — EXECUTE
 
 ### 🟡 OPERATIONS PHASE
@@ -74,6 +74,6 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: Code Generation — UOW-0F (Foundation), Part 1 승인 → Part 2(생성) 진행 중
-- **Next Stage**: (UOW-0F) 코드 완료 → UOW-00 per-unit 루프
-- **Status**: UOW-0F Code Gen 계획 승인. Part 2 실행 중(Step 1~10: pyproject·common·models·config·prompts·llm·tests). 부가 결정(2026-09-09): 평가자용 페르소나 사용 여정 = UOW-06 산출물, 데모=3 페르소나 전부 재현(UOW-00 반영).
+- **Current Stage**: Code Generation — UOW-0F (Foundation), Part 2 완료 — 승인 대기 (GATE)
+- **Next Stage**: UOW-00(데모 데이터셋) per-unit 루프 (Functional Design부터, 3 페르소나 재현)
+- **Status**: UOW-0F 코드 생성 완료 — trace/(models·common·config·prompts·llm) + tests/ + pyproject·README·.gitignore·.env.example. `pytest` 31 passed(Python 3.11.9, .venv). 테스트가 잡은 버그 2건(get_prompt 인자충돌·직렬화 멱등) 수정. 승인 대기 중.

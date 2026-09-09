@@ -1,0 +1,27 @@
+# Secrets — 절대 커밋 금지 (NFR-SEC-001)
+.env
+*.env
+!.env.example
+
+# TRACE knowledge store (생성물)
+.trace/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+
+# Test / type caches
+.pytest_cache/
+.hypothesis/
+.mypy_cache/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

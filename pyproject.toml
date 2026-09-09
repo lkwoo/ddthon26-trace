@@ -1,0 +1,45 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "trace-ki"
+version = "0.1.0"
+description = "TRACE — 개발자 지식 인텔리전스: 프로젝트 산출물을 기능 단위 지식으로 재구성하고 문서-구현 충돌을 근거와 함께 드러내는 로컬 MCP 서버"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "TRACE Team" }]
+keywords = ["mcp", "knowledge", "conflict-detection", "claude", "developer-tools"]
+
+dependencies = [
+    "mcp>=1.2.0",
+    "anthropic>=0.40.0",
+    "pydantic>=2.6",
+    "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "hypothesis>=6.100",
+    "mypy>=1.9",
+]
+
+[project.scripts]
+# MCP stdio 서버 (C1, UOW-05에서 완성) / 폴백 CLI (C9, UOW-06)
+trace-mcp = "trace.mcp_server.__main__:main"
+trace = "trace.cli.__main__:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["trace"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.mypy]
+python_version = "3.11"
+warn_unused_ignores = true
+disallow_untyped_defs = true
+packages = ["trace"]
