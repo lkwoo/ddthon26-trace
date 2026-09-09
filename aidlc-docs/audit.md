@@ -463,3 +463,10 @@
 **AI Response**: UOW-04 Code Generation 승인(per-unit loop UOW-04 완료). → UOW-05(MCP 서버 인터페이스) 착수. 적응형 판정: UOW-05는 얇은 어댑터(5 도구=코어함수 1:1, 새 비즈니스 로직 없음, list_features/get_feature_knowledge는 store 위임 트리비얼 래퍼)로 **Functional Design SKIP**. 단, 신규 의존성(mcp SDK)·stdio 전송·Result 직렬화·입력검증·오류매핑·엔트리포인트는 실질 NFR/기술결정 → **NFR Requirements EXECUTE**. uow-05-nfr-requirements-plan.md 작성(계획+질문 Q1~Q4).
 **Status**: 승인 대기 (GATE, 계획+질문)
 **Context**: CONSTRUCTION - UOW-05 NFR Requirements 계획 작성 (FD SKIP)
+
+## NFR Requirements (UOW-05) — 답변 수신(Q1~Q4=A) & 산출물 생성
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인" (계획 파일에 Q1=A/Q2=A/Q3=A/Q4=A 직접 기입)
+**AI Response**: 계획 S1~S8 [x]. 산출물 2종: nfr-requirements.md(IF 5도구 1:1·타입힌트 스키마, RUN stdio·cwd+TRACE_PROJECT_ROOT, REL 도구 오류 격리 무크래시, UX 직렬화 핵심우선 순서, SEC 로컬 stdio·trace:// 리소스, TST 오프라인·mcp 지연임포트, 확장 Resiliency Compliant·PBT N/A), tech-stack-decisions.md(mcp>=2.0 상향[설치 2.x MCPServer], 코어 래퍼 list_features/get_feature_knowledge, serialize_result, mcp_server/ 배치). 승인 대기(GATE).
+**Status**: 승인 대기 (GATE)
+**Context**: CONSTRUCTION - NFR Requirements(UOW-05) 산출물 생성 완료
