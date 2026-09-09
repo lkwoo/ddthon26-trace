@@ -267,3 +267,10 @@
 **AI Response**: 계획 체크박스 S1~S8 [x]. UOW-0F 계약(Result/Warning/EvidenceType) 확인 후 정합 설계. 산출물 3종: domain-entities.md(Asset/AssetType[EvidenceType 정렬]/ParseStatus 모델 + scan_project 데이터계약 + 내부 scan_project_assets[content 포함]), business-rules.md(BR-PATH 경로검증/BR-EXCLUDE 제외/BR-CLASSIFY 분류/BR-PARSE 추출/BR-SIZE 상한/BR-FAIL 부분실패/BR-DET 결정성/BR-SEC 보안), business-logic-model.md(engine/ 배치·스캔 알고리즘·classify·parse·demo 기대 동작·DoD). 단위 경계=스캔+텍스트화+분류(구조 해석 위임).
 **Status**: 승인 대기 (GATE)
 **Context**: CONSTRUCTION - Functional Design(UOW-01) 산출물 생성 완료
+
+## Functional Design (UOW-01) GATE 승인 & NFR Requirements 착수
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인"
+**AI Response**: UOW-01 Functional Design 승인 → NFR Requirements(UOW-01) 착수. 실제 코드 단위라 PBT 확장 적용. uow-01-nfr-requirements-plan.md 작성(S1~S6 + Q1~Q4). 질문: Q1 성능/규모 목표, Q2 파일/총량 크기 상한, Q3 PBT 속성 대상(분류 전결정성/경로 안전성/부분실패 격리/결정성 멱등, 복수선택), Q4 스캔 설정 관리 위치.
+**Status**: 승인 대기 (GATE, 계획+질문)
+**Context**: CONSTRUCTION - NFR Requirements(UOW-01) 계획 작성 완료
