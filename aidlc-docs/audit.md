@@ -302,3 +302,10 @@
 **AI Response**: UOW-01 Code Generation Part 1 계획 승인 → Part 2 실행. 애플리케이션 코드: trace/models/asset.py, trace/config/scan_settings.py, trace/common/errors.py(sanitize_error 추가), trace/engine/{__init__,classifier,parsers,scanner,scan}.py. 테스트: tests/{test_classifier,test_scanner_scan,test_scanner_properties}.py. pyproject: pypdf [dev]→런타임 승격 + types-PyYAML dev 추가. `pytest` 70 passed(43+27, PBT 4속성 포함). demo/ 스캔 실증: 13자산 전부 parsed·by_type 7종(source6/markdown2/config1/sql1/openapi1/pdf1/test1)·PDF 텍스트 추출 성공·무효경로 PATH_VALIDATION_ERROR. UOW-01 신규 모듈 mypy-clean(잔여 2건은 UOW-0F 선재 이슈). code-summary.md 작성, 계획 체크박스 전부 [x].
 **Status**: 승인 대기 (GATE, Part 2)
 **Context**: CONSTRUCTION - Code Generation(UOW-01) Part 2 완료
+
+## Code Generation (UOW-01) GATE 승인 & Functional Design (UOW-02) 착수
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인"
+**AI Response**: UOW-01 Code Generation 승인(스캐너/파서 70 tests, demo/ 실증) → 위상순 다음 단위 UOW-02(Feature & Knowledge, AI 파이프라인 前반부, 임계경로) Functional Design 착수. 계약 확인(identify_features/generate_feature_knowledge, C4 저장소, LLMService.complete_structured, get_prompt, serialize/deserialize). uow-02-functional-design-plan.md 작성(S1~S8 + Q1~Q5). 단위 경계(Q2=A): UOW-02=Feature 식별+지식 셸+캐시, Claim/Evidence/Conflict는 UOW-03. 질문: Q1 식별 개수, Q2 지식 산출 범위(셸 vs 완본), Q3 LLM 입력 전략(카탈로그), Q4 캐시 키/무효화, Q5 .trace 루트 위치.
+**Status**: 승인 대기 (GATE, 계획+질문)
+**Context**: CONSTRUCTION - Functional Design(UOW-02) 계획 작성 완료

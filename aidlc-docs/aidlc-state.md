@@ -62,7 +62,7 @@
 - [x] Units Generation — EXECUTE (Part 1+2 완료, 2026-09-09 승인)
 
 ### 🟢 CONSTRUCTION PHASE (per-unit loop)
-- [ ] Functional Design — EXECUTE (per-unit) — ✅ UOW-0F, ✅ UOW-00 완료 / 🔄 UOW-01 진행
+- [ ] Functional Design — EXECUTE (per-unit) — ✅ UOW-0F, ✅ UOW-00, ✅ UOW-01 / 🔄 UOW-02 진행
 - [ ] NFR Requirements — EXECUTE (per-unit) — ✅ UOW-0F 완료, ✅ UOW-00 완료(2026-09-09 승인)
 - [ ] NFR Design — EXECUTE (per-unit) — ✅ UOW-0F / UOW-00 SKIP / ✅ UOW-01 완료(2026-09-09)
 - [ ] Infrastructure Design — SKIP
@@ -74,6 +74,6 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: Code Generation — UOW-01 (스캐너 & 파서), Part 2 완료 — 승인 대기 (GATE)
-- **Next Stage**: UOW-01 승인 → UOW-02(Feature & Knowledge 생성) per-unit 루프 (Functional Design부터)
-- **Status**: UOW-01 코드 생성 완료 — trace/engine/{classifier,parsers,scanner,scan}.py + models/asset.py + config/scan_settings.py + errors.sanitize_error. `pytest` 70 passed(43+27, PBT 4속성 포함). demo/ 스캔 실증: 13자산 전부 parsed·7종 유형·PDF 추출·무효경로 오류 Result. pypdf 런타임 승격. UOW-01 신규 모듈 mypy-clean(잔여 2건은 UOW-0F 선재). analyze_project는 훅만(UOW-02+ 완성).
+- **Current Stage**: Functional Design — UOW-02 (Feature & Knowledge 생성, AI 파이프라인 前반부), 계획·질문 작성 중
+- **Next Stage**: UOW-02 Functional Design 승인 → NFR Requirements(UOW-02) → NFR Design → Code Generation
+- **Status**: UOW-01 코드 생성 완료·승인(70 tests, demo/ 13자산 스캔 실증). UOW-02 착수 — identify_features(LLM 자동)·generate_feature_knowledge·C4 지식 저장소(.trace/knowledge, save/load/list/read_resource)·캐시(NFR-PERF-003). LLMService.complete_structured·get_prompt·serialize/deserialize(UOW-0F) 소비.
