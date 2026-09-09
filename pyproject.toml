@@ -18,14 +18,14 @@ keywords = ["mcp", "knowledge-base", "code-graph", "embeddings", "sqlite-vec"]
 dependencies = []
 
 [project.optional-dependencies]
-mcp = ["mcp>=1.0.0"]
+mcp = ["mcp>=1.0.0,<2"]
 embeddings = ["fastembed>=0.3.0"]
 vec = ["sqlite-vec>=0.1.0"]
 code = ["tree-sitter>=0.21.0", "tree-sitter-language-pack>=0.2.0"]
 docs = ["pypdf>=4.0.0", "openpyxl>=3.1.0"]
 test = ["pytest>=8.0", "hypothesis>=6.100"]
 all = [
-    "mcp>=1.0.0",
+    "mcp>=1.0.0,<2",
     "fastembed>=0.3.0",
     "sqlite-vec>=0.1.0",
     "tree-sitter>=0.21.0",
