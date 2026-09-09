@@ -1,0 +1,29 @@
+# TRACE Hero 시나리오 — LIVE 실행 전사 (Amazon Bedrock · Claude Opus 4.8)
+# 모델: global.anthropic.claude-opus-4-8 / 리전: ap-northeast-2 / 백엔드: bedrock (bearer)
+# 생성: 2026-09-09T00:40:24Z — replay 아님, 실제 LLM 호출
+
+$ trace conflicts
+  • [value_mismatch] Owner.telephone.max_length: 10 ← petclinic/src/main/java/org/springframework/samples/petclinic/owner/Owner.java; 10 ← petclinic/src/main/resources/db/schema.sql; 10 ← petclinic/src/main/resources/openapi.yaml; 10 ← petclinic/src/test/java/org/springframework/samples/petclinic/owner/OwnerRegistrationTests.java; 20 ← requirements/owner-registration-spec.pdf
+  • [value_mismatch] Owner.telephone.max_length: 10 ← petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerRestController.java; 10 ← petclinic/src/test/java/org/springframework/samples/petclinic/owner/OwnerRegistrationTests.java; 20 ← requirements/owner-registration-spec.pdf
+전체 프로젝트에서 충돌 2건 검출 (착수 전 확인 권장).
+
+$ trace analyze-task "Add SMS verification to Owner registration"
+  [반드시 변경]
+    - petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerRestController.java: The registration endpoint currently registers owners directly with no SMS verification; it must be extended to send a one-time code and gate account activation on confirmation.
+    - petclinic/src/test/java/org/springframework/samples/petclinic/owner/OwnerRegistrationTests.java: Tests currently assert direct registration with no SMS step; they must be updated to cover the code-sending and confirmation flow before activation.
+  [변경 가능]
+    - petclinic/src/main/java/org/springframework/samples/petclinic/owner/Owner.java: The Owner entity likely needs an activation/verification status field and possibly telephone constraint adjustments to support verification.
+    - petclinic/src/main/resources/openapi.yaml: The API contract likely needs new endpoints/fields for sending and confirming the SMS code and an activation status.
+    - petclinic/src/main/resources/db/schema.sql: Schema may need columns for verification code, verification/activation status, and possibly a widened telephone column.
+  [검토]
+    - requirements/owner-registration-spec.pdf: Authoritative source of the SMS verification requirement and activation rules; must be read to confirm expected behavior and telephone constraints.
+  [Change Plan]
+    1. Read requirements/owner-registration-spec.pdf to confirm the exact SMS verification flow, activation rules, and the required telephone max_length (spec says 20 vs code's 10).
+    2. Resolve the Owner.telephone.max_length conflict: decide whether to widen telephone to 20 per spec; if so, update Owner.java, schema.sql, and openapi.yaml consistently.
+    3. Add an activation/verification status field (and verification code storage) to Owner.java and schema.sql.
+    4. Extend OwnerRestController to send a one-time code to the provided telephone on registration and add a confirmation endpoint that activates the owner only after successful code verification.
+    5. Update openapi.yaml to document the send-code and confirm-code endpoints, the activation status, and any telephone constraint changes.
+    6. Update OwnerRegistrationTests.java to cover code sending, confirmation success/failure, and that activation requires verification.
+    7. Run tests and verify the full registration + SMS verification flow behaves per spec.
+'Add SMS verification to Owner registration' 영향 분석: 반드시 변경 2개, 변경 가능 3개, 검토 1개, 계획 7단계
+  ⚠️  관련 충돌 2건이 있습니다. 착수 전 값 불일치를 먼저 확인하세요.
