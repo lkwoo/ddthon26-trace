@@ -63,8 +63,8 @@
 
 ### 🟢 CONSTRUCTION PHASE (per-unit loop)
 - [ ] Functional Design — EXECUTE (per-unit) — ✅ UOW-0F 완료(2026-09-09 승인)
-- [ ] NFR Requirements — EXECUTE (per-unit) — ✅ UOW-0F 완료(2026-09-09 승인)
-- [ ] NFR Design — EXECUTE (per-unit) — ✅ UOW-0F 완료(2026-09-09 승인)
+- [ ] NFR Requirements — EXECUTE (per-unit) — ✅ UOW-0F 완료, ✅ UOW-00 완료(2026-09-09 승인)
+- [ ] NFR Design — EXECUTE (per-unit) — ✅ UOW-0F 완료 / UOW-00 SKIP(런타임 패턴 없음)
 - [ ] Infrastructure Design — SKIP
 - [ ] Code Generation — EXECUTE (per-unit) — ✅ UOW-0F 완료·승인(2026-09-09, 31 tests pass) / 🔄 UOW-00~06 진행
 - [ ] Build and Test — EXECUTE
@@ -74,6 +74,6 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: NFR Requirements — UOW-00 (데모 데이터셋), 산출물 생성 완료 — 승인 대기 (GATE)
-- **Next Stage**: NFR Requirements 승인 → NFR Design(UOW-00) SKIP 권장 → UOW-00 Code Generation(픽스처+무결성 테스트)
-- **Status**: UOW-00 Functional Design 승인(충돌 3건 C-1~C-3 확정). NFR Requirements=Minimal: 런타임 NFR 대부분 N/A(데이터 단위), 적용 NFR=결정성·시크릿위생·라이선스·충돌무결성. 확장 컴플라이언스: Resiliency 재현성 Compliant, PBT는 코드부재 N/A→데이터 무결성 테스트로 대체(Code Gen 이관). NFR Design SKIP 권장.
+- **Current Stage**: Code Generation — UOW-00 (데모 데이터셋), Part 1 계획 작성 완료 — 승인 대기 (GATE)
+- **Next Stage**: Code Gen Part 1 승인 → Part 2(demo/ 픽스처 파일 + 무결성 테스트 생성)
+- **Status**: UOW-00 NFR Requirements 승인. NFR Design(UOW-00)=SKIP(런타임 패턴 없음). Code Generation Part 1 계획 작성 — demo/ 자산(README·PDF·md·yaml·sql·java·properties·test) + tests/ 데이터셋 무결성 테스트(INV-C1~C3, R1~R5) 열거.
