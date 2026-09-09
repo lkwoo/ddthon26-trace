@@ -62,7 +62,7 @@
 - [x] Units Generation — EXECUTE (Part 1+2 완료, 2026-09-09 승인)
 
 ### 🟢 CONSTRUCTION PHASE (per-unit loop)
-- [ ] Functional Design — EXECUTE (per-unit) — ✅ UOW-0F 완료(2026-09-09 승인)
+- [ ] Functional Design — EXECUTE (per-unit) — ✅ UOW-0F, ✅ UOW-00 완료 / 🔄 UOW-01 진행
 - [ ] NFR Requirements — EXECUTE (per-unit) — ✅ UOW-0F 완료, ✅ UOW-00 완료(2026-09-09 승인)
 - [ ] NFR Design — EXECUTE (per-unit) — ✅ UOW-0F 완료 / UOW-00 SKIP(런타임 패턴 없음)
 - [ ] Infrastructure Design — SKIP
@@ -74,6 +74,6 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: Code Generation — UOW-00 (데모 데이터셋), Part 2 완료 — 승인 대기 (GATE)
-- **Next Stage**: UOW-00 승인 → UOW-01(스캐너/파서) per-unit 루프 (Functional Design부터)
-- **Status**: UOW-00 코드 생성 완료 — demo/(README·PDF·maintenance-notes·openapi·schema.sql·Owner/Pet Java 7개·properties·Java test) + tests/test_demo_dataset_integrity.py(12). `pytest` 43 passed(31+12). 의도적 충돌 3건(C-1 telephone value_mismatch P0 / C-2 Pet.birthDate stale_knowledge / C-3 email policy_conflict) 데이터에 고정·검증. PDF 결정성(reportlab invariant, 바이트 동일) 확인. pypdf>=4.0 dev 의존성 추가. 승인 대기.
+- **Current Stage**: Functional Design — UOW-01 (스캐너 & 파서), 계획·질문 작성 중
+- **Next Stage**: UOW-01 Functional Design 승인 → NFR Requirements(UOW-01, 파서 라이브러리·성능·보안) → NFR Design → Code Generation
+- **Status**: UOW-00 코드 생성 완료·승인(43 tests pass, 충돌 3건 고정). UOW-01 착수 — scan_project 진입점, Asset 모델 정의, 다형식 파서(MD/텍스트/PDF/OpenAPI/SQL/설정/소스/테스트), 제외규칙(C7 소비), 경로검증(NFR-SEC-004), 부분실패 허용(FR-ANALYSIS-003) 설계.

@@ -253,3 +253,10 @@
 **AI Response**: UOW-00 Code Generation Part 1 계획 승인 → Part 2 실행. demo/ 픽스처 생성: README(매니페스트+라이선스+충돌3건표), owner-management-spec.pdf(reportlab invariant 결정적 생성, telephone≤20·email필수), maintenance-notes.md(Pet.birthDate 검증규칙), petclinic-rest.yaml(telephone maxLength 10·email없음), schema.sql(VARCHAR(10)·email컬럼없음), Owner/Pet Java 7파일, application.properties(더미시크릿), OwnerControllerTests.java. tests/test_demo_dataset_integrity.py(12 tests, PBT 대체) 생성. `pytest` 43 passed(31+12). PDF 2회 생성 바이트 동일(R1 결정성) 확인. pyproject [dev]에 pypdf>=4.0 추가(테스트 PDF추출용). code-summary.md 작성, 계획 체크박스 전부 [x].
 **Status**: 승인 대기 (GATE, Part 2)
 **Context**: CONSTRUCTION - Code Generation(UOW-00) Part 2 완료
+
+## Code Generation (UOW-00) GATE 승인 & Functional Design (UOW-01) 착수
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인"
+**AI Response**: UOW-00 Code Generation 승인 처리(데모 데이터셋 완료) → 위상순 다음 단위 UOW-01(스캐너/파서) Functional Design 착수. uow-01-functional-design-plan.md 작성(S1~S8 + Q1~Q5). 단위 경계=스캔+텍스트화+분류(구조 해석은 UOW-02/03 위임). 질문: Q1 파서 라이브러리(pypdf/PyYAML), Q2 파싱 깊이, Q3 분류 기준(OpenAPI 판별), Q4 적재 시점, Q5 Result에 text 포함 여부.
+**Status**: 승인 대기 (GATE, 계획+질문)
+**Context**: CONSTRUCTION - Functional Design(UOW-01) 계획 작성 완료
