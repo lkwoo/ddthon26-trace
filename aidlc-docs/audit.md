@@ -330,3 +330,10 @@
 **AI Response**: 계획 체크박스 S1~S7 [x]. 산출물 2종: nfr-requirements.md(COST-1~4[발췌4000·무제한], PERF-1~2[캐시 히트 LLM 미호출], REL-1~4[Resiliency], SEC-1~4, TST-1~3[FakeLLM 기본 + llm_integration 옵트인], PBT-02-A~D, 확장 컴플라이언스 Compliant), tech-stack-decisions.md(hashlib/json·FakeLLM·pytest marker llm_integration·신규 런타임 의존성 없음). Q3=B 반영: 기본 오프라인 + TRACE_RUN_LLM_INTEGRATION=1+키일 때만 실 API 통합 테스트.
 **Status**: 승인 대기 (GATE)
 **Context**: CONSTRUCTION - NFR Requirements(UOW-02) 산출물 생성 완료
+
+## NFR Requirements (UOW-02) GATE 승인 & NFR Design 생성
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인"
+**AI Response**: UOW-02 NFR Requirements 승인 → NFR Design(UOW-02). 추가 질문 없음(패턴 일의적). 산출물 2종: nfr-design-patterns.md(P1 카탈로그 빌더+절단, P2 구조화 LLM step+단계 강등, P3 id 안전화/slugify, P4 KnowledgeStore repository, P5 콘텐츠 해시 캐시(순서무관·손상=미스), P6 build_knowledge cache-first+per-item 격리, P7 프롬프트 템플릿, P8 테스트 배치(FakeLLM+PBT+llm_integration), P9 결정성/보안), logical-components.md(models/feature_candidate·workflow/{catalog,features}·knowledge/{ids,store,cache}·프롬프트 2종·테스트 5종·pytest marker·의존방향).
+**Status**: 승인 대기 (GATE)
+**Context**: CONSTRUCTION - NFR Design(UOW-02) 산출물 생성 완료
