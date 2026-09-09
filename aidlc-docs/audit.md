@@ -304,3 +304,11 @@
 **Context**: OPERATIONS(placeholder) 승인 — Increment 2(온보딩 맵) 전 단계 완료. 전체 83 테스트 통과 상태.
 
 ---
+
+## 유지보수/보안 — MCP 설정 예시 파일 추가 및 시크릿 위생
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "aidlc에 맞게 기록을 남기며 .env.example처럼 .mcp.json.example을 생성해줘."
+**AI Response**: 기존 `.mcp.json`이 실제 AWS Bedrock bearer 토큰(AWS_BEARER_TOKEN_BEDROCK)을 담은 채 `.gitignore`에 없어 커밋 위험 상태임을 확인(untracked). NFR-SEC-001(시크릿 하드코딩/커밋 금지) 위반 소지 → 3가지 조치: (1) `.mcp.json.example` 신규 생성 — `.env.example` 스타일의 한국어 주석 + 플레이스홀더(sk-ant-…, ABSK…, apac. 접두사 예시 모델), 백엔드 기본 replay. (2) `.gitignore`의 Secrets 블록에 `.mcp.json` 추가하여 실제 파일이 커밋되지 않도록 차단. (3) README 설정 섹션에 `.mcp.json.example → .mcp.json` 복사 안내 + gitignore 처리 명시. JSON은 주석을 못 다므로 `//`·`//backend` 등 무시되는 키로 설명 삽입.
+**Context**: 유지보수성 및 보안(평가기준 6) — 시크릿 관리. Increment 2 마감 이후 후속 하드닝. 코드/설계 변경 없음, 설정·문서 산출물만 변경.
+
+---

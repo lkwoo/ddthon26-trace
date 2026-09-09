@@ -1,0 +1,24 @@
+{
+  "//": "TRACE MCP 서버 등록 예시 — 이 파일을 `.mcp.json`으로 복사해 값을 채우세요. `.mcp.json`은 실제 시크릿을 담으므로 커밋되지 않습니다(NFR-SEC-001).",
+  "mcpServers": {
+    "trace": {
+      "command": "trace-mcp",
+      "env": {
+        "//backend": "LLM 백엔드 선택: \"live\" | \"bedrock\" | \"replay\" (기본 replay = 키 없이 결정적 데모 재현)",
+        "TRACE_LLM_BACKEND": "replay",
+
+        "//anthropic": "Anthropic Claude API 키 (live 백엔드에서만 필요). 코드/설정에 실제 키 하드코딩 금지.",
+        "ANTHROPIC_API_KEY": "sk-ant-...",
+        "TRACE_LLM_MODEL": "claude-sonnet-5",
+
+        "//bedrock": "Amazon Bedrock 백엔드(TRACE_LLM_BACKEND=bedrock)일 때. sk-ant 키가 아니라 Bedrock API 키(bearer 토큰, ABSK…)를 쓴다. 리전에 맞는 모델 접두사(us./eu./apac.) 사용.",
+        "AWS_BEARER_TOKEN_BEDROCK": "ABSK...",
+        "AWS_REGION": "ap-northeast-2",
+        "TRACE_BEDROCK_MODEL": "apac.anthropic.claude-sonnet-4-5-20250929-v1:0",
+
+        "//log": "로그 레벨: DEBUG | INFO | WARNING | ERROR",
+        "TRACE_LOG_LEVEL": "INFO"
+      }
+    }
+  }
+}
