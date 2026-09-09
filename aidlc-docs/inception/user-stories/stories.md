@@ -3,7 +3,7 @@
 **단계**: INCEPTION / User Stories
 **작성일**: 2026-09-08
 **구성**: Epic(=UOW) 기반 + Epic 내부 User-Journey (Q3=A) · 중간 세분도(Q2=A) · Given/When/Then(Q4=A) · 추적성 표기(Q5=A)
-**액터**: P1 데브, P2 마이라, P3 피엠, A1 에이전트(Claude Code) — 상세는 `personas.md`
+**액터**: P1 데브, P2 마이라, P3 피엠, **P4 뉴비(Inc.2)**, A1 에이전트(Claude Code) — 상세는 `personas.md`
 
 > 규약: 각 스토리는 INVEST를 따르고 `Implements:`(FR/NFR)와 `UOW:` 매핑을 명시한다. 수용 기준은 Given/When/Then.
 
@@ -168,6 +168,46 @@
 
 ---
 
+## EPIC UOW-07 — 프로젝트 온보딩 맵 *(Increment 2)*
+*Implements: FR-MAP-001~007*
+*주 액터: P4 뉴비(신입 온보딩), A1 에이전트 · 보조: P1 데브*
+
+### US-07.1 — 온보딩 맵 생성·조회(도구+CLI+영속화)
+**As** A1 에이전트(P4 뉴비 대신), **I want** 한 번의 호출로 프로젝트 온보딩 맵을 생성하고 조회 **so that** 신입이 낯선 프로젝트의 전체 그림을 받는다.
+- **AC1** Given 로드된 프로젝트, When `generate_onboarding_map(path, feature_id?)` (MCP 도구) 또는 `trace map` (CLI) 호출, Then 진입점·파일/모듈 의존·핵심 함수 관계·온보딩 내러티브를 담은 구조화 맵을 반환한다.
+- **AC2** Given 맵 생성 완료, When 영속화, Then `.trace/knowledge/overview.md`(Mermaid 포함)로 저장하고 재조회 시 재사용한다. *(FR-MAP-006, NFR-PERF-003)*
+- **AC3** Given 이미 `analyze_project`로 수집된 자산, When 맵 생성, Then 스캐너/파서 자산(UOW-01)·LLMService(UOW-0F)를 재사용한다(중복 스캔 없음).
+- *Implements: FR-MAP-001/006 · UOW: 07*
+
+### US-07.2 — 진입점 + 파일/모듈 의존 그래프(Mermaid)
+**As** P4 뉴비, **I want** 진입점 목록과 파일/모듈 의존 관계를 다이어그램으로 보기 **so that** 어디서부터 읽어야 할지 안다.
+- **AC1** Given 분석된 프로젝트, When 맵 생성, Then 실행/요청 진입점(예: `main`, 컨트롤러)을 식별해 목록화한다.
+- **AC2** Given 파일 간 import/require 단서, When 관계 추출, Then 파일/모듈 의존 그래프를 Mermaid(`graph`/`flowchart`)로 렌더한다. *(FR-MAP-005, content-validation Mermaid 문법 검증)*
+- **AC3** Given Java(Petclinic)·Python(TRACE), When 정적 추출, Then import·의존 단서를 정적으로 뽑고, 그 외 언어는 LLM 서술로 폴백한다. *(FR-MAP-004)*
+- *Implements: FR-MAP-003(a,b)/004/005 · UOW: 07*
+
+### US-07.3 — Feature→파일 매핑
+**As** P4 뉴비, **I want** 기능별로 관련 파일이 묶여 보이기 **so that** "이 기능은 어디에 있나"를 파일 단위로 흩어 찾지 않는다.
+- **AC1** Given UOW-02가 식별한 Feature, When 맵 생성, Then 각 Feature에 관련 파일(코드/API/DB/설정/테스트)을 매핑해 보여준다.
+- **AC2** Given Hero Feature(Owner Registration), When 매핑, Then 최소 3개 산출물 범주의 파일이 연결된다(UOW-02 재사용).
+- *Implements: FR-MAP-003(c) · UOW: 07*
+
+### US-07.4 — 핵심 경로 함수 호출 관계
+**As** P4 뉴비, **I want** 핵심 시나리오의 함수 호출 관계(핸들러→서비스→저장 등)를 보기 **so that** 요청이 코드 안에서 어떻게 흐르는지 이해한다.
+- **AC1** Given 핵심 경로, When 관계 추출, Then 함수 정의·호출 단서를 정적으로 뽑고 LLM이 근거와 함께 호출 흐름을 서술한다(하이브리드). *(FR-MAP-002)*
+- **AC2** Given 함수 호출 흐름, When 시각화, Then 핵심 흐름을 Mermaid `sequenceDiagram`(또는 호출 그래프)으로 렌더한다.
+- **AC3** Given 정적 추출 불가 파일, When 처리, Then 경고 후 LLM 폴백으로 계속한다(부분 실패 허용). *(FR-MAP-004, FR-ANALYSIS-003 원칙)*
+- *Implements: FR-MAP-002/003(d)/004 · UOW: 07*
+
+### US-07.5 — "여기서 시작하세요" 온보딩 내러티브 + 근거 인용
+**As** P4 뉴비, **I want** 어디서부터 무엇을 보라는 서술형 안내와 각 관계의 근거 **so that** 첫 탐색 경로를 잡고 서술을 신뢰한다.
+- **AC1** Given 생성된 맵, When 내러티브 작성, Then "여기서 시작하세요"(진입점→핵심 Feature→핵심 흐름 순) 온보딩 내러티브를 포함한다. *(FR-MAP-003(e))*
+- **AC2** Given 각 관계·흐름 서술, When 근거 확인, Then 실제 자산(파일 경로/위치)을 Evidence로 인용한다. *(FR-MAP-007, NFR-AI-002)*
+- **AC3** Given 근거 부족 관계, When 서술, Then `LOW`/`Insufficient evidence`로 표기하고 단정하지 않는다. *(FR-MAP-007, NFR-AI-003)*
+- *Implements: FR-MAP-003(e)/007 · UOW: 07*
+
+---
+
 ## 추적성 요약 (Story → UOW → FR/NFR)
 
 | Epic(UOW) | 스토리 수 | 대표 FR/NFR |
@@ -178,5 +218,6 @@
 | UOW-04 | 4 | FR-IMPACT-001~006 |
 | UOW-05 | 4 | FR-MCP-001~004, FR-STORAGE-002 |
 | UOW-06 | 4 | NFR-AI-003/004, NFR-REL-001/002, FR-DEMO-001/002, NFR-SEC-* |
+| **UOW-07** *(Inc.2)* | **5** | **FR-MAP-001~007** |
 
-**총 22개 스토리 / 6 Epic.** 모든 P0 FR과 핵심 NFR을 커버.
+**총 27개 스토리 / 7 Epic.** 모든 P0 FR과 핵심 NFR을 커버(Increment 2 UOW-07 온보딩 맵 5개 스토리 추가).

@@ -227,3 +227,24 @@
 **Context**: INCEPTION - Requirements Analysis 완료(증분: 온보딩 맵). 다음 단계 User Stories(온보딩 페르소나 + end-to-end 시나리오)로 진행. 확정 답변이 FR-MAP-* 각 조항에 직접 매핑됨(앞 단계 결정→뒤 단계 반영 추적).
 
 ---
+
+## Increment 2 온보딩 맵 — User Stories Part 1(계획·질문)
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "진행"
+**AI Response**: User Stories 단계 착수. 기존 personas.md의 P1 데브가 이미 "낯선 코드베이스에 갓 투입된 개발자"이고 스토리 포맷(Epic=UOW·Given/When/Then·추적성)이 Increment 1에서 정착·승인됨을 확인 → 정착 포맷은 재사용하고 새로 정할 페르소나·여정 세분도만 질문. story-generation-plan.md 작성(User Stories 필요성=실행 판정 + 질문 3개: Q1 신규 페르소나 P4 뉴비 추가 여부, Q2 UOW-07 여정 세분도(5스토리 추천), Q3 포맷 재사용 확인). Part 2 생성 체크리스트 포함.
+**Context**: INCEPTION - User Stories Part 1 (증분: 온보딩 맵). 답변 대기.
+
+## User Stories Part 1 — 승인 프롬프트
+**Timestamp**: 2026-09-09T00:00:00Z
+**AI Response(승인 프롬프트)**: "온보딩 맵 스토리 계획을 story-generation-plan.md에 작성했습니다. Q1(페르소나) A=신규 P4 뉴비 추가/B=P1 재사용, Q2(여정 세분도) A=5스토리/B=3/C=7, Q3(포맷 재사용) A=재사용. 답변 주시면 personas.md·stories.md에 증분 반영합니다. 이 계획으로 진행할까요?"
+**Context**: INCEPTION - User Stories Part 1 승인 대기 (Step 12 승인 프롬프트 로깅).
+
+---
+
+## Increment 2 온보딩 맵 — User Stories Part 1 답변 & Part 2 생성 완료
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: (AskUserQuestion 응답) Q1="신규 P4 '뉴비' 추가", Q2="5개 스토리", Q3="그대로 재사용"
+**AI Response**: 답변 확정(Q1=A/Q2=A/Q3=A) → story-generation-plan.md [Answer] 기입·Part 2 체크박스 완료. personas.md에 P4 뉴비(신입 온보딩, 기술수준 중~낮음, 목표=전체 그림·진입점·파일/함수 관계 파악; P1 데브와 관심사·성공기준 구분 명시) 추가 + Epic 매핑표에 P4→UOW-07 행. stories.md에 EPIC UOW-07(FR-MAP-001~007) 5개 스토리 추가: US-07.1 맵 생성·조회(도구+CLI+overview.md 영속화), US-07.2 진입점+파일/모듈 의존 그래프 Mermaid(정적+LLM폴백), US-07.3 Feature→파일 매핑, US-07.4 핵심 경로 함수 호출 관계(하이브리드+sequenceDiagram), US-07.5 온보딩 내러티브+근거 인용. 모두 Given/When/Then AC + Implements/UOW 추적성. 추적성 요약표 UOW-07 행 추가(총 27스토리/7Epic). aidlc-state.md User Stories [x] 완료, 다음 Application Design.
+**Context**: INCEPTION - User Stories 완료(증분: 온보딩 맵). FR-MAP-* 요구사항이 US-07.1~5 AC에 1:1 추적 반영(앞 단계→뒤 단계 연결). 다음 Application Design(신규 컴포넌트/메서드/의존성).
+
+---

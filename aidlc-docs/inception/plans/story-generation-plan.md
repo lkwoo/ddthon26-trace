@@ -1,98 +1,70 @@
-# Story Generation Plan — TRACE
+# 사용자 스토리 생성 계획 — Increment 2 "프로젝트 온보딩 맵"
 
-**단계**: INCEPTION / User Stories (Part 1 — Planning)
-**작성일**: 2026-09-08
-**역할**: Product Owner
-**입력**: `aidlc-docs/inception/requirements/requirements.md`, 원천 요구사항 §3(페르소나)·부록 B(Hero)
-
----
-
-## A. 스토리 개발 방법론 (실행 체크리스트)
-
-- [x] 요구사항의 FR/NFR를 페르소나별 사용자 흐름으로 재구성
-- [x] 각 스토리를 INVEST(Independent·Negotiable·Valuable·Estimable·Small·Testable)로 작성
-- [x] 각 스토리에 수용 기준(Given/When/Then) 부여 (Q4=A)
-- [x] 스토리 ↔ FR/NFR ID ↔ UOW 매핑(추적성) 표기 (Q5=A)
-- [x] `personas.md` 생성 — 3개 페르소나 + AI 에이전트 액터 (Q1=A)
-- [x] `stories.md` 생성 — Epic(=UOW) → Story 구조 (Q3=A)
-- [x] Hero 시나리오를 E2E 통과 스토리로 명시 (US-06.1)
-
-## B. 필수 산출물
-
-- [x] `aidlc-docs/inception/user-stories/personas.md`
-- [x] `aidlc-docs/inception/user-stories/stories.md`
+**단계**: INCEPTION / User Stories (증분)
+**작성일**: 2026-09-09
+**입력**: `requirements.md` §4.10 FR-MAP-001~007, §9 UOW-07
+**산출물**: 기존 `personas.md`·`stories.md`에 **증분 추가**(덮어쓰기 아님)
 
 ---
 
-## C. 스토리 구성(breakdown) 접근법 — 옵션과 트레이드오프
+## Part 1 — 방법론(정착 컨벤션 재사용)
 
-| 접근법 | 설명 | 이 프로젝트 적합도 |
-|---|---|---|
-| **User Journey-Based** | 사용자 흐름(온보딩→조회→충돌→영향분석)을 따라 스토리 구성 | Hero 시나리오와 직결, 사용성 평가에 유리 |
-| **Feature-Based** | 시스템 기능/도구 중심(analyze_project, get_conflicts…) | MCP 도구 계약과 1:1, UOW 매핑 쉬움 |
-| **Persona-Based** | 페르소나별로 묶음 | 3개 페르소나 차이 부각 |
-| **Domain-Based** | 비즈니스 도메인 중심 | 단일 도메인이라 이점 적음 |
-| **Epic-Based** | Epic(UOW) 하위에 스토리 | 계층 추적성 최고 |
+Increment 1에서 승인·정착된 스토리 규약을 **그대로 재사용**한다(아래 Q3에서 확인만 받음):
+- **조직**: Epic(=UOW) 기반 + Epic 내부 User-Journey
+- **수용 기준**: Given/When/Then
+- **추적성**: 각 스토리에 `Implements:`(FR/NFR) + `UOW:` 매핑
+- **INVEST** 준수, 액터 표기(As/I want/so that)
 
-> **PO 권장**: **Epic(=UOW) 기반 + 각 Epic 내부는 User-Journey 흐름** 하이브리드. UOW-01~06을 Epic으로 두고, Epic 안에서 페르소나 흐름 순서로 스토리를 배열하면 추적성(§21)과 사용성(Hero 흐름)을 동시에 만족. → **Q3에서 확정**
+새로 정할 것(아래 질문)은 **페르소나**와 **여정 세분도**뿐이다.
+
+## User Stories 필요성 판정 (Step 1)
+- **판정: 실행(High Priority)** — 신규 사용자 대면 기능(온보딩 맵), 새 사용자 워크플로우(낯선 프로젝트 파악), 다중 산출물(도구+CLI+overview.md). 스토리가 수용 기준·팀 이해를 명확히 함.
 
 ---
 
-## D. 확인 질문 (Embedded Questions)
+## Part 1 — 확인 질문
 
-각 `[Answer]:` 뒤에 A/B/C/X로 답해주세요. 모두 채워지면 Part 2(생성)로 진행합니다.
+**응답 방법**: 각 `[Answer]:` 뒤에 A/B/C/X 중 하나. 추천안을 A로 둠.
 
-### Q1. 페르소나 범위
-스토리에 등장시킬 액터(actor)를 어디까지 둘까요?
+### Q1. 페르소나 — 신규 페르소나가 필요한가?
+온보딩 맵의 주 사용자를 어떻게 표현할까요?
 
-A) 3개 사람 페르소나(개발자·유지보수자·PM) + **AI 코딩 에이전트(Claude Code)를 1급 액터로** 명시 — 실제 상호작용 구조 반영 (권장)
+A) **신규 페르소나 "P4 뉴비(신입 온보딩)" 추가 (추천)** — 기존 P1 데브는 *기술수준 높음·티켓 단위 영향 분석*이 목표인 반면, 신입은 *프로젝트 전체 그림·시작점·용어·파일/함수 관계 파악*이 목표라 관심사·기술수준·성공기준이 뚜렷이 다르다. P1과 함께 UOW-07에 매핑.
 
-B) 3개 사람 페르소나만. 에이전트는 도구 호출 메커니즘으로만 취급
-
-X) Other (please describe after [Answer]: tag below)
-
-[Answer]: A
-
-### Q2. 스토리 세분도(granularity)
-스토리 크기를 어느 수준으로?
-
-A) 중간 세분도 — 도구/사용자 흐름 단위(예: "충돌을 조회한다"). Epic당 3~6개. PoC 2일에 적합 (권장)
-
-B) 세밀 — 수용 기준별로 잘게 분리(스토리 다수)
-
-C) 큰 단위 — Epic ≈ Story (개수 최소)
-
-X) Other (please describe after [Answer]: tag below)
-
-[Answer]: A 
-
-### Q3. 구성 접근법 (위 C 표 참조)
-A) Epic(=UOW) 기반 + Epic 내부 User-Journey 하이브리드 (PO 권장)
-
-B) Feature-Based (MCP 도구 중심)
-
-C) Persona-Based
+B) 기존 P1 데브만 재사용 — P1이 이미 "낯선 코드베이스에 갓 투입된 개발자"라 충분. 페르소나 추가 없이 스토리만 추가.
 
 X) Other (please describe after [Answer]: tag below)
 
 [Answer]: A
 
-### Q4. 수용 기준 형식
-A) **Given/When/Then** (Gherkin 스타일) — PBT/예제 테스트로 옮기기 쉬움 (권장)
+### Q2. 여정 세분도 — UOW-07 스토리를 몇 개로 쪼갤까?
+온보딩 맵 기능(FR-MAP-001~007)을 어떤 사용자 여정으로 나눌까요?
 
-B) 체크리스트형 불릿
+A) **사용자 여정 기반 5개 스토리 (추천)** — (1) 맵 생성·조회(MCP 도구 + CLI, 영속화 FR-MAP-001/006), (2) 진입점 + 파일/모듈 의존 그래프 Mermaid(FR-MAP-003a~b/004/005), (3) Feature→파일 매핑(FR-MAP-003c), (4) 핵심 경로 함수 호출 관계(FR-MAP-002/003d), (5) "여기서 시작하세요" 온보딩 내러티브 + 근거 인용(FR-MAP-003e/007). FR-MAP 전부 커버.
 
-X) Other (please describe after [Answer]: tag below)
+B) 더 굵게 3개 스토리 — 생성·조회 / 시각화(그래프+시퀀스) / 내러티브·근거.
 
-[Answer]: A
-
-### Q5. 추적성 표기
-스토리에 FR/NFR·UOW ID 매핑을 넣을까요? (원천 §21 AI-DLC 추적성 요구)
-
-A) 예 — 각 스토리에 `Implements: FR-..., NFR-...` 및 `UOW-..` 표기 (권장, 평가기준 1번 대응)
-
-B) 아니오 — 스토리 텍스트만
+C) 더 잘게 7개 스토리 — FR-MAP-001~007 각 1:1.
 
 X) Other (please describe after [Answer]: tag below)
 
 [Answer]: A
+
+### Q3. 포맷 재사용 확인
+Increment 1의 스토리 컨벤션(Epic=UOW, Given/When/Then AC, `Implements:`/`UOW:` 추적성)을 그대로 쓸까요?
+
+A) **그대로 재사용 (추천)** — 기존 stories.md와 일관.
+
+X) 변경 (please describe after [Answer]: tag below)
+
+[Answer]: A
+
+> **확정(2026-09-09)**: Q1=A 신규 페르소나 P4 뉴비 추가, Q2=A 5개 스토리, Q3=A 포맷 재사용. Part 2 실행.
+
+---
+
+## Part 2 — 생성 체크리스트 (승인 후 실행)
+- [x] `personas.md`에 Q1 결정 반영(신규 페르소나 P4 뉴비 추가 + Epic 매핑 갱신)
+- [x] `stories.md`에 `## EPIC UOW-07 — 프로젝트 온보딩 맵` 섹션 + 5개 스토리 추가(Given/When/Then, Implements/UOW)
+- [x] `stories.md` 추적성 요약 표에 UOW-07 행 추가, 총계 갱신
+- [x] `aidlc-state.md` User Stories 완료 표기, audit.md 기록
