@@ -4,7 +4,7 @@
 - **Project Name**: TRACE — 개발자 지식 인텔리전스 (작업명)
 - **Project Type**: Greenfield
 - **Start Date**: 2026-09-08T00:00:00Z
-- **Current Stage**: INCEPTION - Requirements Analysis
+- **Current Stage**: CONSTRUCTION - Functional Design (UOW-0F)
 
 ## Workspace State
 - **Existing Code**: No
@@ -59,10 +59,10 @@
 - [x] User Stories
 - [x] Workflow Planning
 - [x] Application Design — EXECUTE
-- [x] Units Generation — EXECUTE (Part 1 계획 + Part 2 산출물 생성 완료, 최종 승인 대기)
+- [x] Units Generation — EXECUTE (Part 1+2 완료, 2026-09-09 승인)
 
 ### 🟢 CONSTRUCTION PHASE (per-unit loop)
-- [ ] Functional Design — EXECUTE (per-unit)
+- [ ] Functional Design — EXECUTE (per-unit) — 🔄 진행 중: UOW-0F (Part 1 계획 작성, 질문 답변 대기)
 - [ ] NFR Requirements — EXECUTE (per-unit)
 - [ ] NFR Design — EXECUTE (per-unit)
 - [ ] Infrastructure Design — SKIP
@@ -73,7 +73,7 @@
 - [ ] Operations (placeholder)
 
 ## Current Status
-- **Lifecycle Phase**: INCEPTION
-- **Current Stage**: Units Generation (Part 2 산출물 생성 완료 — 최종 승인 대기)
-- **Next Stage**: CONSTRUCTION PHASE (per-unit 루프, UOW-0F부터)
-- **Status**: unit-of-work.md / unit-of-work-dependency.md / unit-of-work-story-map.md 3종 생성 완료. 8개 단위(0F,00,01~06), 3-웨이브 병렬 계획 확정. 최종 승인 대기 중.
+- **Lifecycle Phase**: CONSTRUCTION
+- **Current Stage**: Functional Design — UOW-0F (Foundation), Part 1 계획+질문 작성 완료 — 답변 대기
+- **Next Stage**: (UOW-0F) NFR Requirements → NFR Design → Code Generation
+- **Status**: Units Generation 승인 완료(2026-09-09). per-unit 루프 진입, 위상순 첫 단위 UOW-0F Functional Design 착수. functional-design-plan.md 생성 및 질문 임베드, 사용자 답변 대기 중.

@@ -126,3 +126,11 @@
 **Context**: INCEPTION - Units Generation Part 1(GATE 승인) → Part 2 Generation
 
 ---
+
+## Units Generation Part 2 — 승인 & Construction 착수
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "응 이제 다음 단계로 진행하자"
+**AI Response**: Units Generation Part 2 산출물(unit-of-work.md 등 3종) 승인으로 처리. CONSTRUCTION PHASE per-unit 루프 진입, 위상순 첫 단위 UOW-0F(Foundation) Functional Design 착수. functional-design-plan 생성 및 질문 임베드 예정.
+**Context**: INCEPTION - Units Generation(GATE 승인) → CONSTRUCTION - Functional Design(UOW-0F) 착수
+
+---
