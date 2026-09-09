@@ -233,6 +233,23 @@ class EmbeddingRepository:
         scored.sort(key=lambda h: h.score, reverse=True)
         return scored[:limit]
 
+    def get_vector(self, ref_id: str) -> Optional[list[float]]:
+        """Return the stored embedding for ``ref_id`` (None if not indexed).
+
+        Lets callers reuse an already-persisted vector instead of re-embedding
+        the source text — e.g. relationship building over freshly indexed chunks.
+        """
+        c = self._c
+        if self._store.vec_enabled:
+            row = c.execute(
+                "SELECT embedding FROM embeddings_vec WHERE ref_id=?", (ref_id,)
+            ).fetchone()
+            return _unpack(row["embedding"]) if row is not None else None
+        row = c.execute(
+            "SELECT vector FROM embeddings WHERE ref_id=?", (ref_id,)
+        ).fetchone()
+        return _unpack(row["vector"]) if row is not None else None
+
     def count(self) -> int:
         table = "embeddings_vec" if self._store.vec_enabled else "embeddings"
         return int(self._c.execute(f"SELECT COUNT(*) AS n FROM {table}").fetchone()["n"])

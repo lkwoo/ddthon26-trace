@@ -114,3 +114,16 @@
 - [x] **U-Tags** — CODE DONE + docs. NEW `src/knowledge_store/ingestion/tagging.py::TagEnricher` (deterministic namespaced facets: `sym:`/`kw:`/`mod:`/`dir:`/`lang:`/`kind:`/`link:`, human `#hashtags` preserved), wired as a post-pass in `Chunker.chunk()` via `dataclasses.replace` (chunk id/text untouched → versioning + PBT-02 round-trip safe). REWROTE `codegraph/relationships.py::TagMatchStrategy` to selectivity-weighted (idf `1/(df-1)`) + namespace-weighted (sym/link/hashtag 1.0, mod 0.7, kw 0.6, dir 0.35, lang/kind 0.0 facet-only) scoring, `df>60` skipped, `min_score` 0.1, bidirectional edges. Tests: `tests/ingestion/test_tagging.py` (4) + `tests/codegraph/test_tag_relationships.py` (4). Doc: `aidlc-docs/construction/u4-codegraph-relationships/code/tag-enrichment.md`.
 - **Verification**: new tests 8/8 pass; full non-eval suite **46 pass**; targeted ingestion/wiki/codegraph **19 pass**. Search-quality eval unaffected by construction (enrichment changes `tags` only, never chunk `text`/`id`; search indexes `text`) — `semantic_query` recall/MRR unchanged. `TagMatchStrategy.build` ≈ 0.04 s over 407 repo chunks (not a bottleneck).
 - **Env fix**: `.venv` had lost pip/pytest/hypothesis and was a stale non-editable install; restored pip (get-pip.py), reinstalled pytest/hypothesis, and `pip install -e .` so the venv tracks `src/` live.
+
+---
+
+## INCREMENT 4 — Faster `EmbeddingSimilarityStrategy` (U-EmbedRel-Perf)
+
+- **Type**: Targeted performance optimization on completed base project (branch `shortFix1`, auto-adopt).
+- **Trigger (2026-09-09)**: User — "EmbeddingSimilarityStrategy이 더 빠르게 동작하도록 하는 방법은? 너무 오래 걸려서 해당 테스트는 제외하고 싶어."
+- **Scope confirmed (AskUserQuestion)**: optimize the strategy (recommended) rather than exclude the test — the speedup made test exclusion unnecessary.
+
+### Increment 4 Stage Progress
+- [x] **U-EmbedRel-Perf** — CODE DONE + docs. `EmbeddingSimilarityStrategy.build()` no longer calls `SearchEngine.search(chunk.text)` per chunk (which re-embedded already-indexed text and ran the full hybrid BM25/RRF + preview path). NEW `EmbeddingRepository.get_vector(ref_id)` (`store/repositories.py`) returns the persisted vector; NEW `SearchEngine.neighbors_of(ref_id, limit)` (`embedding/search.py`) does pure-vector NN on the stored vector, skipping BM25 fusion + preview. Strategy now calls `neighbors_of(chunk.id, top_k+1)`. Removes N redundant embeddings + the O(N²) 50-candidate rescans that dominated ingestion (bottleneck flagged in `tag-enrichment.md`:78). `SearchEngine.search()` / `semantic_query` untouched. Doc: `aidlc-docs/construction/u4-codegraph-relationships/code/embedding-similarity-fastpath.md`.
+- **Behaviour change (intended)**: `RelationType.EMBEDDING` edge `score` is now pure vector similarity, not RRF-fused/normalised — the faithful signal for an embedding relation; edge set at `min_score=0.3` and stored scores may shift. `semantic_query` retrieval quality unaffected (`search()` unchanged).
+- **Verification**: `tests/services/test_pipeline.py` + `tests/codegraph/` **14 pass**; full suite **65 passed, 1 skipped** (skip = learned-model policy gate, unrelated); fixture eval `semantic_query` recall@{1,5,10}/MRR all **1.000** (unchanged).

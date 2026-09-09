@@ -26,7 +26,13 @@ class RelationStrategy(Protocol):
 
 
 class EmbeddingSimilarityStrategy:
-    """Link each chunk to its top-K nearest neighbours by embedding similarity."""
+    """Link each chunk to its top-K nearest neighbours by embedding similarity.
+
+    Chunks are already embedded and indexed before relationship building runs, so
+    this reuses each chunk's persisted vector via ``SearchEngine.neighbors_of``
+    (pure-vector nearest neighbours) rather than re-embedding and re-running the
+    full hybrid intent search per chunk — the same edges at a fraction of the cost.
+    """
 
     def __init__(self, search: SearchEngine, top_k: int = 3, min_score: float = 0.3) -> None:
         self._search = search
@@ -36,7 +42,7 @@ class EmbeddingSimilarityStrategy:
     def build(self, chunks: list[Chunk]) -> list[Relationship]:
         rels: list[Relationship] = []
         for chunk in chunks:
-            hits = self._search.search(chunk.text, limit=self._top_k + 1)
+            hits = self._search.neighbors_of(chunk.id, limit=self._top_k + 1)
             for hit in hits:
                 if hit.ref_id == chunk.id or hit.score < self._min_score:
                     continue

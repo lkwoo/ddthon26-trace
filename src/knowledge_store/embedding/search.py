@@ -70,6 +70,20 @@ class SearchEngine:
                 hit.preview = chunk.text[:160]
         return ranked
 
+    def neighbors_of(self, ref_id: str, limit: int = 5) -> list[SearchHit]:
+        """Nearest neighbours of an already-indexed item, by its stored vector.
+
+        A fast path for relationship building: reuses the persisted embedding
+        (no re-embedding of the source text) and returns pure-vector matches,
+        skipping the BM25 fusion and preview attachment that :meth:`search` does
+        for free-text intent queries. Returns ``[]`` if ``ref_id`` was never
+        indexed. Deterministic (vector rank order).
+        """
+        vector = self._repos.embeddings.get_vector(ref_id)
+        if vector is None:
+            return []
+        return self._repos.embeddings.search(vector, limit=limit)
+
     # -- keyword + fusion --------------------------------------------------
     def _keyword_search(self, intent: str, limit: int) -> list[SearchHit]:
         self._ensure_bm25()

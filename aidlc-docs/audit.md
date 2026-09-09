@@ -311,3 +311,14 @@ AI-DLC 워크플로우를 시작해봅시다."
 **Context**: CONSTRUCTION — brownfield feature (auto-adopt, standard depth)
 
 ---
+
+## Perf — faster EmbeddingSimilarityStrategy (reuse stored vectors)
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "EmbeddingSimilarityStrategy이 더 빠르게 동작하도록 하는 방법은? 너무 오래 걸려서 해당 테스트는 제외하고 싶어."
+**Clarifying question (AskUserQuestion)**: "어떤 방향으로 진행할까? (1) 전략 최적화 [권장] (2) 테스트만 제외 (3) 둘 다"
+**User Answer**: "전략 최적화 (권장)"
+**AI Response**: "Targeted performance optimization (auto-adopt), units u2-embedding-search + u4-codegraph-relationships, branch shortFix1. Problem: EmbeddingSimilarityStrategy.build() called SearchEngine.search(chunk.text) once per chunk — re-embedding text the pipeline had ALREADY indexed (services.py:91 index_many before :92 relate), running the full hybrid BM25/RRF path + per-hit preview get(), and forcing a 50-candidate pool; on the no-sqlite-vec fallback the vector scan is brute-force cosine, so the strategy was ~O(N²) plus N redundant embeddings (the ingestion bottleneck already noted in tag-enrichment.md:78). Three changes: (1) NEW EmbeddingRepository.get_vector(ref_id) in store/repositories.py returns the persisted vector (both sqlite-vec and fallback tables); (2) NEW SearchEngine.neighbors_of(ref_id, limit) in embedding/search.py does pure-vector NN on the stored vector, skipping BM25 fusion + preview attachment; (3) EmbeddingSimilarityStrategy.build() now calls neighbors_of(chunk.id, top_k+1) instead of search(chunk.text). SearchEngine.search() / semantic_query path is untouched, so its eval floors are unaffected. Intended behaviour change: RelationType.EMBEDDING edge score is now pure vector similarity, not RRF-fused/normalised (the faithful signal for an embedding relation; edge set at min_score=0.3 and stored scores may shift). Verification: tests/services/test_pipeline.py + tests/codegraph/ 14 pass; full suite 65 passed, 1 skipped (skip = learned-model policy gate, unrelated); fixture eval semantic_query recall@{1,5,10}/MRR all 1.000 (unchanged). Test exclusion was NOT needed — the optimization made it fast. Documented in aidlc-docs/construction/u4-codegraph-relationships/code/embedding-similarity-fastpath.md; aidlc-state.md Increment 4 section added."
+**Status**: COMPLETE (strategy optimized; no test excluded; docs added)
+**Context**: CONSTRUCTION — targeted performance optimization (auto-adopt)
+
+---
