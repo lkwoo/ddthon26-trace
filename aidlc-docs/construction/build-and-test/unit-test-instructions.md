@@ -9,8 +9,9 @@ enforced PBT-Partial rules (PBT-02, PBT-03, PBT-07, PBT-08, PBT-09).
 .venv/bin/python -m pip install ".[test]"
 .venv/bin/python -m pytest
 ```
-Expected: **38 passed** (verified). No optional runtime deps are required; the
-tests exercise the deterministic fallbacks.
+Expected: **55 passed** (verified; base 38 + Increment 2: 12 eval + 5 keyword).
+No optional runtime deps are required; the tests exercise the deterministic
+fallbacks (including the hash embedding provider).
 
 ## Test layout
 | Path | Unit(s) | Kind |
@@ -26,6 +27,9 @@ tests exercise the deterministic fallbacks.
 | tests/mcp/test_tools.py | U6 | example (manifest, typed errors) |
 | tests/wiki/test_exporter.py | U7 | example (static-export contract: JSON + assets) |
 | tests/install/test_install.py | U8 | example (isolation, detect/merge) |
+| tests/eval/test_metrics_pbt.py | U-Eval | PBT-02 (EvalDataset round-trip) + PBT-03 (recall@k/MRR bounds, monotonicity) |
+| tests/eval/test_harness.py | U-Eval, U-Chunking, U-Hybrid | example (fixture perfect baseline, repo dogfood floors, provider-policy fail-loud gate) |
+| tests/embedding/test_keyword.py | U-Hybrid | PBT-03 (`tokenize` determinism) + example (camel/snake split, BM25 ranking) |
 
 ## Enforced PBT rules → where satisfied
 - **PBT-02 (round-trip)**: `deserialize(serialize(chunks)) == chunks` for

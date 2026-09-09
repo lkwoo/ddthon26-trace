@@ -12,6 +12,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
+from knowledge_store.ingestion.symbols import SymbolSpanExtractor
 from knowledge_store.types import EdgeType, GraphEdge, GraphNode, GraphResult, Status
 
 
@@ -42,6 +43,9 @@ def _node_id(path: str, name: str, kind: str) -> str:
 
 
 class CodeStructureAnalyzer:
+    def __init__(self) -> None:
+        self._spans = SymbolSpanExtractor()
+
     def analyze(self, units: list[CodeUnit]) -> GraphResult:
         result = GraphResult(status=Status.OK)
         defined: dict[str, str] = {}   # symbol name -> node id (last definition wins deterministically)
@@ -51,11 +55,19 @@ class CodeStructureAnalyzer:
             file_id = _node_id(unit.path, unit.path, "file")
             result.nodes.append(GraphNode(id=file_id, name=unit.path, kind="file",
                                           path=unit.path, language=unit.language))
+            # Line spans for symbol nodes (Increment 2). Keyed by name; first
+            # occurrence wins so it aligns with the deterministic node ids below.
+            span_by_name: dict[str, tuple[int, int]] = {}
+            for sp in self._spans.spans(unit.text, unit.language):
+                leaf = sp.name.rsplit(".", 1)[-1]
+                span_by_name.setdefault(leaf, (sp.start_line, sp.end_line))
             symbols = self._extract_symbols(unit)
             for sym_kind, name, bases in symbols:
                 node_id = _node_id(unit.path, name, sym_kind)
+                start_line, end_line = span_by_name.get(name, (0, 0))
                 result.nodes.append(GraphNode(id=node_id, name=name, kind=sym_kind,
-                                              path=unit.path, language=unit.language))
+                                              path=unit.path, language=unit.language,
+                                              start_line=start_line, end_line=end_line))
                 result.edges.append(GraphEdge(file_id, node_id, EdgeType.CONTAIN))
                 result.edges.append(GraphEdge(node_id, file_id, EdgeType.DEFINE))
                 defined[name] = node_id

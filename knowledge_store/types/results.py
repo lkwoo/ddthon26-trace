@@ -143,6 +143,8 @@ class GraphNode:
     kind: str                        # file | function | class | module
     path: str = ""
     language: str = ""
+    start_line: int = 0              # 1-indexed symbol span (0 = unknown), Increment 2
+    end_line: int = 0
 
 
 @dataclass

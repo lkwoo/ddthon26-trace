@@ -1,0 +1,32 @@
+{
+  "name": "fixture",
+  "corpus": ["."],
+  "questions": [
+    {
+      "id": "fx-auth",
+      "intent": "how is a user authenticated with a username and password",
+      "gold_files": ["auth.py"],
+      "note": "keyword-obvious: gold file contains authenticate/username/password"
+    },
+    {
+      "id": "fx-favorites",
+      "intent": "how are a user's favorites bookmarks counted",
+      "gold_files": ["favorites.py"]
+    },
+    {
+      "id": "fx-billing",
+      "intent": "how is an invoice created to charge a payment",
+      "gold_files": ["billing.py"]
+    },
+    {
+      "id": "fx-search",
+      "intent": "how are documents searched for a query ranked by relevance",
+      "gold_files": ["search.py"]
+    },
+    {
+      "id": "fx-notify",
+      "intent": "how is a notification message sent to a user over a channel",
+      "gold_files": ["notifications.py"]
+    }
+  ]
+}

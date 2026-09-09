@@ -128,8 +128,10 @@ class GraphRepository:
 
     def add_node(self, node: GraphNode) -> None:
         self._c.execute(
-            "INSERT OR REPLACE INTO graph_nodes(id, name, kind, path, language) VALUES (?,?,?,?,?)",
-            (node.id, node.name, node.kind, node.path, node.language),
+            "INSERT OR REPLACE INTO graph_nodes(id, name, kind, path, language, start_line, end_line) "
+            "VALUES (?,?,?,?,?,?,?)",
+            (node.id, node.name, node.kind, node.path, node.language,
+             node.start_line, node.end_line),
         )
 
     def add_edge(self, edge: GraphEdge) -> None:
@@ -143,7 +145,8 @@ class GraphRepository:
 
     def nodes(self) -> list[GraphNode]:
         rows = self._c.execute("SELECT * FROM graph_nodes").fetchall()
-        return [GraphNode(r["id"], r["name"], r["kind"], r["path"], r["language"]) for r in rows]
+        return [GraphNode(r["id"], r["name"], r["kind"], r["path"], r["language"],
+                          r["start_line"], r["end_line"]) for r in rows]
 
     def edges(self) -> list[GraphEdge]:
         rows = self._c.execute("SELECT * FROM graph_edges").fetchall()

@@ -43,11 +43,13 @@ CREATE TABLE IF NOT EXISTS chunk_versions (
 CREATE INDEX IF NOT EXISTS idx_versions_latest ON chunk_versions(chunk_id, is_latest);
 
 CREATE TABLE IF NOT EXISTS graph_nodes (
-    id       TEXT PRIMARY KEY,
-    name     TEXT NOT NULL,
-    kind     TEXT NOT NULL,
-    path     TEXT NOT NULL DEFAULT '',
-    language TEXT NOT NULL DEFAULT ''
+    id         TEXT PRIMARY KEY,
+    name       TEXT NOT NULL,
+    kind       TEXT NOT NULL,
+    path       TEXT NOT NULL DEFAULT '',
+    language   TEXT NOT NULL DEFAULT '',
+    start_line INTEGER NOT NULL DEFAULT 0,   -- 1-indexed symbol span (0 = unknown), Increment 2
+    end_line   INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS graph_edges (

@@ -4,7 +4,7 @@
 - **Project Name**: Dual-Interface Knowledge Store (MCP-based Agentic Knowledge Base)
 - **Project Type**: Greenfield
 - **Start Date**: 2026-09-08T00:00:00Z
-- **Current Stage**: COMPLETE — CONSTRUCTION phase done for all 8 units (code + per-unit design docs + Build/Test); 38 tests pass incl. enforced PBT; only OPERATIONS placeholder remains (auto-adopt mode)
+- **Current Stage**: INCREMENT 2 COMPLETE (semantic_query RAG improvement). U-Eval + U-Chunking + U-Hybrid + Build-and-Test all done; 55 tests pass; `semantic_query` recall@10 0.833→1.000 on the repo dogfood set. Deferred to a future increment: item 3 (reranker + confidence threshold) and item 4 (file:line + code-block output / citations). Base project (8 units) COMPLETE.
 
 ## Workspace State
 - **Existing Code**: No
@@ -78,3 +78,25 @@
 | Resiliency Baseline | No | Requirements Analysis |
 
 **PBT Partial Mode**: Only rules PBT-02, PBT-03, PBT-07, PBT-08, PBT-09 are enforced (blocking). All other PBT rules are advisory (non-blocking).
+
+---
+
+## INCREMENT 2 — semantic_query RAG Improvement
+
+- **Type**: Brownfield enhancement on completed base project.
+- **Trigger (2026-09-09)**: User analysis — `semantic_query` underperforms because it leaks at ingest→retrieval. Five prioritized improvements: (1) code-aware symbol chunking + coverage, (2) hybrid BM25+vector search, (3) reranker + confidence threshold, (4) file:line + code-block output, (5) evaluation loop (recall@k / MRR / labeled set).
+- **User-chosen scope**: START with the evaluation baseline (item 5, minimal version) to quantify current performance, THEN tackle item 1 (chunking) → item 2 (hybrid). Full AI-DLC workflow with per-stage approval gates.
+- **Confirmed subsystem map (Explore agent)**: chunking is blank-line-block based (`chunker.py:41,66`), not symbol/AST; embedding is general-purpose `bge-small-en-v1.5` w/ silent hash fallback (`provider.py:81`); pure single-vector NN, no BM25/FTS/rerank; no line/symbol metadata on chunks; code graph has symbols but no line spans (`analyzer.py`); `semantic_query` applies no score threshold (`search.py:37-48`); no retrieval-quality eval harness.
+
+### Increment 2 Stage Progress
+- [x] Workspace Detection (resume; now brownfield — existing code + full aidlc-docs)
+- [x] Requirements Analysis (answers auto-adopted "추천대로"; requirements.md written; extensions: Security No / PBT Partial / Resiliency No)
+- [x] Workflow Planning (`inception/plans/increment-2-execution-plan.md`; 3 units: U-Eval → U-Chunking → U-Hybrid)
+- [x] **U-Eval** — CODE DONE + docs (`eval/` package, `aidlc-docs/construction/u-eval/`). Full suite 50 passed (38 base + 12 new). Baseline recorded: repo dogfood semantic recall@10=0.833/MRR=0.621 vs grep recall@10=1.000/MRR=0.706 (hash provider) — grep beats pure vector, motivating U-Chunking/U-Hybrid.
+- [x] **U-Chunking** — CODE DONE + docs (`knowledge_store/ingestion/symbols.py` new; chunker/analyzer/schema/repositories/types modified; `aidlc-docs/construction/u-chunking/`). Method-aware chunking (function/method/class-header as whole units; `Class.method` provenance; `{symbol, symbol_kind, start_line, end_line, role, lang}` metadata), analyzer line spans (41/41 nodes), non-blank content fully preserved. Full suite **50 passed**. Eval (hash): repo semantic recall@10 **0.833 → 0.944** (coverage up); MRR 0.621 → 0.444 (hash bag-of-words dilution artifact — top-1 precision deferred to U-Hybrid; controlled fixture stays 1.0). Repo floor reset + documented in `tests/eval/test_harness.py` (recall@10 floor raised to 0.88, hash MRR floor relaxed to 0.40).
+- [x] **U-Hybrid** — CODE DONE + docs (`knowledge_store/embedding/keyword.py` new; `search.py` hybrid RRF fusion; `aidlc-docs/construction/u-hybrid/`). Code-aware BM25 (identifier camelCase/snake decomposition) fused with vector search via Reciprocal Rank Fusion (pure-Python, deterministic, no new dep). Full suite **55 passed**. Controlled A/B (hash, same method-aware chunks): hybrid beats pure vector on EVERY metric — recall@1 0.222→0.333, recall@5 0.722→0.889, recall@10 0.944→**1.000**, MRR 0.440→0.575. Increment-2 headline: `semantic_query` recall@10 0.833→**1.000** (matches grep's best coverage) while keeping concept search — the "superset of grep" goal. Floors tightened in `tests/eval/test_harness.py` (semantic recall@10 ≥ 0.95, MRR ≥ 0.50).
+- [x] Build and Test — instruction files updated for Increment 2 (build-and-test-summary, unit-test-instructions, integration-test-instructions). Full suite **55 passed**; eval A/B reproducible via `python -m eval`. Increment 2 CONSTRUCTION complete.
+
+**Deferred to a later increment**: item 3 (reranker + confidence threshold), item 4 (file:line + code-block output / citations / relationship linking).
+
+**Env note**: `.venv` bootstrapped (pip via get-pip.py) with pytest+hypothesis on Python 3.14; `fastembed` NOT installed → runs on hash embedding fallback. Run tests with `.venv/bin/python -m pytest`.

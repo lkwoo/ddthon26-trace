@@ -21,9 +21,20 @@ export). These are covered by `tests/services/test_pipeline.py` and
 - **MCP tool surface** (U6): `test_manifest_is_self_describing`,
   typed NOT_FOUND / ERROR paths, JSON serialization of `ToolResult`.
 
+- **Retrieval-quality integration** (Increment 2; U-Chunking + U-Hybrid through the
+  real ingest→chunk→embed→search stack): `tests/eval/test_harness.py` ingests a fixture
+  corpus and the repo itself, runs `semantic_query` + a grep baseline over labeled
+  questions, and asserts recall@k / MRR floors (fixture perfect 1.0; repo semantic
+  recall@10 ≥ 0.95, MRR ≥ 0.50) plus the provider-policy fail-loud gate.
+
 Run just the integration-style tests:
 ```bash
-.venv/bin/python -m pytest tests/services tests/mcp -q
+.venv/bin/python -m pytest tests/services tests/mcp tests/eval -q
+```
+
+Run the retrieval-quality A/B report directly (ingests through the full stack):
+```bash
+.venv/bin/python -m eval --corpus repo --allow-hash     # + --corpus fixture
 ```
 
 ## Manual end-to-end (both interfaces)
