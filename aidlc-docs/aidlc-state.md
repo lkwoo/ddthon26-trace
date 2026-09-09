@@ -63,8 +63,8 @@
 
 ### 🟢 CONSTRUCTION PHASE (per-unit loop)
 - [ ] Functional Design — EXECUTE (per-unit) — ✅ UOW-0F 완료(2026-09-09 승인)
-- [ ] NFR Requirements — EXECUTE (per-unit) — 🔄 UOW-0F 산출물 2종 생성 완료, 승인 대기
-- [ ] NFR Design — EXECUTE (per-unit)
+- [ ] NFR Requirements — EXECUTE (per-unit) — ✅ UOW-0F 완료(2026-09-09 승인)
+- [ ] NFR Design — EXECUTE (per-unit) — 🔄 UOW-0F Part 1 계획+질문 작성, 답변 대기
 - [ ] Infrastructure Design — SKIP
 - [ ] Code Generation — EXECUTE (per-unit)
 - [ ] Build and Test — EXECUTE
@@ -74,6 +74,6 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: NFR Requirements — UOW-0F (Foundation), 산출물 2종 생성 완료 — 승인 대기 (GATE)
-- **Next Stage**: (UOW-0F) NFR Design → Code Generation
-- **Status**: UOW-0F NFR Requirements 완료 — nfr-requirements.md(재현성·신뢰성·보안·유지보수·테스트가능성·관측성 NFR + 추적 매트릭스)·tech-stack-decisions.md(Pydantic v2·PyYAML·Hypothesis·표준 logging·Python 3.11+·의존성) 생성. 승인 대기 중.
+- **Current Stage**: NFR Design — UOW-0F (Foundation), Part 1 계획+질문 작성 완료 — 답변 대기
+- **Next Stage**: (UOW-0F) Code Generation (Infrastructure Design SKIP)
+- **Status**: UOW-0F NFR Requirements 승인 완료. NFR Design(UOW-0F) 착수 — 코드 구조 패턴(주입 경계·오류 변환·부분실패 강등·로깅 횡단·직렬화 결정성·시크릿 조회) 질문 프리필, 답변 대기 중.
