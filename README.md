@@ -21,6 +21,30 @@ gracefully when absent.
 
 ## Install
 
+The quickest path is the convenience scripts, which create a local `.venv` and
+install everything into it:
+
+```bash
+# Linux / macOS
+./install.sh            # all optional features ([all])
+./install.sh mcp        # a single extra (e.g. just the MCP server)
+./install.sh none       # core only, no optional dependencies
+
+# Windows (PowerShell)
+./install.ps1
+./install.ps1 -Extras mcp
+```
+
+To uninstall (ingested `.knowledge-store/` data is never touched):
+
+```bash
+./uninstall.sh            # remove the package, keep .venv
+./uninstall.sh --purge    # also delete the .venv
+# Windows: ./uninstall.ps1 [-Purge]
+```
+
+Or install manually with pip:
+
 ```bash
 # from the project root
 pip install .

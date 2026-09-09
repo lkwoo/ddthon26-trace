@@ -273,3 +273,12 @@ AI-DLC 워크플로우를 시작해봅시다."
 **Context**: CONSTRUCTION — documentation (auto-adopt, minimal depth)
 
 ---
+
+## Convenience install/uninstall scripts (sh + ps1)
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "설치가 편하게 install.sh, install.ps1, uninstall.sh, uninstall.ps1 파일들을 제공해주고 싶어."
+**AI Response**: "Added four repo-root scripts. install.sh / install.ps1: locate a Python >=3.10 interpreter, create a local .venv (idempotent), and `pip install .[EXTRAS]` (default EXTRAS=all; accepts a single extra like mcp/embeddings/vec/code/docs/test, or 'none' for core only), then print the entry-point path + quick-start commands. uninstall.sh / uninstall.ps1: `pip uninstall -y knowledge-store` from the local .venv (falls back to system pip), and only delete .venv when --purge / -Purge is passed; ingested <project>/.knowledge-store/ data is explicitly left untouched. Hardened venv creation: on failure (and when pip is missing inside the venv) the scripts try `ensurepip` and otherwise print the actionable Debian/Ubuntu/WSL hint `sudo apt install python3-venv` — motivated by a real failure observed on this WSL host where `python -m venv` cannot provision pip (ensurepip not packaged; no pip present system-wide either). Made the .sh files executable (chmod +x). Validation: `bash -n` passed for both shell scripts; .ps1 reviewed manually (pwsh unavailable here); a live pip install/wheel build could NOT be run because this machine has no pip at all (environment limitation, not a script defect) — the earlier src-layout packaging config was already verified structurally. Also updated README Install section to lead with the convenience scripts (sh + ps1, install + uninstall) and keep manual `pip install .` as the alternative."
+**Status**: COMPLETE (4 scripts added; README updated; syntax-validated — live install blocked by no-pip environment)
+**Context**: CONSTRUCTION — packaging / developer experience (auto-adopt, minimal depth)
+
+---
