@@ -232,3 +232,10 @@
 **AI Response**: 계획 체크박스 S1~S8 [x]. Functional Design 산출물 3종 생성 — domain-entities.md(demo/ 레이아웃·자산↔UOW-0F 동결모델 매핑), business-rules.md(의도적 충돌 3건 INV-C1~C3 불변식·데이터셋 무결성 R1~R5), business-logic-model.md(파이프라인 데이터흐름·P1/P2/P3 페르소나 시나리오 매핑·Hero E2E 앵커). 충돌 3건 확정: C-1 telephone max_length value_mismatch(P0, P1), C-2 Pet.birthDate 검증 드리프트 stale_knowledge(P2), C-3 Owner.email 신규 필수정책 부재 policy_conflict(P3).
 **Status**: 승인 대기 (GATE)
 **Context**: CONSTRUCTION - Functional Design(UOW-00) 산출물 생성 완료
+
+## Functional Design (UOW-00) — GATE 승인 & NFR Requirements 생성
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인"
+**AI Response**: UOW-00 Functional Design 승인 처리 → NFR Requirements(UOW-00) 착수. 데이터 단위 특성상 Minimal 깊이·질문 라운드 생략(모호성 없음). 산출물 2종 생성: nfr-requirements.md(적용 NFR=결정성/시크릿위생/라이선스/충돌무결성/자산다양성; N/A=성능·확장·가용성·인증·로깅; 확장 컴플라이언스 요약), tech-stack-decisions.md(전역 스택 상속, UOW-00 고유=PDF 바이너리 커밋·pytest 무결성 테스트, 신규 런타임 의존성 없음). PBT 전면정책은 코드부재로 N/A→데이터 무결성 테스트로 대체(Code Gen 이관). NFR Design SKIP 권장.
+**Status**: 승인 대기 (GATE)
+**Context**: CONSTRUCTION - NFR Requirements(UOW-00) 산출물 생성 완료

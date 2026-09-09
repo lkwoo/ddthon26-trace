@@ -74,6 +74,6 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: Functional Design — UOW-00 (데모 데이터셋), 계획·질문 작성 중
-- **Next Stage**: UOW-00 Functional Design 승인 → (NFR N/A 판단) → UOW-00 Code Generation(픽스처 생성)
-- **Status**: UOW-0F 코드 생성 완료·승인(31 tests pass). UOW-00 착수 — 3 페르소나(P1 데브·P2 마이라·P3 피엠) 흐름을 모두 재현하는 하이브리드 픽스처(Petclinic 발췌 + 합성 PDF + 의도적 value_mismatch) 설계 진행.
+- **Current Stage**: NFR Requirements — UOW-00 (데모 데이터셋), 산출물 생성 완료 — 승인 대기 (GATE)
+- **Next Stage**: NFR Requirements 승인 → NFR Design(UOW-00) SKIP 권장 → UOW-00 Code Generation(픽스처+무결성 테스트)
+- **Status**: UOW-00 Functional Design 승인(충돌 3건 C-1~C-3 확정). NFR Requirements=Minimal: 런타임 NFR 대부분 N/A(데이터 단위), 적용 NFR=결정성·시크릿위생·라이선스·충돌무결성. 확장 컴플라이언스: Resiliency 재현성 Compliant, PBT는 코드부재 N/A→데이터 무결성 테스트로 대체(Code Gen 이관). NFR Design SKIP 권장.
