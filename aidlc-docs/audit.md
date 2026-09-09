@@ -414,3 +414,10 @@
 **AI Response**: 계획 체크박스 S1~S8 [x]. 산출물 3종: domain-entities.md(models/impact.py 중간 스키마 ImpactCandidate/TaskImpactResult, KnowledgeContext 뷰, 기존 ImpactOut/ImpactItem/EvidenceRef 재사용·매핑), business-rules.md(BR-CTX 그라운딩/BR-IMP 3범주·근거참조·허구path 강등·근거부족 LOW/BR-CONFWARN 충돌경고 P1/BR-PLAN 순서형·자동수정금지/BR-PIPE 강등/BR-SEC/DET), business-logic-model.md(impact/ 배치, build_context·analyze_task·to_impact_out·analyze_task_impact 알고리즘, Hero Task SMS 인증→telephone 충돌 경고 기대, 순수함수 테스트 전략). 지식 그라운딩이 차별점.
 **Status**: 승인 대기 (GATE)
 **Context**: CONSTRUCTION - Functional Design(UOW-04) 산출물 생성 완료
+
+## Functional Design (UOW-04) GATE 승인 & NFR Requirements 착수
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인"
+**AI Response**: UOW-04 Functional Design 승인 → NFR Requirements(UOW-04) 착수. uow-04-nfr-requirements-plan.md 작성(S1~S7 + Q1~Q3). 질문: Q1 PBT 대상(매핑 건전성·근거부족 강등·정렬 결정성·related_conflicts 정합), Q2 LLM 테스트(FakeLLM+llm_integration 상속), Q3 컨텍스트 상한(발췌 4000 상속·focus top-N).
+**Status**: 승인 대기 (GATE, 계획+질문)
+**Context**: CONSTRUCTION - NFR Requirements(UOW-04) 계획 작성
