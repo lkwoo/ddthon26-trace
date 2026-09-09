@@ -7,9 +7,18 @@ AnthropicClient는 호출 직전 os.environ 에서 키를 조회한다(late look
 
 from __future__ import annotations
 
+import inspect
 from typing import Protocol, runtime_checkable
 
 from trace.config.settings import LLMSettings
+
+
+def _accepted_params(func: object) -> frozenset[str] | None:
+    """func 이 받는 키워드 인자 이름 집합. 시그니처를 못 읽으면 None(=제한 없음으로 간주)."""
+    try:
+        return frozenset(inspect.signature(func).parameters)  # type: ignore[arg-type]
+    except (TypeError, ValueError):  # C-확장·데코레이터로 시그니처 불가
+        return None
 
 
 @runtime_checkable
@@ -73,13 +82,29 @@ class AnthropicClient:
 
     def complete(self, prompt: str, *, settings: LLMSettings) -> str:
         client = self._ensure_client(settings)
-        kwargs: dict = {
+        create = client.messages.create
+        base: dict = {
             "model": settings.model,
             "max_tokens": settings.max_tokens,
-            "temperature": settings.temperature,
             "messages": [{"role": "user", "content": prompt}],
         }
-        message = client.messages.create(**kwargs)
+        # temperature(결정성, BR-DET-001)는 SDK/모델마다 노출 방식이 다르다:
+        # 일부 빌드는 create() 인자로 받지 않아 extra_body 로 본문에 싣고,
+        # 일부 모델은 temperature 자체를 미지원(deprecated)하므로 아래에서 제거 후 재시도한다.
+        params = _accepted_params(create)
+        temp_kwargs: dict = {}
+        if params is None or "temperature" in params:
+            temp_kwargs["temperature"] = settings.temperature
+        elif "extra_body" in params:
+            temp_kwargs["extra_body"] = {"temperature": settings.temperature}
+
+        try:
+            message = create(**base, **temp_kwargs)
+        except Exception as exc:  # noqa: BLE001 — 모델이 temperature 미지원이면 제거 후 1회 재시도
+            if temp_kwargs and "temperature" in str(exc).lower():
+                message = create(**base)
+            else:
+                raise
         # content 블록들의 텍스트를 연결
         return "".join(
             block.text for block in message.content if getattr(block, "type", "") == "text"

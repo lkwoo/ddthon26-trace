@@ -51,11 +51,14 @@ def main() -> int:
     _load_dotenv(_ENV_FILE)
     provider = (os.environ.get("TRACE_LLM_PROVIDER") or "anthropic").strip().lower()
     if provider == "bedrock":
-        missing = [k for k in ("AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY")
-                   if not os.environ.get(k)]
-        if missing:
-            print(f"✗ Bedrock 자격증명이 없습니다: {', '.join(missing)}. "
-                  ".env/셸에 AWS 자격증명과 TRACE_LLM_MODEL(Bedrock 모델 ID)을 지정하세요.")
+        has_bearer = bool(os.environ.get("AWS_BEARER_TOKEN_BEDROCK"))
+        has_iam = bool(os.environ.get("AWS_ACCESS_KEY_ID")
+                       and os.environ.get("AWS_SECRET_ACCESS_KEY"))
+        if not (has_bearer or has_iam):
+            print("✗ Bedrock 자격증명이 없습니다. 아래 중 하나를 .env/셸에 지정하세요:\n"
+                  "  - AWS_BEARER_TOKEN_BEDROCK=<Bedrock API key>, 또는\n"
+                  "  - AWS_ACCESS_KEY_ID + AWS_SECRET_ACCESS_KEY (IAM)\n"
+                  "  그리고 TRACE_LLM_MODEL(Bedrock 모델 ID/inference profile).")
             return 2
         if not os.environ.get("TRACE_LLM_MODEL"):
             print("✗ Bedrock 사용 시 TRACE_LLM_MODEL 에 Bedrock 모델 ID 를 지정하세요 "
