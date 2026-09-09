@@ -64,9 +64,9 @@
 ### 🟢 CONSTRUCTION PHASE (per-unit loop)
 - [ ] Functional Design — EXECUTE (per-unit) — ✅ UOW-0F 완료(2026-09-09 승인)
 - [ ] NFR Requirements — EXECUTE (per-unit) — ✅ UOW-0F 완료(2026-09-09 승인)
-- [ ] NFR Design — EXECUTE (per-unit) — 🔄 UOW-0F 산출물 2종 생성 완료, 승인 대기
+- [ ] NFR Design — EXECUTE (per-unit) — ✅ UOW-0F 완료(2026-09-09 승인)
 - [ ] Infrastructure Design — SKIP
-- [ ] Code Generation — EXECUTE (per-unit)
+- [ ] Code Generation — EXECUTE (per-unit) — 🔄 UOW-0F Part 1(계획) 작성, 승인 대기
 - [ ] Build and Test — EXECUTE
 
 ### 🟡 OPERATIONS PHASE
@@ -74,6 +74,6 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: NFR Design — UOW-0F (Foundation), 산출물 2종 생성 완료 — 승인 대기 (GATE)
-- **Next Stage**: (UOW-0F) Code Generation (Infrastructure Design SKIP)
-- **Status**: UOW-0F NFR Design 완료 — nfr-design-patterns.md(P1~P8: 주입경계·제약교정 재시도·어댑터 변환·warning 누적기·로깅 CM·단일 serialize·late lookup·safe_load)·logical-components.md(trace/ 서브모듈 배치·의존·주입지점·하위단위 계약) 생성. 승인 대기 중.
+- **Current Stage**: Code Generation — UOW-0F (Foundation), Part 1(계획) 작성 완료 — 승인 대기 (GATE)
+- **Next Stage**: (UOW-0F) Code Generation Part 2(생성) → 이후 UOW-00 per-unit 루프
+- **Status**: UOW-0F NFR Design 승인 완료. Code Generation Part 1 착수 — uow-0f-code-generation-plan.md 작성(trace/ Foundation 코드+테스트 생성 단계). Infrastructure Design SKIP. 계획 승인 대기 중.

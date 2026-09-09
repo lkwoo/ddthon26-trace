@@ -178,3 +178,20 @@
 **Context**: CONSTRUCTION - NFR Design(UOW-0F) Part 1(GATE 승인) → 산출물 생성
 
 ---
+
+## NFR Design (UOW-0F) — 승인 & Code Generation 착수
+**Timestamp**: 2026-09-09T00:00:00Z
+**AI Prompt**: nfr-design/ 검토 — Request Changes / Continue to Code Generation.
+**User Input**: "승인"
+**AI Response**: UOW-0F NFR Design 승인 처리 → 완료 표시. Code Generation(UOW-0F) 착수. Infrastructure Design은 SKIP. Part 1(계획) 작성 예정.
+**Context**: CONSTRUCTION - NFR Design(UOW-0F) GATE 승인 → Code Generation(UOW-0F) 착수
+
+---
+
+## Code Generation (UOW-0F) Part 1 — 계획 작성 & 승인 요청
+**Timestamp**: 2026-09-09T00:00:00Z
+**AI Prompt**: uow-0f-code-generation-plan.md(10 스텝: 구조/빌드·common·domain·result·serialize·config·prompts·llm·tests(PBT)·code-summary) 검토 — 승인/변경 요청.
+**Status**: 승인 대기 (GATE, Part 1)
+**Context**: CONSTRUCTION - Code Generation(UOW-0F) Part 1 계획 작성 완료
+
+---
