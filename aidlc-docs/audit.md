@@ -372,3 +372,10 @@
 **AI Response**: UOW-03 Functional Design 승인 → NFR Requirements(UOW-03) 착수. uow-03-nfr-requirements-plan.md 작성(S1~S7 + Q1~Q3). 질문: Q1 PBT 대상(충돌 검출 건전성/결정성 멱등/유형분류 전결정성/Confidence 규칙 정합, 복수선택), Q2 LLM 테스트 정책(FakeLLM+llm_integration 상속), Q3 추출 입력 상한(UOW-02 4000 상속).
 **Status**: 승인 대기 (GATE, 계획+질문)
 **Context**: CONSTRUCTION - NFR Requirements(UOW-03) 계획 작성 완료
+
+## NFR Requirements (UOW-03) — 답변 수신(모두 권장) & 산출물 생성
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "모두 권장으로 진행" (Q1=A,B,C,D PBT 4속성, Q2=A FakeLLM+llm_integration, Q3=A 발췌 4000 상속)
+**AI Response**: 계획 체크박스 S1~S7 [x]. 산출물 2종: nfr-requirements.md(COST-1~3, PERF-1~3[순수함수 무비용], REL-1~4[Feature 격리·허구근거 드롭·모호시 폴백], SEC-1~3, TST-1~3, PBT-03-A~D[검출 건전성·결정성·유형분류 전결정성·Confidence 정합], 확장 Compliant), tech-stack-decisions.md(UOW-01/02/0F 상속·ConflictType 확장·부재토큰 상수·신규 의존성 없음). 통합 마커는 UOW-02 llm_integration 재사용.
+**Status**: 승인 대기 (GATE)
+**Context**: CONSTRUCTION - NFR Requirements(UOW-03) 산출물 생성 완료

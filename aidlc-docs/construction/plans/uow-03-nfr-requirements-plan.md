@@ -9,13 +9,13 @@ Confidence·analyze_project 완성 확정. 여기서는 성능·재현성·부�
 ---
 
 ## 계획 스텝 (체크박스)
-- [ ] S1. LLM 비용/토큰 — 추출 입력(발췌 상한)·Feature당 1회 호출 정책(UOW-02 상속 확인)
-- [ ] S2. 성능/캐시 — 완본 스테이지 캐시(재실행 LLM 미호출) 기준
-- [ ] S3. 신뢰성(Resiliency) — Feature별 추출/충돌 실패 강등, 전체 계속
-- [ ] S4. 보안 — 프롬프트/로그 위생, Evidence 원문 비노출
-- [ ] S5. 재현성 — 결정적 검출/Confidence, FakeLLM 오프라인 + 옵트인 통합
-- [ ] S6. PBT 속성 대상 확정(순수 함수 중심)
-- [ ] S7. nfr-requirements.md / tech-stack-decisions.md 작성 + 확장 컴플라이언스 요약
+- [x] S1. LLM 비용/토큰 — 추출 발췌 4000자 상속(Q3=A), Feature당 1회
+- [x] S2. 성능/캐시 — 완본 스테이지(meta.stage=complete) 캐시 재사용
+- [x] S3. 신뢰성(Resiliency) — Feature별 추출/충돌 실패 강등
+- [x] S4. 보안 — 프롬프트/로그 위생, Evidence 원문 비노출
+- [x] S5. 재현성 — 결정적 검출/Confidence, FakeLLM + llm_integration 옵트인(Q2=A)
+- [x] S6. PBT 속성 대상 — Q1=A,B,C,D 전부
+- [x] S7. nfr-requirements.md / tech-stack-decisions.md 작성 + 확장 컴플라이언스 요약
 
 ---
 
