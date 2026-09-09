@@ -39,7 +39,9 @@ class EvidenceType(str, Enum):
 
 
 class ConflictType(str, Enum):
-    VALUE_MISMATCH = "value_mismatch"
+    VALUE_MISMATCH = "value_mismatch"      # P0: 구체 값 스칼라 불일치 (예: 20 vs 10)
+    STALE_KNOWLEDGE = "stale_knowledge"    # P1: 문서/지식이 구현과 어긋남(드리프트)
+    POLICY_CONFLICT = "policy_conflict"    # P1: 요구(필수/규정) vs 구현 부재
 
 
 class ImpactCategory(str, Enum):

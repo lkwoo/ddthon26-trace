@@ -12,31 +12,31 @@
 ## 생성/수정 파일 (logical-components 청사진)
 
 ### 코드
-- [ ] C1. `trace/models/domain.py` **[수정]** — `ConflictType`에 `STALE_KNOWLEDGE`, `POLICY_CONFLICT` 추가(하위 호환).
-- [ ] C2. `trace/models/extraction.py` **[신설]** — `ExtractedClaim{subject,predicate,evidence}`, `ClaimExtractionResult{claims}`.
-- [ ] C3. `trace/conflict/__init__.py` **[신설]** — 패키지 초기화.
-- [ ] C4. `trace/conflict/detect.py` **[신설]** — `ABSENCE_TOKENS`(상수), `detect_conflicts(claims, feature_id)`(결정적 순수),
+- [x] C1. `trace/models/domain.py` **[수정]** — `ConflictType`에 `STALE_KNOWLEDGE`, `POLICY_CONFLICT` 추가(하위 호환).
+- [x] C2. `trace/models/extraction.py` **[신설]** — `ExtractedClaim{subject,predicate,evidence}`, `ClaimExtractionResult{claims}`.
+- [x] C3. `trace/conflict/__init__.py` **[신설]** — 패키지 초기화.
+- [x] C4. `trace/conflict/detect.py` **[신설]** — `ABSENCE_TOKENS`(상수), `detect_conflicts(claims, feature_id)`(결정적 순수),
       `classify_conflict_type(ec, vals)`(전결정성, 순서규칙+value_mismatch 폴백), `_looks_behavioral`/`_has_doc_vs_code`/`_render_interpretation` 내부.
-- [ ] C5. `trace/conflict/summarize.py` **[신설]** — `summarize_conflicts(conflicts) -> list[ConflictOut]`.
-- [ ] C6. `trace/workflow/claims.py` **[신설]** — `extract_claims(feature, assets, llm)`(Feature당 1회, 허구근거 드롭+warning),
+- [x] C5. `trace/conflict/summarize.py` **[신설]** — `summarize_conflicts(conflicts) -> list[ConflictOut]`.
+- [x] C6. `trace/workflow/claims.py` **[신설]** — `extract_claims(feature, assets, llm)`(Feature당 1회, 허구근거 드롭+warning),
       `assign_confidence(ec)`(비-LLM 규칙), `enrich_feature_knowledge(fk_shell, assets, llm)`(대표값 Claim/평탄 Evidence/meta.stage="complete").
-- [ ] C7. `trace/engine/analyze.py` **[신설]** — `analyze_project(path)`(스캔→build_knowledge→셸 완본화→충돌 집계→cache.put→build_result),
+- [x] C7. `trace/engine/analyze.py` **[신설]** — `analyze_project(path)`(스캔→build_knowledge→셸 완본화→충돌 집계→cache.put→build_result),
       `get_conflicts(feature_id=None)`(로드→summarize→meta.conflicts_count), `_build_llm_service()`(AnthropicClient 조립).
-- [ ] C8. `trace/engine/__init__.py` **[수정]** — `analyze_project`, `get_conflicts` export 추가.
-- [ ] C9. `trace/prompts/templates/extract_claims.md` **[신설]** — `${feature_title}/${feature_description}/${sources}`, "원자 Claim 분해·유효 JSON만" 명시.
+- [x] C8. `trace/engine/__init__.py` **[수정]** — `analyze_project`, `get_conflicts` export 추가.
+- [x] C9. `trace/prompts/templates/extract_claims.md` **[신설]** — `${feature_title}/${feature_description}/${sources}`, "원자 Claim 분해·유효 JSON만" 명시.
 
 ### 테스트 (PBT/단위/통합)
-- [ ] T1. `tests/test_conflict_detect.py` — demo 3충돌 손수 픽스처(C-1 value_mismatch/C-2 stale_knowledge/C-3 policy_conflict) 유형 정확, distinct<2 → 0건.
-- [ ] T2. `tests/test_confidence.py` — assign_confidence 경계(LOW: contradicts/≥2값, HIGH: supports≥2·일치, MEDIUM: 그 외), reason 존재.
-- [ ] T3. `tests/test_conflict_properties.py` — PBT-03-A(건전성)·B(결정성/멱등·evidence 셔플)·C(전결정성·예외없음)·D(Confidence 정합). hypothesis derandomize.
-- [ ] T4. `tests/test_analyze_project.py` — FakeLLM 주입: 스캔→지식→완본화→충돌 반환, 부분실패 격리, 2회차 캐시-완본 스테이지 재사용(LLM 미호출 카운트).
-- [ ] T5. `tests/test_llm_integration.py` **[수정]** — `@pytest.mark.llm_integration` analyze_project 실 API 통합 1건 추가(env+키 없으면 skip).
+- [x] T1. `tests/test_conflict_detect.py` — demo 3충돌 손수 픽스처(C-1 value_mismatch/C-2 stale_knowledge/C-3 policy_conflict) 유형 정확, distinct<2 → 0건.
+- [x] T2. `tests/test_confidence.py` — assign_confidence 경계(LOW: contradicts/≥2값, HIGH: supports≥2·일치, MEDIUM: 그 외), reason 존재.
+- [x] T3. `tests/test_conflict_properties.py` — PBT-03-A(건전성)·B(결정성/멱등·evidence 셔플)·C(전결정성·예외없음)·D(Confidence 정합). hypothesis derandomize.
+- [x] T4. `tests/test_analyze_project.py` — FakeLLM 주입: 스캔→지식→완본화→충돌 반환, 부분실패 격리, 2회차 캐시-완본 스테이지 재사용(LLM 미호출 카운트).
+- [x] T5. `tests/test_llm_integration.py` **[수정]** — `@pytest.mark.llm_integration` analyze_project 실 API 통합 1건 추가(env+키 없으면 skip).
 
 ### DoD 검증
-- [ ] V1. `pytest -q` 전체 green(기존 90 pass 유지 + 신규), `llm_integration`는 skip.
-- [ ] V2. 신규 모듈 mypy-clean(기존 방침 유지).
-- [ ] V3. `analyze_project("demo")` FakeLLM 시나리오에서 3충돌·유형 정확 재현(수기 픽스처 기반 결정성).
-- [ ] V4. code-summary.md 작성.
+- [x] V1. `pytest -q` 전체 green(기존 90 pass 유지 + 신규), `llm_integration`는 skip.
+- [x] V2. 신규 모듈 mypy-clean(기존 방침 유지).
+- [x] V3. `analyze_project("demo")` FakeLLM 시나리오에서 3충돌·유형 정확 재현(수기 픽스처 기반 결정성).
+- [x] V4. code-summary.md 작성.
 
 ---
 

@@ -393,3 +393,10 @@
 **AI Response**: UOW-03 NFR Design 승인 → Code Generation(UOW-03) 착수. Part 1 계획(uow-03-code-generation-plan.md) 작성. 기존 계약 확인: domain.py(ConflictType/Conflict/claim_key/normalize_value), result.py(build_result/ConflictOut), workflow/features.py(build_knowledge/generate_feature_knowledge), llm/service.py(complete_structured), knowledge/store.py, engine/scan.py(scan_project_assets), demo/ 데이터셋. 계획 승인 대기(GATE).
 **Status**: 승인 대기 (GATE, Part 1 계획)
 **Context**: CONSTRUCTION - Code Generation(UOW-03) Part 1 계획 작성
+
+## Code Generation (UOW-03) Part 1 GATE 승인 & Part 2 실행 완료
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인'"
+**AI Response**: Part 1 계획 승인 → Part 2 실행. 생성: models/extraction.py, conflict/{__init__,detect,summarize}.py, workflow/claims.py, engine/analyze.py, prompts/templates/extract_claims.md + domain.py(ConflictType 2개)·engine/__init__.py 수정. 테스트 4종 신설 + test_llm_integration analyze_project 케이스. 계획 체크박스 C1~C9/T1~T5/V1~V4 전부 [x]. 결과: pytest 113 passed·2 skipped(옵트인 llm_integration), 신규 모듈 mypy-clean. PBT-03-B가 동일 claim_key 정렬 비결정 결함을 검출 → 정렬키를 (claim, 값목록)로 보강해 해소. code-summary.md 작성. 승인 대기(GATE).
+**Status**: 승인 대기 (GATE)
+**Context**: CONSTRUCTION - Code Generation(UOW-03) Part 2 구현 완료

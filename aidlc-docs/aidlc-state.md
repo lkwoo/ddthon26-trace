@@ -66,7 +66,7 @@
 - [ ] NFR Requirements — EXECUTE (per-unit) — ✅ UOW-0F 완료, ✅ UOW-00 완료 / ✅ UOW-03 완료(2026-09-09 승인)
 - [ ] NFR Design — EXECUTE (per-unit) — ✅ UOW-0F / UOW-00 SKIP / ✅ UOW-01 / ✅ UOW-02 완료 / ✅ UOW-03 산출물 생성(2026-09-09, GATE)
 - [ ] Infrastructure Design — SKIP
-- [ ] Code Generation — EXECUTE (per-unit) — ✅ UOW-0F 완료·승인(2026-09-09, 31 tests pass) / 🔄 UOW-00~06 진행
+- [ ] Code Generation — EXECUTE (per-unit) — ✅ UOW-0F/00/01/02 완료 / ✅ UOW-03 완료·승인대기(2026-09-09, 113 pass·2 skip) / 🔄 UOW-04~06 진행
 - [ ] Build and Test — EXECUTE
 
 ### 🟡 OPERATIONS PHASE
@@ -74,8 +74,9 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: NFR Design — UOW-03 (Claims/Evidence/Conflict), 산출물 생성 완료 — 승인 대기 (GATE)
-- **Next Stage**: UOW-03 NFR Design 승인 → Code Generation(UOW-03)
+- **Current Stage**: Code Generation — UOW-03 (Claims/Evidence/Conflict), Part 2 구현 완료 — 승인 대기 (GATE)
+- **Next Stage**: UOW-03 Code Generation 승인 → UOW-04 (Impact) Functional Design
+- **Status(코드 UOW-03)**: conflict/{detect,summarize} + workflow/claims + engine/analyze + models/extraction + extract_claims 프롬프트. `pytest` 113 pass·2 skip(옵트인), 신규 mypy-clean. 결정적 충돌검출(구조 비교, RAG 차별점)·3유형 전결정 분류·근거일치 Confidence(비-LLM)·캐시-완본 스테이지(2회차 LLM 0콜)·Feature 격리 강등. PBT-03-B가 동일 claim_key 정렬 비결정 결함 검출→정렬키 보강. analyze_project/get_conflicts 코어 공개(루트=명시 인자, UOW-06 주입).
 - **Status(NFR-Design UOW-03)**: nfr-design-patterns(P1 원자추출·P2 Feature격리강등·P3 비-LLM 결정적 코어[구조적 충돌비교]·P4 유형분류 국소화+value_mismatch 폴백·P5 완본화·캐시-완본 스테이지·P6 조회·P7 프롬프트·P8 테스트 5종·P9 결정성/보안), logical-components(models/extraction·workflow/claims·conflict/{detect,summarize}·engine/analyze·프롬프트·테스트). ConflictType 2개 추가(하위호환), 신규 런타임 의존성 없음. 확장 Resiliency·PBT Compliant.
 - **Status(코드)**: UOW-02 코드 생성 완료 — models/feature_candidate + knowledge/{ids,store,cache} + workflow/{catalog,features} + 프롬프트 2종. `pytest` 90 passed·1 skipped(옵트인 llm_integration), 신규 모듈 mypy-clean. FakeLLM 실증: demo/ 식별→지식셸 저장, 2회차 캐시 히트(LLM 0콜). Q2=A 셸(claims/evidence/conflicts=[], UOW-03 보강). build_knowledge가 前반부 재사용 단위.
 - **Status(NFR)**: NFR Design 완료 — nfr-design-patterns(P1 카탈로그·P2 구조화 LLM 강등·P3 id 안전화·P4 저장소·P5 콘텐츠해시 캐시·P6 build_knowledge·P7 프롬프트·P8 테스트 배치·P9 결정성/보안), logical-components(models/feature_candidate·workflow/{catalog,features}·knowledge/{ids,store,cache}·프롬프트 2종·테스트 5종·llm_integration 마커). 신규 런타임 의존성 없음.
