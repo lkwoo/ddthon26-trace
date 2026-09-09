@@ -3,7 +3,7 @@
 Subcommands:
   install [TARGET]   initialize the store and auto-configure detected MCP clients
   init    [TARGET]   initialize the store only
-  ingest  PATH...    ingest files into the store at TARGET (or cwd)
+  ingest  PATH...    ingest files/directories into the store at TARGET (or cwd); directories are walked recursively
   manifest           print the self-describing MCP tool manifest
 """
 
@@ -79,8 +79,9 @@ def build_parser() -> argparse.ArgumentParser:
     p_init.add_argument("target", nargs="?", default=os.getcwd())
     p_init.set_defaults(func=_cmd_init)
 
-    p_ingest = sub.add_parser("ingest", help="ingest files into the store")
-    p_ingest.add_argument("paths", nargs="+")
+    p_ingest = sub.add_parser("ingest", help="ingest files/directories into the store")
+    p_ingest.add_argument("paths", nargs="+",
+                          help="files or directories (directories are walked recursively)")
     p_ingest.add_argument("--target", default=os.getcwd())
     p_ingest.set_defaults(func=_cmd_ingest)
 

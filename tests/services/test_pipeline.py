@@ -63,6 +63,24 @@ def test_unsupported_and_missing_files_are_reported(system, tmp_path: Path):
     assert any("x.heic" in u for u in report.unsupported)
 
 
+def test_directory_is_walked_recursively(system, tmp_path: Path):
+    proj = tmp_path / "proj"
+    (proj / "sub").mkdir(parents=True)
+    (proj / "top.md").write_text("# Top\nTop level note.\n", encoding="utf-8")
+    (proj / "sub" / "nested.py").write_text("def f():\n    return 1\n", encoding="utf-8")
+    (proj / "sub" / "schema.sql").write_text("CREATE TABLE t (id INT);\n", encoding="utf-8")
+    # hidden dirs are skipped
+    (proj / ".git").mkdir()
+    (proj / ".git" / "config.md").write_text("# hidden\nshould be ignored\n", encoding="utf-8")
+    # unsupported files under a directory are skipped silently (not reported)
+    (proj / "sub" / "image.heic").write_bytes(b"\x00")
+
+    report = IngestionService(system).ingest([str(proj)], export=False)
+    assert report.status == Status.OK
+    assert report.ingested_files == 3  # top.md, nested.py, schema.sql
+    assert report.unsupported == []
+
+
 def test_reingest_bumps_version_not_duplicate(system, tmp_path: Path):
     proj = tmp_path / "proj"
     proj.mkdir()

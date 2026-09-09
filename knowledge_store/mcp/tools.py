@@ -113,8 +113,8 @@ def build_registry(system: KnowledgeSystem) -> ToolRegistry:
 
     specs = [
         ToolSpec("ingest",
-                 "Ingest documents/code (md, txt, pdf, xlsx, csv, source) into the store: extract, chunk, version, build the code graph and relationships, embed, and refresh the wiki.",
-                 "Call when the user adds or updates project files and wants them searchable/linked.",
+                 "Ingest documents/code (md, txt, pdf, xlsx, csv, xml, sql, source) into the store: extract, chunk, version, build the code graph and relationships, embed, and refresh the wiki. Directory paths are walked recursively.",
+                 "Call when the user adds or updates project files and wants them searchable/linked. Accepts individual files or directories (recursed).",
                  {"type": "object", "properties": {
                      "paths": {"type": "array", "items": {"type": "string"}},
                      "path": {"type": "string"},

@@ -8,7 +8,7 @@ an LLM (NFR-3.1).
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Optional
+from typing import Iterator, Optional
 
 from knowledge_store.codegraph.analyzer import CodeUnit
 from knowledge_store.services.system import KnowledgeSystem
@@ -47,17 +47,17 @@ class IngestionService:
         report = IngestionReport(status=Status.OK)
         code_units: list[CodeUnit] = []
 
-        for raw in paths:
-            path = Path(raw)
-            if not path.exists():
-                report.unsupported.append(f"{raw} (not found)")
-                continue
+        for path, explicit in self._expand_paths(paths, report):
             extraction = self._sys.registry.extract(path)
             if extraction.status == Status.UNSUPPORTED:
-                report.unsupported.append(raw)
+                # Files discovered by walking a directory are skipped silently so
+                # a single directory arg doesn't flood the report with every
+                # unrelated file; explicitly-passed paths are still reported.
+                if explicit:
+                    report.unsupported.append(str(path))
                 continue
             if extraction.status == Status.ERROR:
-                report.unsupported.append(f"{raw} ({extraction.message})")
+                report.unsupported.append(f"{path} ({extraction.message})")
                 continue
 
             report.ingested_files += 1
@@ -100,6 +100,32 @@ class IngestionService:
         if export:
             self._wiki.regenerate()
         return report
+
+    def _expand_paths(
+        self, paths: list[str], report: IngestionReport
+    ) -> Iterator[tuple[Path, bool]]:
+        """Expand caller-supplied paths into concrete files.
+
+        A directory argument is walked recursively so callers can point at a
+        folder and have every file underneath ingested. Hidden entries (names
+        starting with ``.``, e.g. ``.git``) are skipped. Yields ``(file, explicit)``
+        where ``explicit`` marks a path the caller named directly (vs. one
+        discovered by walking a directory) so unsupported-file reporting can
+        stay quiet for directory walks.
+        """
+        for raw in paths:
+            path = Path(raw)
+            if not path.exists():
+                report.unsupported.append(f"{raw} (not found)")
+                continue
+            if path.is_dir():
+                for child in sorted(path.rglob("*")):
+                    if child.is_file() and not any(
+                        part.startswith(".") for part in child.relative_to(path).parts
+                    ):
+                        yield child, False
+            else:
+                yield path, True
 
 
 class QueryService:

@@ -25,6 +25,26 @@ def test_code_detects_language(tmp_path: Path):
     assert result.language == "python"
 
 
+def test_sql_detected_as_code(tmp_path: Path):
+    p = tmp_path / "schema.sql"
+    p.write_text("CREATE TABLE t (id INT);\n", encoding="utf-8")
+    result = default_registry().extract(p)
+    assert result.status == Status.OK
+    assert result.is_code
+    assert result.language == "sql"
+
+
+def test_xml_extracts_text(tmp_path: Path):
+    p = tmp_path / "config.xml"
+    p.write_text("<root><item>hello #tag</item></root>\n", encoding="utf-8")
+    result = default_registry().extract(p)
+    assert result.status == Status.OK
+    assert result.format == "xml"
+    assert not result.is_code
+    assert "hello" in result.text
+    assert result.tags == ("tag",)
+
+
 def test_csv_produces_table(tmp_path: Path):
     p = tmp_path / "data.csv"
     p.write_text("a,b\n1,2\n", encoding="utf-8")

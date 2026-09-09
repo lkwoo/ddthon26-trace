@@ -23,7 +23,7 @@ _CODE_LANGS = {
     ".jsx": "javascript", ".java": "java", ".go": "go", ".rs": "rust",
     ".c": "c", ".h": "c", ".cpp": "cpp", ".cc": "cpp", ".hpp": "cpp",
     ".rb": "ruby", ".php": "php", ".cs": "c_sharp", ".kt": "kotlin",
-    ".swift": "swift", ".scala": "scala",
+    ".swift": "swift", ".scala": "scala", ".sql": "sql",
 }
 
 
@@ -70,6 +70,24 @@ class CodeExtractor:
             status=Status.OK, source_path=str(path), format="code",
             text=text, is_code=True, language=_CODE_LANGS[path.suffix.lower()],
             tags=_find_tags(text),
+        )
+
+
+class XmlExtractor:
+    """XML / markup — raw text (tags preserved so element names and content stay
+    searchable). Structured XML parsing is out of scope; content is chunked as
+    prose downstream, matching how other text formats are handled."""
+
+    _EXTS = {".xml"}
+
+    def supports(self, path: Path) -> bool:
+        return path.suffix.lower() in self._EXTS
+
+    def extract(self, path: Path) -> ExtractionResult:
+        text = _read_text(path)
+        return ExtractionResult(
+            status=Status.OK, source_path=str(path), format="xml",
+            text=text, tags=_find_tags(text),
         )
 
 
@@ -166,6 +184,7 @@ def default_registry() -> ExtractorRegistry:
     return ExtractorRegistry([
         MarkdownExtractor(),
         CodeExtractor(),
+        XmlExtractor(),
         SpreadsheetExtractor(),
         PdfExtractor(),
     ])

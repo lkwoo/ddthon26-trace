@@ -238,3 +238,11 @@ AI-DLC 워크플로우를 시작해봅시다."
 **Context**: CONSTRUCTION — Build and Test (auto-adopt)
 
 ---
+
+## Ingestion — recursive directory walk + XML/SQL support
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "인그레스트 할 때 디렉터리 재귀가 안 되는 문제가 있는데 디렉터리만 지정해도 재귀적으로 파일들을 처리하도록 변경해줘. 그리고 .xml .sql 파일에 대한 지원도 추가하고 싶어."
+**AI Response**: "Small brownfield change (minimal AI-DLC depth). (1) Added recursive directory expansion to IngestionService.ingest via new _expand_paths helper (knowledge_store/services/services.py): a directory arg is walked with rglob, hidden entries (.git etc.) skipped, and unsupported files found via directory walk are skipped silently while explicitly-passed unsupported files are still reported. (2) Added .sql to _CODE_LANGS (language 'sql') and a new XmlExtractor (format 'xml') registered in default_registry (knowledge_store/ingestion/extractors.py). Updated CLI + MCP tool help/description strings. Added tests (test_extractors: sql/xml; test_pipeline: recursive walk incl. hidden-skip + silent unsupported-skip). Full suite: 58 passed."
+**Context**: CONSTRUCTION — small feature/fix (auto-adopt, minimal depth)
+
+---
