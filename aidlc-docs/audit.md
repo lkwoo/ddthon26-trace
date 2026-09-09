@@ -309,3 +309,10 @@
 **AI Response**: UOW-01 Code Generation 승인(스캐너/파서 70 tests, demo/ 실증) → 위상순 다음 단위 UOW-02(Feature & Knowledge, AI 파이프라인 前반부, 임계경로) Functional Design 착수. 계약 확인(identify_features/generate_feature_knowledge, C4 저장소, LLMService.complete_structured, get_prompt, serialize/deserialize). uow-02-functional-design-plan.md 작성(S1~S8 + Q1~Q5). 단위 경계(Q2=A): UOW-02=Feature 식별+지식 셸+캐시, Claim/Evidence/Conflict는 UOW-03. 질문: Q1 식별 개수, Q2 지식 산출 범위(셸 vs 완본), Q3 LLM 입력 전략(카탈로그), Q4 캐시 키/무효화, Q5 .trace 루트 위치.
 **Status**: 승인 대기 (GATE, 계획+질문)
 **Context**: CONSTRUCTION - Functional Design(UOW-02) 계획 작성 완료
+
+## Functional Design (UOW-02) — 답변 수신 & 산출물 생성
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인" (Q1=B 식별 상한, Q2=A 지식 셸, Q3=A 자산 카탈로그, Q4=A 콘텐츠 해시 캐시, Q5=A .trace 프로젝트 루트)
+**AI Response**: 계획 체크박스 S1~S8 [x]. 산출물 3종: domain-entities.md(FeatureCandidate/List·AssetCatalog·CacheEntry 신규모델 + KnowledgeStore[save/load/list_feature_summaries/read_resource] + AnalysisCache/compute_assets_hash + workflow/features 시그니처), business-rules.md(BR-IDF 식별/BR-KN 지식셸/BR-STORE 저장/BR-CACHE 캐시/BR-FAIL 부분실패/BR-DET/BR-SEC), business-logic-model.md(workflow·knowledge 배치·식별/지식셸/캐시 오케스트레이션 build_knowledge·demo 기대·DoD·테스트 전략). 단위 경계: 식별+지식 셸+캐시(UOW-02), Claim/Evidence/Conflict는 UOW-03.
+**Status**: 승인 대기 (GATE)
+**Context**: CONSTRUCTION - Functional Design(UOW-02) 산출물 생성 완료
