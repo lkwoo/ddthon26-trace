@@ -6,7 +6,7 @@
 > 잘못 구현하는 것을 막습니다.
 
 <p align="center">
-  <img src="docs/TRACE_personas.png" alt="TRACE 세 페르소나 — 데브(Understand)·마이라(Maintain)·피엠(Plan Change)" width="720">
+  <img src="docs/TRACE.png" alt="TRACE 개요 — Feature·Conflict·Impact·Evidence를 구현 직전에 근거와 함께 제공하는 MCP 지식 계층" width="720">
 </p>
 
 ---
@@ -43,7 +43,11 @@
 ## 👥 누가·언제 (Who·When) — 세 진입점
 
 세 사용자 모두 **Claude Code 안에서** 자연어로 요청하고, 에이전트가 TRACE MCP 도구를 호출합니다.
-(위 그림의 세 인물이 각 페르소나입니다.)
+(아래 그림의 세 인물이 각 페르소나입니다.)
+
+<p align="center">
+  <img src="docs/TRACE_personas.png" alt="TRACE 세 페르소나 — 데브(Understand)·마이라(Maintain)·피엠(Plan Change)" width="720">
+</p>
 
 | 페르소나 | 핵심 질문 | 언제 쓰는가 | 받는 것 | 쓰는 도구 |
 | --- | --- | --- | --- | --- |
