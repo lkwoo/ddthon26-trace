@@ -4,12 +4,20 @@
 에이전트가 TRACE MCP 도구를 호출합니다. 각 여정은 [언제·빈도 → 자연어 요청 → 호출 도구 →
 실행 증거 → 이점(TRACE 부재 대비)] 형식입니다.
 
+> 📖 **이 문서는 세 페르소나의 요약 여정**입니다. 각 페르소나가 실제로 업무를 수행하는 단계별
+> 상세 시나리오(자연어 요청 → tool → **실제 콘솔 출력/스크린샷** → 읽어낸 것)는 아래 문서에 있습니다:
+> - [데브 · Understand](../demo/scenario/dev/README.md) · [마이라 · Maintain](../demo/scenario/maira/README.md) · [피엠 · Plan Change](../demo/scenario/pm/README.md)
+> - 시연 스크린샷: [`screenshots/`](../screenshots/) · 증거 인덱스: [`result/README.md`](README.md)
+
 > **실행 증거**: 아래 흐름은 `python demo/run_demo.py`로 **API 키 없이 결정적으로 재현**됩니다
-> (콘솔 출력 원문: [`hero-demo-output.txt`](hero-demo-output.txt)). GUI 스크린샷 캡처 절차는 [`README.md`](README.md) 참고.
+> (콘솔 출력 원문: [`hero-demo-output.txt`](hero-demo-output.txt)). 위 상세 시나리오의 작업 화면은
+> 실제 Claude(Bedrock opus) 라이브 실행 결과이며, 결정적 트랙과 상호 보완합니다.
 
 ---
 
 ## P1. 데브 — 낯선 코드베이스 이해 (Understand)
+
+> 상세 시나리오(라이브 실제 출력): [`demo/scenario/dev/README.md`](../demo/scenario/dev/README.md)
 
 - **언제·빈도**: 새 프로젝트/팀에 투입된 **첫 며칠**, 기능을 건드리기 전마다.
 - **자연어 요청**: "이 프로젝트를 분석하고, Owner 등록 기능이 어떻게 동작하는지 근거와 함께 보여줘."
@@ -32,6 +40,8 @@
 ---
 
 ## P2. 마이라 — 정책 불일치 조사 (Maintain)
+
+> 상세 시나리오(라이브 실제 출력): [`demo/scenario/maira/README.md`](../demo/scenario/maira/README.md)
 
 - **언제·빈도**: 운영 이슈·정책 불일치 리포트가 올라올 때마다(수시).
 - **자연어 요청**: "문서와 구현이 어긋난 부분이 있으면 근거와 함께 보여줘."
@@ -57,6 +67,8 @@
 ---
 
 ## P3. 피엠 — 변경 파급 가늠 (Plan Change)
+
+> 상세 시나리오(라이브 실제 출력): [`demo/scenario/pm/README.md`](../demo/scenario/pm/README.md)
 
 - **언제·빈도**: 새 요구사항/정책 변경을 검토할 때(스프린트 계획·착수 직전).
 - **자연어 요청**: "Owner 등록에 SMS 인증을 추가하려는데, 영향 범위와 먼저 볼 리스크를 알려줘."
