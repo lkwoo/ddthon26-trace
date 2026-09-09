@@ -351,3 +351,10 @@
 **AI Response**: UOW-02 Code Generation Part 1 계획 승인 → Part 2 실행. 애플리케이션 코드: trace/models/feature_candidate.py, trace/knowledge/{__init__,ids,store,cache}.py, trace/workflow/{__init__,catalog,features}.py, prompts/templates/{identify_features,feature_knowledge}.md, pyproject(llm_integration 마커). 테스트 5파일(store/cache/workflow/PBT/통합 옵트인). `pytest` 90 passed·1 skipped(70+20+1), 신규 모듈 mypy-clean. FakeLLM 스모크: demo/ 식별→지식셸 저장(2콜), 2회차 캐시 히트(0콜), read_resource 확인. PBT-02-A~D 통과. Q2=A 셸(claims/evidence/conflicts=[]). code-summary.md 작성, 계획 체크박스 전부 [x].
 **Status**: 승인 대기 (GATE, Part 2)
 **Context**: CONSTRUCTION - Code Generation(UOW-02) Part 2 완료
+
+## Code Generation (UOW-02) GATE 승인 & Functional Design (UOW-03) 착수
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인"
+**AI Response**: UOW-02 Code Generation 승인(90 tests) → 위상순 다음 단위 UOW-03(Claims/Evidence/Conflict, AI 후반부·핵심 차별점) Functional Design 착수. 계약 확인(extract_claims/group_evidence/assign_confidence/detect_conflicts/summarize_conflicts/get_conflicts, ConflictType=value_mismatch만 동결). uow-03-functional-design-plan.md 작성(S1~S8 + Q1~Q5). 질문: Q1 ConflictType 확장(stale_knowledge·policy_conflict, 데모 3충돌), Q2 detect_conflicts 결정적 vs LLM, Q3 추출 호출 구조, Q4 Confidence 근거 일치도 규칙, Q5 analyze_project 완성 범위.
+**Status**: 승인 대기 (GATE, 계획+질문)
+**Context**: CONSTRUCTION - Functional Design(UOW-03) 계획 작성 완료
