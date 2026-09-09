@@ -264,3 +264,12 @@ AI-DLC 워크플로우를 시작해봅시다."
 **Context**: CONSTRUCTION — documentation (auto-adopt, minimal depth)
 
 ---
+
+## README — directory-centric initial ingest example
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "사용자가 설치 한 후 초기 인제스트 할 때 *.py 파일 위주로 하는 경향이 있는데 프로젝트 디렉토리를 선택해서 재귀적으로 모든 파일을 인제스트 하게 할 수 있어?"
+**AI Response**: "Investigated: recursive directory ingest ALREADY works — IngestionService._expand_paths (src/knowledge_store/services/services.py) walks a directory arg with rglob('*'), ingesting every supported file and skipping hidden dirs (.git) + unsupported types; the CLI `ingest` accepts directories. Root cause of the *.py tendency is UX/docs, not capability: the README Quick start taught `ingest src/**/*.py docs/*.md`. Asked user for scope (offered: install --ingest auto-ingest, optional ingest paths defaulting to target, and README fix). User chose README-only. Updated README Quick start step 2 to lead with whole-project directory ingest (`knowledge-store ingest /path/to/your/project --target /path/to/your/project`), noting recursive walk + hidden/unsupported skip, and kept a narrow files/subdirs example as an alternative. No code changes."
+**Status**: COMPLETE (README updated; no code change)
+**Context**: CONSTRUCTION — documentation (auto-adopt, minimal depth)
+
+---

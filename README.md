@@ -40,8 +40,12 @@ pip install ".[test]"         # pytest + hypothesis (for running the test suite)
 # 1) initialize the store + auto-configure any detected MCP client
 knowledge-store install /path/to/your/project
 
-# 2) ingest files (extract -> chunk -> version -> code graph -> embed -> link -> wiki)
-knowledge-store ingest src/**/*.py docs/*.md --target /path/to/your/project
+# 2) ingest the whole project (extract -> chunk -> version -> code graph -> embed -> link -> wiki)
+#    directories are walked recursively; hidden dirs (.git, ...) and unsupported files are skipped
+knowledge-store ingest /path/to/your/project --target /path/to/your/project
+
+#    ...or narrow to specific files/subdirs if you prefer:
+knowledge-store ingest src/ docs/README.md --target /path/to/your/project
 
 # 3) open the human wiki viewer (static files, any static server works)
 python -m http.server -d /path/to/your/project/.knowledge-store/wiki
