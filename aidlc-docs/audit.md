@@ -272,3 +272,19 @@
 **Context**: CONSTRUCTION - UOW-07 Functional Design (기존 모델 재사용, 신규 traceki/map/). 다음 Code Generation(Part1 계획→Part2 구현).
 
 ---
+
+## Increment 2 온보딩 맵 — CONSTRUCTION UOW-07 Code Generation Part 1(계획) 승인 요청
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "진행"
+**AI Response**: 기존 코드 계약(models·common.Result·llm.structured·prompts.get_prompt·config·engine.collect_assets·knowledge.KnowledgeStore·conflict enrich 훅·impact 오케스트레이션·cli·mcp_server) 전수 확인 후 `aidlc-docs/construction/plans/07-map-code-generation-plan.md` 작성. 17단계 순차 계획: (1~7) Business Logic — traceki/map/ 신규 모듈 models·relations(Python ast/Java 정규식/진입점/Feature매핑)·mermaid·overview·describe + 오케스트레이션 generate_onboarding_map, (8~12) API Layer — onboarding_map.md 프롬프트·engine __getattr__ 재노출·MCP 도구+trace://overview 리소스·CLI `trace map`, (13) describe_relations.json replay 픽스처, (14~15) test_map(단위+PBT P1~P4)·test_map_integration(데모 replay), (16~17) README·요약·상태갱신. US-07.1~5·FR-MAP-001~007 추적성 매핑, 어댑터 얇음·순환없음 유지. 승인 대기.
+**Context**: CONSTRUCTION - UOW-07 Code Generation Part 1(Planning). 승인 시 Part 2(구현) 진행.
+
+---
+
+## Increment 2 온보딩 맵 — CONSTRUCTION UOW-07 Code Generation Part 2(구현) 완료
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인"
+**AI Response**: 계획(07-map-code-generation-plan.md) 17단계 전부 실행. 신규 C10 `traceki/map/`: models.py(7 dataclass, Evidence 재사용)·relations.py(Python ast·Java 정규식 정적추출, find_entry_points, map_features_to_files, 파싱실패→unresolved 폴백)·mermaid.py(flowchart/sequence 렌더+라벨 안전화 멱등)·overview.py(.trace/knowledge/overview.md MD+YAML 왕복 저장, mask_secrets)·describe.py(describe_relations LLM step, step_key=describe_relations)·__init__.py(generate_onboarding_map 오케스트레이션: 캐시→collect_assets→정적추출→LLM서술→하이브리드 병합→Mermaid→save). 배선: engine __getattr__ 지연 재노출, MCP 도구 generate_onboarding_map+리소스 trace://overview(도구6·리소스3), CLI `trace map`, 프롬프트 onboarding_map.md. replay 픽스처 demo/replay/describe_relations.json. 테스트 tests/test_map.py(단위+PBT P1~P4)·tests/test_map_integration.py(데모 replay E2E) 신규 17개, test_mcp_server 회귀 갱신(5→6도구). 전체 80 테스트 통과. CLI 스모크: `trace map demo` → 진입점 OwnerRestController(REST)·PostMapping, Feature→파일 6, 파일13/의존17/호출24, overview.md 저장, 내러티브에 telephone value_mismatch 저신뢰 경고. README·요약문서 3종(code/business-logic/api-layer)·aidlc-state 갱신. FR-MAP-001~007·US-07.1~5 코드 접지, 어댑터 얇음·순환없음 유지.
+**Context**: CONSTRUCTION - UOW-07 Code Generation 완료. 다음 Build and Test(온보딩 E2E 지침 보강) 또는 Increment 2 마감.
+
+---

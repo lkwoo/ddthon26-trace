@@ -7,6 +7,7 @@
 - get_feature_knowledge  (UOW-02, 구현됨)
 - get_conflicts          (UOW-03, 구현됨)
 - analyze_task_impact    (UOW-04, 구현됨)
+- generate_onboarding_map (UOW-07, 구현됨 — C10 map/)
 
 MCP 서버(C1)·CLI(C9)는 이 모듈의 함수만 호출한다(NFR-CORE-001/002).
 """
@@ -31,6 +32,7 @@ __all__ = [
     "get_feature_knowledge",
     "get_conflicts",
     "analyze_task_impact",
+    "generate_onboarding_map",
     "register_enrich_hook",
 ]
 
@@ -45,4 +47,8 @@ def __getattr__(name: str) -> Any:
         from traceki.impact import analyze_task_impact
 
         return analyze_task_impact
+    if name == "generate_onboarding_map":
+        from traceki.map import generate_onboarding_map
+
+        return generate_onboarding_map
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

@@ -19,10 +19,12 @@ from traceki.common import get_logger
 from traceki.config import load_config
 from traceki.conflict import get_conflicts as _get_conflicts
 from traceki.engine import analyze_project as _analyze_project
+from traceki.engine import generate_onboarding_map as _generate_onboarding_map
 from traceki.engine import get_feature_knowledge as _get_feature_knowledge
 from traceki.engine import list_features as _list_features
 from traceki.impact import analyze_task_impact as _analyze_task_impact
 from traceki.knowledge import default_store
+from traceki.map.overview import overview_exists, overview_path
 
 _log = get_logger("trace.mcp")
 
@@ -30,7 +32,9 @@ INSTRUCTIONS = (
     "TRACE reconstructs scattered dev assets into feature-centric, evidence-based knowledge and "
     "flags value_mismatch conflicts BEFORE you write code. Typical flow: call analyze_project(path) "
     "once, then list_features / get_feature_knowledge / get_conflicts, and analyze_task_impact(task) "
-    "before starting a change. Every result has a human 'summary' plus structured 'data'/'conflicts'/'impact'."
+    "before starting a change. Every result has a human 'summary' plus structured 'data'/'conflicts'/'impact'. "
+    "New to a codebase? Call generate_onboarding_map(path) for entry points, a file dependency graph, "
+    "feature→file mapping and a Mermaid-rendered narrative (also saved to trace://overview)."
 )
 
 
@@ -64,6 +68,10 @@ def build_server() -> Any:
     def analyze_task_impact(task: str, feature_id: str | None = None) -> dict:
         return _analyze_task_impact(task, feature_id=feature_id, config=config).to_dict()
 
+    @mcp.tool(description="신입 온보딩 맵을 생성한다: 진입점·파일 의존 그래프·Feature→파일 매핑·함수 호출·Mermaid 내러티브. data: entry_points, file_graph, feature_file_maps, mermaid, overview_path.")
+    def generate_onboarding_map(path: str = ".", feature_id: str | None = None, refresh: bool = False) -> dict:
+        return _generate_onboarding_map(path, feature_id=feature_id, refresh=refresh, config=config).to_dict()
+
     # ---------------------------------------------------------------- 리소스 (지식 노출)
     @mcp.resource("trace://features", description="분석된 Feature id·제목·충돌 수 목록.", mime_type="text/markdown")
     def features_index() -> str:
@@ -87,7 +95,19 @@ def build_server() -> Any:
         except Exception as exc:  # noqa: BLE001
             return f"# 지식 없음\n\n{exc}\n"
 
-    _log.info("TRACE MCP 서버 구성 완료: 도구 5, 리소스 2 (backend=%s)", config.llm.backend)
+    @mcp.resource("trace://overview", description="프로젝트 온보딩 맵(overview.md, Mermaid 포함).", mime_type="text/markdown")
+    def overview_resource() -> str:
+        store = default_store()
+        if not overview_exists(store):
+            return "# 온보딩 맵 없음\n\n`generate_onboarding_map`을 먼저 실행하세요.\n"
+        try:
+            from pathlib import Path
+
+            return Path(overview_path(store)).read_text(encoding="utf-8")
+        except Exception as exc:  # noqa: BLE001
+            return f"# 온보딩 맵 읽기 실패\n\n{exc}\n"
+
+    _log.info("TRACE MCP 서버 구성 완료: 도구 6, 리소스 3 (backend=%s)", config.llm.backend)
     return mcp
 
 

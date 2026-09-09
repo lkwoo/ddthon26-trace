@@ -34,7 +34,7 @@ def _payload(call_result) -> dict:
     return json.loads(call_result.content[0].text)
 
 
-def test_five_core_tools_registered(replay_env):
+def test_core_tools_registered(replay_env):
     tools = asyncio.run(replay_env.list_tools())
     names = {t.name for t in tools}
     assert names == {
@@ -43,6 +43,7 @@ def test_five_core_tools_registered(replay_env):
         "get_feature_knowledge",
         "get_conflicts",
         "analyze_task_impact",
+        "generate_onboarding_map",
     }
 
 
@@ -50,7 +51,17 @@ def test_knowledge_resources_exposed(replay_env):
     resources = asyncio.run(replay_env.list_resources())
     templates = asyncio.run(replay_env.list_resource_templates())
     assert any(str(r.uri) == "trace://features" for r in resources)
+    assert any(str(r.uri) == "trace://overview" for r in resources)
     assert any("trace://feature/" in t.uri_template for t in templates)
+
+
+def test_onboarding_map_tool_dispatch(replay_env):
+    result = _payload(
+        asyncio.run(replay_env.call_tool("generate_onboarding_map", {"path": str(DEMO), "refresh": True}))
+    )
+    assert result["meta"]["ok"] is True
+    assert result["data"]["entry_points"]
+    assert result["data"]["mermaid"]["dependency"].startswith("flowchart LR")
 
 
 def test_tool_dispatch_hero_flow(replay_env):

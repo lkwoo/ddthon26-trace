@@ -1,0 +1,25 @@
+{
+  "narrative": "Start with the REST entry point: `petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerRestController.java` is a @RestController that exposes the Owner Registration endpoint. It builds and validates an `Owner` (`owner/Owner.java`), whose fields — including `telephone` — map onto the persistence schema in `resources/db/schema.sql` and the documented contract in `resources/openapi.yaml`. `owner/OwnerRegistrationTests.java` exercises this flow end to end. As a newcomer, read OwnerRestController first, then Owner, then confirm the field constraints against schema.sql and openapi.yaml — note these two sources disagree on telephone length, so treat that constraint as low-confidence until confirmed.",
+  "relation_notes": [
+    {
+      "relation": "OwnerRestController -> Owner",
+      "note": "The controller instantiates and validates the Owner entity for each registration request; this is where request data becomes a domain object.",
+      "evidence": ["petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerRestController.java", "petclinic/src/main/java/org/springframework/samples/petclinic/owner/Owner.java"]
+    },
+    {
+      "relation": "Owner -> schema.sql",
+      "note": "Owner.telephone is persisted to the owners table; the column definition sets the authoritative storage constraint.",
+      "evidence": ["petclinic/src/main/resources/db/schema.sql"]
+    },
+    {
+      "relation": "OwnerRestController -> openapi.yaml",
+      "note": "The public request/response contract for the endpoint is documented here; use it to understand expected inputs. Insufficient evidence to confirm it matches the code exactly (telephone length differs).",
+      "evidence": ["petclinic/src/main/resources/openapi.yaml"]
+    }
+  ],
+  "key_flow": [
+    { "step": "1", "file": "petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerRestController.java", "symbol": "addOwner (POST /owners)", "note": "REST entry point receives the registration request." },
+    { "step": "2", "file": "petclinic/src/main/java/org/springframework/samples/petclinic/owner/Owner.java", "symbol": "Owner", "note": "Request is bound and validated into the Owner domain entity." },
+    { "step": "3", "file": "petclinic/src/main/resources/db/schema.sql", "symbol": "owners table", "note": "Validated Owner is persisted; telephone column constrains the stored value." }
+  ]
+}

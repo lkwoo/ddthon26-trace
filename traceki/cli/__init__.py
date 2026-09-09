@@ -97,6 +97,31 @@ def _cmd_analyze_task(args) -> Result:
     return result
 
 
+def _cmd_map(args) -> Result:
+    from traceki.engine import generate_onboarding_map
+
+    config = load_config(args.path)
+    result = generate_onboarding_map(args.path, feature_id=args.feature, refresh=args.refresh, config=config)
+    if not args.json and result.meta.get("ok"):
+        d = result.data
+        eps = d.get("entry_points", [])
+        if eps:
+            print("  [진입점]")
+            for e in eps:
+                print(f"    - {e['symbol']} ({e['file']}) — {e['kind']}")
+        fmaps = d.get("feature_file_maps", [])
+        if fmaps:
+            print("  [Feature → 파일]")
+            for m in fmaps:
+                print(f"    - {m['title']}: {len(m['files'])}개 파일")
+        graph = d.get("file_graph", {})
+        print(f"  [관계] 파일 {len(graph.get('nodes', []))}개, 의존 {len(graph.get('dep_edges', []))}건, "
+              f"호출 {len(graph.get('call_edges', []))}건")
+        if d.get("overview_path"):
+            print(f"  [저장] {d['overview_path']}")
+    return result
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         prog="trace",
@@ -125,6 +150,12 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("task", help='예: "Add SMS verification to Owner registration"')
     sp.add_argument("--feature", default=None, help="특정 Feature로 한정")
     sp.set_defaults(func=_cmd_analyze_task)
+
+    sp = sub.add_parser("map", help="신입 온보딩 맵 생성(진입점·의존 그래프·Feature→파일·Mermaid)")
+    sp.add_argument("path", nargs="?", default=".", help="대상 경로 (기본: 현재 디렉터리)")
+    sp.add_argument("--feature", default=None, help="특정 Feature로 한정")
+    sp.add_argument("--refresh", action="store_true", help="캐시(overview.md) 무시하고 재생성")
+    sp.set_defaults(func=_cmd_map)
 
     return p
 

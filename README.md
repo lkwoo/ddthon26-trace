@@ -34,7 +34,12 @@ trace analyze-project ./demo --refresh   # 스캔→Feature→Claim→충돌→�
 trace list-features
 trace conflicts                          # ⚠️ Owner.telephone.max_length: 20(PDF) vs 10(코드/명세)
 trace analyze-task "Add SMS verification to Owner registration"
+trace map ./demo --refresh               # 신입 온보딩 맵: 진입점·의존 그래프·Feature→파일·Mermaid
 ```
+
+> **처음 보는 프로젝트라면** `trace map <경로>`부터. 진입점(예: `@RestController`), 파일 의존
+> 그래프, Feature→파일 매핑, 핵심 흐름을 근거와 함께 요약하고 Mermaid 다이어그램이 포함된
+> `.trace/knowledge/overview.md`를 남깁니다.
 
 실제 실행 전사는 [`result/hero-run.txt`](result/hero-run.txt)에 있습니다.
 
@@ -68,6 +73,7 @@ trace analyze-task "Add SMS verification to Owner registration"
 - "Owner 등록 기능에 대해 알려줘" → `get_feature_knowledge`
 - "충돌 있어?" → `get_conflicts`
 - "Owner 등록에 SMS 인증 추가하려는데 어디를 바꿔야 해?" → `analyze_task_impact`
+- "이 프로젝트 처음인데 어디부터 봐야 해?" → `generate_onboarding_map`
 
 노출되는 MCP 도구/리소스:
 
@@ -78,8 +84,9 @@ trace analyze-task "Add SMS verification to Owner registration"
 | `get_feature_knowledge(feature_id)` | 단일 Feature 지식 상세 |
 | `get_conflicts(feature_id?)` | value_mismatch 등 충돌 목록 |
 | `analyze_task_impact(task, feature_id?)` | 착수 전 Must/Likely/Review + Change Plan |
+| `generate_onboarding_map(path, feature_id?, refresh?)` | 진입점·의존 그래프·Feature→파일·Mermaid 온보딩 맵 |
 
-리소스: `trace://features`(인덱스), `trace://feature/{id}`(지식 문서 MD+YAML).
+리소스: `trace://features`(인덱스), `trace://feature/{id}`(지식 문서 MD+YAML), `trace://overview`(온보딩 맵).
 
 ---
 
