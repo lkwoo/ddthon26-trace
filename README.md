@@ -54,13 +54,13 @@ python --version
 
 ### 3단계 — 이 프로젝트 내려받기
 
-**방법 A (간단)**: GitHub 저장소 페이지에서 초록색 **`Code` 버튼 → `Download ZIP`** → 내려받은 zip을
-더블클릭해 압축을 풀면 `ddthon26-trace` 폴더가 생깁니다.
+**방법 A (간단)**: [GitHub 저장소](https://github.com/lkwoo/ddthon26-trace)에서 초록색
+**`Code` 버튼 → `Download ZIP`** → 내려받은 zip을 더블클릭해 압축을 풀면 `ddthon26-trace` 폴더가 생깁니다.
 
 **방법 B (git이 있다면)**:
 
 ```bash
-git clone <저장소-주소>
+git clone https://github.com/lkwoo/ddthon26-trace.git
 ```
 
 ### 4단계 — 프로젝트 폴더로 이동
