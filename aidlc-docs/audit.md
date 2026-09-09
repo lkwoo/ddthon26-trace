@@ -323,3 +323,10 @@
 **AI Response**: UOW-02 Functional Design 승인 → NFR Requirements(UOW-02) 착수. uow-02-nfr-requirements-plan.md 작성(S1~S7 + Q1~Q4). 질문: Q1 LLM 입력 상한(발췌 1200자·max_features=12), Q2 PBT 대상(id 안전화·캐시 해시 안정성·발췌 상한·저장 round-trip, 복수선택), Q3 LLM 테스트 정책(FakeLLM 오프라인), Q4 캐시 손상 처리.
 **Status**: 승인 대기 (GATE, 계획+질문)
 **Context**: CONSTRUCTION - NFR Requirements(UOW-02) 계획 작성 완료
+
+## NFR Requirements (UOW-02) — 답변 수신 & 산출물 생성
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인" (Q1=B 발췌 4000자·max_features 무제한, Q2=A,B,C,D PBT 4속성, Q3=B 옵트인 실API 통합 테스트, Q4=A 캐시 손상=미스)
+**AI Response**: 계획 체크박스 S1~S7 [x]. 산출물 2종: nfr-requirements.md(COST-1~4[발췌4000·무제한], PERF-1~2[캐시 히트 LLM 미호출], REL-1~4[Resiliency], SEC-1~4, TST-1~3[FakeLLM 기본 + llm_integration 옵트인], PBT-02-A~D, 확장 컴플라이언스 Compliant), tech-stack-decisions.md(hashlib/json·FakeLLM·pytest marker llm_integration·신규 런타임 의존성 없음). Q3=B 반영: 기본 오프라인 + TRACE_RUN_LLM_INTEGRATION=1+키일 때만 실 API 통합 테스트.
+**Status**: 승인 대기 (GATE)
+**Context**: CONSTRUCTION - NFR Requirements(UOW-02) 산출물 생성 완료
