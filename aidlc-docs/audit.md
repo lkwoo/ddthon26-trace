@@ -219,3 +219,11 @@
 **Context**: INCEPTION - Requirements Analysis (신규 증분: 온보딩 맵). 기존 requirements.md의 FR/NFR 코드 컨벤션 위에 FR-MAP-* 신설 예정.
 
 ---
+
+## Increment 2 온보딩 맵 — Requirements Analysis 답변 확정 & FR-MAP-* 추가
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "aidlc-state.md와 audit.md를 참고해서 현재 단계부터 이어서 진행하자." (onboarding-map-questions.md의 [Answer] 태그로 Q1=A, Q2=A, Q3=B, Q4=A, Q5=A 기입)
+**AI Response**: 5개 확인 질문 답변 확정 — Q1=A 하이브리드(정적 단서 추출+LLM 근거 서술), Q2=A MCP 도구+CLI+`.trace/knowledge/overview.md` 영속화, Q3=B 파일+함수 레벨, Q4=A Mermaid, Q5=A Java/Python 정적 추출+LLM 폴백. requirements.md에 §4.10 "프로젝트 온보딩 맵" 신설(FR-MAP-001 맵 생성, -002 하이브리드 관계 추출, -003 파일+함수 범위, -004 데모중심 언어범위+폴백, -005 Mermaid 시각화, -006 도구+CLI+영속화, -007 근거 인용). §9에 UOW-07(온보딩 맵) 경계 추가 — UOW-01/02/0F 위에 관계 추출기+맵 생성기+Mermaid 렌더+새 MCP 도구/CLI. aidlc-state.md Increment 2 표에서 Requirements Analysis [x] 완료, User Stories [~] 착수로 갱신.
+**Context**: INCEPTION - Requirements Analysis 완료(증분: 온보딩 맵). 다음 단계 User Stories(온보딩 페르소나 + end-to-end 시나리오)로 진행. 확정 답변이 FR-MAP-* 각 조항에 직접 매핑됨(앞 단계 결정→뒤 단계 반영 추적).
+
+---

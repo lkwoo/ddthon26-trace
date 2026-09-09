@@ -88,18 +88,18 @@
 
 | 단계 | 상태 | 비고 |
 |---|---|---|
-| Requirements Analysis | [~] 진행 중 | onboarding-map-questions.md 작성(질문 5개), 답변·requirements.md FR-MAP-* 추가 대기 |
-| User Stories | [ ] 대기 | 온보딩 페르소나 + end-to-end 유저 시나리오 (요구사항 확정 후) |
+| Requirements Analysis | [x] 완료 | 답변 확정(Q1=A,Q2=A,Q3=B,Q4=A,Q5=A) → requirements.md §4.10 FR-MAP-001~007 + §9 UOW-07 추가 |
+| User Stories | [~] 진행 중 | 온보딩 페르소나 + end-to-end 유저 시나리오 (요구사항 확정, 착수) |
 | Application Design | [ ] 대기 | 새 컴포넌트/메서드/의존성 |
 | Units Generation | [ ] 대기 | 신규 UOW 경계 |
 | Construction (Functional Design → Code Gen → Build/Test) | [ ] 대기 | |
 
-- **확정 대기 결정(질문)**: Q1 관계 추출 방식(하이브리드 정적+LLM 추천), Q2 산출물 형태(MCP tool+CLI+overview.md 추천), Q3 맵 범위(파일+함수 레벨 추천), Q4 시각화(Mermaid 추천), Q5 언어 범위(Java/Python 정적+LLM 폴백 추천).
+- **확정된 결정(답변)**: Q1=A 하이브리드(정적 단서+LLM 서술), Q2=A MCP 도구+CLI+`overview.md` 영속화, Q3=B 파일+함수 레벨, Q4=A Mermaid, Q5=A Java/Python 정적+LLM 폴백. → requirements.md §4.10 FR-MAP-001~007, §9 UOW-07 반영.
 
 ## Current Status
 - **Lifecycle Phase**: INCEPTION (Increment 2) — Increment 1은 CONSTRUCTION 완료
-- **Current Stage**: Increment 2 "온보딩 맵" — Requirements Analysis 진행 중 (질문 작성·답변 대기)
-- **Next Stage**: 답변 확정 → requirements.md FR-MAP-* 추가 → User Stories(온보딩 페르소나·시나리오)
+- **Current Stage**: Increment 2 "온보딩 맵" — Requirements Analysis 완료 → **User Stories 착수** (온보딩 페르소나·시나리오)
+- **Next Stage**: User Stories(온보딩 페르소나 + end-to-end 시나리오) → Application Design(신규 컴포넌트/메서드/의존성)
 - **완료**: UOW-0F ~ UOW-06 전 단위. 전체 62 테스트 통과. 설치된 `trace`/`trace-mcp` 명령이 저장소 밖에서도 동작(replay Hero E2E 검증). value_mismatch(전화번호 20 vs 10) 검출·영향분석·Change Plan 확인.
 - **Status**: 8개 단위 코드 생성 완료. import 패키지 `trace`→`traceki` 개명(파이썬 stdlib `trace` 충돌 해소, 명령어명·로거명·`.trace/` 디렉터리는 유지). result/hero-run.txt 실행 전사 갱신.
 - **핵심 Construction 결정**: LLMService는 (1) live Anthropic 다이렉트(sk-ant) + (2) bedrock(Amazon Bedrock, bearer 토큰) + (3) cache/replay 백엔드를 지원.

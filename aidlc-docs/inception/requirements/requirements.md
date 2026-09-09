@@ -107,6 +107,17 @@
 - **FR-DEMO-001** (P0) Claude Code 턴키 시연 구성 + **`result/` 또는 `screenshots/`에 시연 스크린샷 필수**.
 - **FR-DEMO-002** (P1) 동일 코어 함수를 호출하는 얇은 폴백 CLI (Q5 확정에 따라 구현).
 
+### 4.10 프로젝트 온보딩 맵 (Increment 2 — 신입 개발자 온보딩)
+**목표**: TRACE를 쓰는 신입 개발자가 낯선 프로젝트에 투입됐을 때, 전체 흐름·파일 간 관계·함수 간 관계를 온보딩 관점에서 파악하도록 돕는다. 아래 결정은 onboarding-map-questions.md 답변(Q1=A 하이브리드, Q2=A 도구+CLI+영속화, Q3=B 파일+함수 레벨, Q4=A Mermaid, Q5=A 데모중심+LLM폴백)에서 도출.
+
+- **FR-MAP-001** (P0) **온보딩 맵 생성** — `generate_onboarding_map(path, feature_id?)`. 스캔·파싱으로 이미 수집된 자산(UOW-01) 위에서 진입점·파일/모듈 의존·핵심 경로 함수 호출 관계를 추출하고, "여기서 시작하세요" 온보딩 내러티브를 포함한 프로젝트 맵을 생성한다.
+- **FR-MAP-002** (P0) **관계 추출 = 하이브리드** (Q1=A) — 정적 단서(import/require, 함수 호출·정의)를 **가볍게 정적 추출**해 결정적 뼈대를 만들고, **LLM이 근거(Evidence)와 함께 관계·흐름을 서술**한다. 기존 Claim↔Evidence 근거기반 철학·인프라(파서/스캐너/LLMService) 재사용. 일반 LLM 단독 추론 금지(NFR-AI-002 준수).
+- **FR-MAP-003** (P0) **맵 구성 범위 = 파일 + 함수 레벨** (Q3=B) — (a) 진입점 목록, (b) 파일/모듈 의존 그래프, (c) Feature→파일 매핑, (d) 핵심 경로의 **함수 간 호출 관계**(예: 요청 핸들러→서비스→저장), (e) 온보딩 내러티브.
+- **FR-MAP-004** (P0) **정적 추출 언어 범위 = 데모 중심 + LLM 폴백** (Q5=A) — Java·Python의 import·호출 단서를 정적 추출하고, 그 외 언어는 LLM 서술로 폴백한다. 데모 Hero(Java Petclinic)·TRACE 자체(Python)를 확실히 커버하면서 범용성 유지. 결함 허용: 정적 추출 실패 파일은 경고 후 LLM 폴백으로 완료(FR-ANALYSIS-003과 동일 원칙).
+- **FR-MAP-005** (P0) **시각화 = Mermaid** (Q4=A) — 파일/모듈 의존 그래프(`graph`/`flowchart`)와 핵심 흐름 시퀀스(`sequenceDiagram`)를 Mermaid로 산출. Markdown 뷰어·GitHub에서 바로 렌더. content-validation.md의 Mermaid 문법 검증 필수.
+- **FR-MAP-006** (P0) **산출물 소비 형태 = 도구+CLI+영속화** (Q2=A) — 새 MCP 도구(예: `generate_onboarding_map`)와 폴백 CLI 서브커맨드(예: `trace map`)로 조회하고, 동시에 `.trace/knowledge/overview.md`(Mermaid 포함)로 영속화. 기존 analyze/conflicts/task 도구·CLI 패턴과 정합.
+- **FR-MAP-007** (P1) **근거 인용** — 맵의 각 관계·흐름 서술은 실제 자산(파일 경로/위치)을 Evidence로 인용한다(NFR-AI-002 확장). 근거 부족 관계는 LOW/Insufficient evidence로 표기(NFR-AI-003).
+
 ---
 
 ## 5. 비기능 요구사항 (Non-Functional Requirements)
@@ -170,6 +181,7 @@
 - **UOW-04** Task Impact Analysis — FR-IMPACT-001~006
 - **UOW-05** MCP 서버 인터페이스 — FR-STORAGE-002, FR-MCP-001~004, §12 전체
 - **UOW-06** 통합·신뢰성·시연 — NFR-AI-003/004, NFR-REL-001/002, FR-DEMO-001/002, §17/§18/§20
+- **UOW-07** 프로젝트 온보딩 맵 (Increment 2, 신설) — FR-MAP-001~007. UOW-01(스캐너/파서 자산)·UOW-02(Feature 매핑)·UOW-0F(LLMService/Result/프롬프트 로더) 위에 관계 추출기 + 온보딩 맵 생성기 + Mermaid 렌더 + 새 MCP 도구/CLI 서브커맨드를 얹는다.
 
 ---
 
