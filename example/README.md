@@ -1,0 +1,1 @@
+target : https://github.com/gothinkster/spring-boot-realworld-example-app
