@@ -526,3 +526,10 @@
 **AI Response**: build-and-test/ 하위 5종 생성: build-instructions(환경·의존성·엔트리포인트·스모크), unit-test-instructions(단위·PBT 16속성·mypy·유닛↔테스트 맵), integration-test-instructions(Hero E2E·데모 하니스·MCP·CLI·옵트인 실API), performance-test-instructions(LLM 호출 최소화·캐시·순수함수), build-and-test-summary(검증 상태·알려진 한계). 현재 pytest 145 pass·3 skip. 승인 대기(GATE: Operations 진행 여부).
 **Status**: 승인 대기 (GATE)
 **Context**: CONSTRUCTION - Build and Test 지침 생성 완료
+
+## Build and Test GATE — 승인 (CONSTRUCTION 완료)
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "1"
+**AI Response**: "현재 어디 단계까지 왔지?" 확인 후 제시한 선택지 중 1번(Build and Test 승인 → CONSTRUCTION 마무리)을 선택. Build and Test 지침 5종 승인 확정 → CONSTRUCTION 페이즈 전체 완료. OPERATIONS는 placeholder(미실행). aidlc-state.md Stage Progress에서 Functional Design/NFR Requirements/NFR Design/Build and Test 체크 완료 처리, Current Stage를 "CONSTRUCTION 완료"로 갱신.
+**Status**: 완료 (CONSTRUCTION 전체 완료)
+**Context**: CONSTRUCTION - Build and Test 승인 → 페이즈 종료
