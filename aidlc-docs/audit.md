@@ -358,3 +358,10 @@
 **AI Response**: UOW-02 Code Generation 승인(90 tests) → 위상순 다음 단위 UOW-03(Claims/Evidence/Conflict, AI 후반부·핵심 차별점) Functional Design 착수. 계약 확인(extract_claims/group_evidence/assign_confidence/detect_conflicts/summarize_conflicts/get_conflicts, ConflictType=value_mismatch만 동결). uow-03-functional-design-plan.md 작성(S1~S8 + Q1~Q5). 질문: Q1 ConflictType 확장(stale_knowledge·policy_conflict, 데모 3충돌), Q2 detect_conflicts 결정적 vs LLM, Q3 추출 호출 구조, Q4 Confidence 근거 일치도 규칙, Q5 analyze_project 완성 범위.
 **Status**: 승인 대기 (GATE, 계획+질문)
 **Context**: CONSTRUCTION - Functional Design(UOW-03) 계획 작성 완료
+
+## Functional Design (UOW-03) — 답변 수신(모두 권장) & 산출물 생성
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "모두 권장으로 진행해줘" (Q1=A ConflictType 확장, Q2=A 결정적 검출, Q3=A Feature당 1회 추출, Q4=A 근거 일치도, Q5=A analyze_project 완성)
+**AI Response**: 계획 체크박스 S1~S8 [x]. 산출물 3종: domain-entities.md(ConflictType += STALE_KNOWLEDGE/POLICY_CONFLICT, extraction.py 중간모델 ExtractedClaim/ClaimExtractionResult, 코어 계약 extract_claims/assign_confidence/detect_conflicts/get_conflicts/analyze_project), business-rules.md(BR-CLAIM 원자/BR-EVID/BR-CONF 근거일치 규칙/BR-CONFLICT 결정적 검출+3유형 분류 순서/BR-OUT/BR-PIPE/BR-DET/BR-SEC), business-logic-model.md(conflict/·workflow/claims·engine/analyze 배치, 추출→confidence→detect→enrich→analyze_project 알고리즘, demo 3충돌 Ground Truth 매핑, 순수함수 PBT 전략). 충돌 존재는 결정적 구조 비교(RAG 차별점).
+**Status**: 승인 대기 (GATE)
+**Context**: CONSTRUCTION - Functional Design(UOW-03) 산출물 생성 완료

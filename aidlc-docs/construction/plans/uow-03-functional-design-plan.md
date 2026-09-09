@@ -17,14 +17,14 @@
 ---
 
 ## 계획 스텝 (체크박스)
-- [ ] S1. `extract_claims(feature, assets, llm)` — 원자 Claim(subject+predicate+value) 추출 스키마/알고리즘
-- [ ] S2. `group_evidence(claims, assets, llm)` — Claim별 Evidence(소스·유형·위치·추출값·관계) 연결
-- [ ] S3. `assign_confidence(claim, evidence)` — **근거 일치도** 규칙(비-LLM) 정의(HIGH/MEDIUM/LOW)
-- [ ] S4. `detect_conflicts(fk)` — claim_key별 Evidence 값 비교 → value_mismatch (결정적) + 확장 유형
-- [ ] S5. ConflictType 확장 여부(stale_knowledge·policy_conflict, P1) 및 검출 규칙
-- [ ] S6. `get_conflicts(feature_id)`·`summarize_conflicts` 조회 계약 + FeatureKnowledge 완본화·재저장
-- [ ] S7. `analyze_project(path)` 전체 파이프라인 완성(스캔→지식→claim/evidence/conflict→저장) 범위
-- [ ] S8. business-logic-model / business-rules / domain-entities 산출물 작성
+- [x] S1. `extract_claims` — 원자 Claim 추출(ExtractedClaim, Feature당 1회) 스키마/알고리즘
+- [x] S2. Evidence 연결 — Q3=A로 추출에 내장(별도 group_evidence 호출 없음), BR-EVID
+- [x] S3. `assign_confidence` — 근거 일치도 규칙(비-LLM, HIGH/MEDIUM/LOW) — Q4=A
+- [x] S4. `detect_conflicts` — claim_key별 값 비교(결정적) + 유형 분류 — Q2=A
+- [x] S5. ConflictType 확장(stale_knowledge·policy_conflict, P1) + 분류 순서 규칙 — Q1=A
+- [x] S6. `get_conflicts`·`summarize_conflicts` 조회 계약 + FeatureKnowledge 완본화·재저장
+- [x] S7. `analyze_project(path)` 전체 파이프라인 완성 — Q5=A
+- [x] S8. business-logic-model / business-rules / domain-entities 산출물 작성
 
 ---
 
