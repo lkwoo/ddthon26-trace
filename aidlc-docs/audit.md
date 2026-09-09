@@ -205,3 +205,10 @@
 **Context**: CONSTRUCTION - 후속 개선 (live LLM 백엔드 실증: Bedrock/Opus 4.8, 구조적 차별점 live 검증). 키는 env 전용·gitignore 유지(NFR-SEC-001).
 
 ---
+## Construction — 시연 스크린샷 생성 (사용자 요청)
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "스크린샷도 찍어보자"
+**AI Response**: 평가기준(완성도·사용성)의 "동작하는 화면 시연 스크린샷을 screenshots/ 또는 result/에 넣어라"에 대응. CLI를 live 백엔드(Amazon Bedrock · global.anthropic.claude-opus-4-8 · ap-northeast-2)로 demo/에 대해 실제 실행하고 3개 화면을 PNG로 렌더링: (1) analyze-project — Feature 2개 자동검출·Claim/근거 추출·충돌 보강·지식 영속화 파이프라인 완주, (2) conflicts — Owner.telephone.max_length value_mismatch(코드/DB/openapi/테스트=10 vs spec.pdf=20) 근거 소스 인용, (3) analyze-task — 반드시/가능/검토 분류+충돌 경고+Change Plan(2단계에서 10 vs 20 충돌 선해소 명시). 렌더러 result/render_screenshot.py(PIL, 한글 모노스페이스 폰트 NanumGothicCoding, 표시폭 인지 접힘·경고 이모지 ASCII 치환). 산출물: screenshots/01-analyze-project.png·02-conflicts.png·03-analyze-task.png + screenshots/README.md(재현법 live/replay), result/README.md에 live 전사·스크린샷 링크 반영. 시크릿 무커밋(.env gitignore 확인).
+**Context**: CONSTRUCTION - 시연 증거 (완성도: 실행 증거와 기능 정합 / 사용성: 화면으로 사용 흐름 전달). live 모델 호출 로그가 model=global.anthropic.claude-opus-4-8로 실 동작 증거.
+
+---
