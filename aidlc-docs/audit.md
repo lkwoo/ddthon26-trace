@@ -134,3 +134,12 @@
 **Context**: INCEPTION - Units Generation(GATE 승인) → CONSTRUCTION - Functional Design(UOW-0F) 착수
 
 ---
+
+## Functional Design (UOW-0F) Part 1 — 계획/질문 승인
+**Timestamp**: 2026-09-09T00:00:00Z
+**AI Prompt**: uow-0f-functional-design-plan.md 검토 요청 — 프리필 권장안 승인 또는 변경. Q1~Q8 프리필(Q1=A,Q2=B,Q3=A,Q4=A,Q5=B,Q6=A,Q7=A,Q8=A).
+**User Input**: "승인"
+**AI Response**: 모호성 없음. 프리필 권장안 전부 확정(Q1=slug ID, Q2=Confidence enum+reason, Q3=relation enum supports/contradicts/mentions, Q4=YAML 진실원, Q5=구조화 warnings {code,message,source?}, Q6=LLMService 인터페이스+정책만 동결, Q7=결정성 config 중앙관리, Q8=TraceError 계층). Step D 산출물 3종 생성 착수.
+**Context**: CONSTRUCTION - Functional Design(UOW-0F) Part 1(GATE 승인) → 산출물 생성
+
+---

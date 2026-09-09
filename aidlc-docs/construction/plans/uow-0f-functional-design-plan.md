@@ -26,10 +26,10 @@
 
 ## 실행 체크리스트
 
-- [ ] Step A: 도메인 엔티티 정의 (`domain-entities.md`) — 각 엔티티 필드·타입·필수/선택·enum·관계·불변식
-- [ ] Step B: 비즈니스 로직 모델 (`business-logic-model.md`) — Result 조립 규칙, 직렬화/역직렬화 흐름, config 로딩 순서, LLMService 호출 계약(검증→재시도→warning), 프롬프트 로더 렌더 흐름
-- [ ] Step C: 비즈니스 규칙 (`business-rules.md`) — 필드 검증 규칙, feature_id 생성 규칙, Confidence 판정 입력 규칙(스켈레톤 수준), 오류 분류 규칙, 시크릿 취급 규칙, 결정성 규칙
-- [ ] Step D: 아래 질문 답변 반영 후 산출물 3종 생성 → 완료 메시지 → 승인 대기
+- [x] Step A: 도메인 엔티티 정의 (`domain-entities.md`) — 각 엔티티 필드·타입·필수/선택·enum·관계·불변식
+- [x] Step B: 비즈니스 로직 모델 (`business-logic-model.md`) — Result 조립 규칙, 직렬화/역직렬화 흐름, config 로딩 순서, LLMService 호출 계약(검증→재시도→warning), 프롬프트 로더 렌더 흐름
+- [x] Step C: 비즈니스 규칙 (`business-rules.md`) — 필드 검증 규칙, feature_id 생성 규칙, Confidence 판정 입력 규칙(스켈레톤 수준), 오류 분류 규칙, 시크릿 취급 규칙, 결정성 규칙
+- [x] Step D: 질문 답변 반영(Q1~Q8 프리필 승인) 후 산출물 3종 생성 완료 → 완료 메시지 → 승인 대기
 
 ---
 
