@@ -1,15 +1,17 @@
 # Build and Test Summary — TRACE
 
-> CONSTRUCTION 최종 단계. 8개 단위(UOW-0F~06) 완료 후 전체 빌드·테스트 지침 요약과 검증 결과.
+> CONSTRUCTION 최종 단계. Increment 1(UOW-0F~06, 8단위) + Increment 2(UOW-07 온보딩 맵) 완료 후
+> 전체 빌드·테스트 지침 요약과 검증 결과.
 
 ## 상태 요약
 
 | 항목 | 결과 |
 |---|---|
-| 단위 완료 | UOW-0F, 00, 01, 02, 03, 04, 05, 06 — **8/8** |
+| 단위 완료 | UOW-0F, 00, 01, 02, 03, 04, 05, 06 (Inc.1) + **UOW-07 온보딩 맵(Inc.2)** — **9/9** |
 | 설치 | `pip install -e .` 성공, `trace`/`trace-mcp` 진입점 노출 |
-| 테스트 | `pytest` **62개 전부 통과** (단위 + Hypothesis 속성 + 통합) |
+| 테스트 | `pytest` **83개 전부 통과** (단위 + Hypothesis 속성 + 통합; Inc.2에서 +21) |
 | Hero E2E | replay 백엔드로 API 키 없이 결정적 재현 — value_mismatch(전화번호 20 vs 10) 검출→영향분석→5단계 Change Plan |
+| 온보딩 맵 E2E | `trace map ./demo --refresh` — 진입점(OwnerRestController)·의존/호출 그래프·Feature→파일 매핑·내러티브를 overview.md에 Mermaid 포함 생성, refresh 없으면 캐시 |
 | 저장소 밖 실행 | 설치된 `trace` 명령이 `/tmp`에서 정상 동작 (stdlib 충돌 해소) |
 | 시연 증거 | `result/hero-run.txt`(실제 CLI 전사), `result/README.md` |
 
@@ -18,20 +20,21 @@
 | 파일 | 내용 |
 |---|---|
 | build-instructions.md | 사전요건·설치·의존성·시크릿·트러블슈팅 |
-| unit-test-instructions.md | 단위별 테스트·PBT 불변식·커버리지 매핑 |
-| integration-test-instructions.md | Hero 시나리오 CLI/MCP E2E·수동 절차 |
-| performance-test-instructions.md | replay 지연·캐시 재사용 측정 |
+| unit-test-instructions.md | 단위별 테스트·PBT 불변식·커버리지 매핑 (UOW-07 P1~P4 포함) |
+| integration-test-instructions.md | Hero 시나리오 + 온보딩 맵(UOW-07) CLI/MCP E2E·수동 절차 |
+| performance-test-instructions.md | replay 지연·캐시 재사용 측정 (analyze-project·onboarding map) |
 
 ## 빠른 실행(요약)
 
 ```bash
 pip install -e ".[dev]"
-python3 -m pytest -q                                 # 62 passed
+python3 -m pytest -q                                 # 83 passed
 
 export TRACE_LLM_BACKEND=replay TRACE_REPLAY_DIR=$PWD/demo/replay TRACE_HOME=/tmp/trace
 trace analyze-project ./demo --refresh
 trace conflicts                                      # value_mismatch 1건
 trace analyze-task "Add SMS verification to Owner registration"
+trace map ./demo --refresh                           # 온보딩 맵(진입점·그래프·Feature 매핑·내러티브)
 ```
 
 ## NFR/평가 대응 링크
@@ -40,6 +43,13 @@ trace analyze-task "Add SMS verification to Owner registration"
 - **NFR-SEC-001** — 시크릿 env 전용, `mask_secrets` 마스킹, 소스에 평문 키 부재(테스트로 강제).
 - **완성도(평가)** — 진입점→코어→구현까지 호출 완결, 실행 전사(result/)가 README 기능과 정합.
 - **사용성(평가)** — README 30초 replay 데모·`.mcp.json` 스니펫·예제 프롬프트로 막힘 없이 시작.
+
+## Build and Test 중 발견·수정 (Increment 2)
+
+- **CLI `--json` 위치 버그**: `--json`이 최상위 파서에만 붙어 있어 문서·README가 쓰는 형태
+  (`trace map ./demo --json`, `trace analyze-project ./demo --json`)가 `unrecognized arguments`로
+  실패했다. 공용 부모 파서(`parents=[common]`)로 모든 서브커맨드에 상속시켜 **서브커맨드 뒤 위치로
+  일관되게** 동작하도록 수정. 회귀 방지 테스트 3건 추가(`test_cli_json_flag_after_subcommand`).
 
 ## 다음 단계
 

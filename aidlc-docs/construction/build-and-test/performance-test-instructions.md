@@ -10,6 +10,8 @@
 | replay `analyze-project` 지연 | < 1초 (LLM 호출 없이 픽스처 재생) | 아래 스크립트 |
 | replay `analyze-task` 지연 | < 1초 | 아래 스크립트 |
 | 캐시 재사용(2회차 analyze-project, refresh 없음) | 파싱·LLM 생략, 즉시 반환(`cached: true`) | test_analyze_project_uses_cache_on_second_run |
+| replay `generate_onboarding_map` 지연 (UOW-07) | < 1초 (정적 추출 + 픽스처 재생) | `trace map ./demo --refresh` |
+| overview.md 캐시 재사용 (refresh 없음) | 정적 추출·LLM 생략, overview.md 로드만 | `trace map ./demo` 2회차 |
 | live 모드 지연 | Claude 호출 수에 비례(Feature 수 × 스텝). 결정성은 구조화 출력+캐시로 확보 | 참고용, 부하 테스트 아님 |
 
 ## 측정 방법

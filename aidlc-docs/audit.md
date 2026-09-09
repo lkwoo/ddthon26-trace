@@ -288,3 +288,11 @@
 **Context**: CONSTRUCTION - UOW-07 Code Generation 완료. 다음 Build and Test(온보딩 E2E 지침 보강) 또는 Increment 2 마감.
 
 ---
+
+## Increment 2 온보딩 맵 — CONSTRUCTION UOW-07 Build and Test 완료
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "진행"
+**AI Response**: 기존 Build and Test 지침(build/unit/integration/performance/summary)을 UOW-07 온보딩 맵 반영으로 보강. unit-test-instructions에 UOW-07 커버리지 행·PBT P1~P4 불변식 추가, integration-test-instructions에 온보딩 맵 E2E 섹션(`trace analyze-project`→`trace map --refresh`→캐시 재사용→`--json`)·검증 포인트 3행·MCP 도구6/리소스3 반영, performance-test-instructions에 generate_onboarding_map·overview 캐시 지표 추가, build-and-test-summary 9/9 단위·83 테스트·온보딩 맵 E2E 갱신. Build 검증 중 **CLI `--json` 위치 버그 발견**: `--json`이 최상위 파서에만 있어 문서·README가 쓰는 `trace map ./demo --json`/`trace analyze-project ./demo --json` 형태가 `unrecognized arguments`로 실패 → 공용 부모 파서(`parents=[common]`)로 모든 서브커맨드에 상속시켜 서브커맨드 뒤 위치로 일관 동작하도록 수정(traceki/cli/__init__.py). 회귀 테스트 3건 추가(test_cli_json_flag_after_subcommand: conflicts/analyze-project/map), 기존 test_cli_json_output도 후위 형태로 정정. 온보딩 맵 CLI E2E 실측: 진입점 4·노드 13·의존 17·호출 24·Feature→파일 6, overview.md 저장, 2회차 cached=True. **전체 83 테스트 통과**. aidlc-state UOW-07 Build and Test [x], Next Stage=OPERATIONS(placeholder).
+**Context**: CONSTRUCTION - UOW-07 Build and Test 완료. Increment 2 CONSTRUCTION 마감. 다음은 OPERATIONS(placeholder).
+
+---

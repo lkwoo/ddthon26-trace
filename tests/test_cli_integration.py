@@ -39,11 +39,29 @@ def test_cli_full_hero_flow_exit_codes(replay_home, capsys):
 def test_cli_json_output(replay_home, capsys):
     main(["analyze-project", str(DEMO), "--refresh"])
     capsys.readouterr()
-    rc = main(["--json", "conflicts"])
+    rc = main(["conflicts", "--json"])
     assert rc == 0
     out = capsys.readouterr().out
     assert out.strip().startswith("{")
     assert '"summary"' in out  # 봉투 키 순서: summary 우선
+
+
+@pytest.mark.parametrize(
+    "argv",
+    [
+        ["conflicts", "--json"],
+        ["analyze-project", str(DEMO), "--json"],
+        ["map", str(DEMO), "--json"],
+    ],
+)
+def test_cli_json_flag_after_subcommand(replay_home, capsys, argv):
+    """--json은 서브커맨드 뒤 위치에서 모든 명령에 동작해야 한다(문서·README와 일치)."""
+    main(["analyze-project", str(DEMO), "--refresh"])
+    capsys.readouterr()
+    rc = main(argv)
+    assert rc == 0
+    out = capsys.readouterr().out
+    assert out.strip().startswith("{")  # 사람이 읽는 출력이 아니라 원시 JSON
 
 
 def test_cli_unknown_feature_nonzero_exit(replay_home, capsys):

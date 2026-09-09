@@ -127,31 +127,35 @@ def build_parser() -> argparse.ArgumentParser:
         prog="trace",
         description="TRACE — 흩어진 개발 자산을 Feature 중심 지식으로 재구성하고 충돌을 착수 전에 경고한다.",
     )
-    p.add_argument("--json", action="store_true", help="원시 Result JSON 출력")
+    # --json은 각 서브커맨드에 붙는 공용 옵션(`trace map ./demo --json`). 공용 부모 파서로
+    # 모든 서브파서에 상속시켜 위치를 서브커맨드 뒤로 일관되게 둔다(argparse 서브파서 기본값
+    # 우선순위 때문에 전역 옵션은 두지 않는다).
+    common = argparse.ArgumentParser(add_help=False)
+    common.add_argument("--json", action="store_true", help="원시 Result JSON 출력")
     sub = p.add_subparsers(dest="command", required=True)
 
-    sp = sub.add_parser("analyze-project", help="프로젝트 스캔·분석(지식·충돌 생성)")
+    sp = sub.add_parser("analyze-project", parents=[common], help="프로젝트 스캔·분석(지식·충돌 생성)")
     sp.add_argument("path", nargs="?", default=".", help="분석 대상 경로 (기본: 현재 디렉터리)")
     sp.add_argument("--refresh", action="store_true", help="캐시 무시하고 재분석")
     sp.set_defaults(func=_cmd_analyze_project)
 
-    sp = sub.add_parser("list-features", help="검출된 Feature 목록")
+    sp = sub.add_parser("list-features", parents=[common], help="검출된 Feature 목록")
     sp.set_defaults(func=_cmd_list_features)
 
-    sp = sub.add_parser("feature", help="단일 Feature 지식 상세")
+    sp = sub.add_parser("feature", parents=[common], help="단일 Feature 지식 상세")
     sp.add_argument("feature_id")
     sp.set_defaults(func=_cmd_feature)
 
-    sp = sub.add_parser("conflicts", help="충돌 목록")
+    sp = sub.add_parser("conflicts", parents=[common], help="충돌 목록")
     sp.add_argument("--feature", default=None, help="특정 Feature로 한정")
     sp.set_defaults(func=_cmd_conflicts)
 
-    sp = sub.add_parser("analyze-task", help="자연어 작업의 착수 전 영향 분석")
+    sp = sub.add_parser("analyze-task", parents=[common], help="자연어 작업의 착수 전 영향 분석")
     sp.add_argument("task", help='예: "Add SMS verification to Owner registration"')
     sp.add_argument("--feature", default=None, help="특정 Feature로 한정")
     sp.set_defaults(func=_cmd_analyze_task)
 
-    sp = sub.add_parser("map", help="신입 온보딩 맵 생성(진입점·의존 그래프·Feature→파일·Mermaid)")
+    sp = sub.add_parser("map", parents=[common], help="신입 온보딩 맵 생성(진입점·의존 그래프·Feature→파일·Mermaid)")
     sp.add_argument("path", nargs="?", default=".", help="대상 경로 (기본: 현재 디렉터리)")
     sp.add_argument("--feature", default=None, help="특정 Feature로 한정")
     sp.add_argument("--refresh", action="store_true", help="캐시(overview.md) 무시하고 재생성")

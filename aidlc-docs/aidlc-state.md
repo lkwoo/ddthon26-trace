@@ -94,14 +94,14 @@
 | Units Generation | [x] 완료 (minimal) | 단일 UOW-07 확정. story-map(27스토리)·dependency 매트릭스에 UOW-07 반영. 순환 없음 |
 | Construction — UOW-07 Functional Design | [x] 완료 | 07-map/functional-design.md: 도메인(EntryPoint/RelationGraph/OnboardingMap)·로직·규칙 8개·PBT P1~P4. 기존 모델 재사용 |
 | Construction — UOW-07 Code Generation | [x] 완료 | Part1 계획(plans/07-map-code-generation-plan.md 17단계)+Part2 구현. traceki/map/(models·relations·mermaid·overview·describe·__init__) + C8 프롬프트·C2 재노출·C1 MCP 도구+trace://overview·C9 `trace map` + describe_relations replay 픽스처. 신규 테스트 17개(단위+PBT P1~4+통합), 전체 80개 통과 |
-| Construction — Build and Test | [ ] 대기 | UOW-07 통합 기존 지침에 이미 커버(replay E2E). 필요 시 온보딩 E2E 지침 추가 |
+| Construction — Build and Test | [x] 완료 | 지침 4종(unit/integration/performance/summary)에 UOW-07 온보딩 맵 E2E·PBT P1~P4 보강. Build 중 CLI `--json` 위치 버그 발견·수정(모든 서브커맨드 뒤 위치 동작) + 회귀 테스트 3건. **전체 83 테스트 통과** |
 
 - **확정된 결정(답변)**: Q1=A 하이브리드(정적 단서+LLM 서술), Q2=A MCP 도구+CLI+`overview.md` 영속화, Q3=B 파일+함수 레벨, Q4=A Mermaid, Q5=A Java/Python 정적+LLM 폴백. → requirements.md §4.10 FR-MAP-001~007, §9 UOW-07 반영.
 
 ## Current Status
-- **Lifecycle Phase**: CONSTRUCTION (Increment 2) — Increment 1은 CONSTRUCTION 완료
-- **Current Stage**: Increment 2 "온보딩 맵" — UOW-07 Functional Design + **Code Generation 완료** (전체 80 테스트 통과)
-- **Next Stage**: UOW-07 Build and Test(온보딩 E2E 지침 보강) → Increment 2 마감
+- **Lifecycle Phase**: CONSTRUCTION (Increment 2) — **Increment 2 CONSTRUCTION 완료** (Increment 1도 완료)
+- **Current Stage**: Increment 2 "온보딩 맵" — UOW-07 Functional Design + Code Generation + **Build and Test 완료** (전체 83 테스트 통과)
+- **Next Stage**: OPERATIONS (placeholder) — 배포·모니터링은 향후 확장. Increment 2 마감.
 - **완료**: UOW-0F ~ UOW-06 전 단위. 전체 62 테스트 통과. 설치된 `trace`/`trace-mcp` 명령이 저장소 밖에서도 동작(replay Hero E2E 검증). value_mismatch(전화번호 20 vs 10) 검출·영향분석·Change Plan 확인.
 - **Status**: 8개 단위 코드 생성 완료. import 패키지 `trace`→`traceki` 개명(파이썬 stdlib `trace` 충돌 해소, 명령어명·로거명·`.trace/` 디렉터리는 유지). result/hero-run.txt 실행 전사 갱신.
 - **핵심 Construction 결정**: LLMService는 (1) live Anthropic 다이렉트(sk-ant) + (2) bedrock(Amazon Bedrock, bearer 토큰) + (3) cache/replay 백엔드를 지원.
