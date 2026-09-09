@@ -151,3 +151,12 @@
 **Context**: CONSTRUCTION - Functional Design(UOW-0F) GATE 승인 → NFR Requirements(UOW-0F) 착수
 
 ---
+
+## NFR Requirements (UOW-0F) — 계획/질문 승인 & 산출물 생성
+**Timestamp**: 2026-09-09T00:00:00Z
+**AI Prompt**: uow-0f-nfr-requirements-plan.md 검토 — 프리필(Q1=Pydantic v2, Q2=PyYAML, Q3=순서/키 고정, Q4=2회+제약교정, Q5=표준 logging, Q6=env only, Q7=Hypothesis, Q8=Python 3.11+) 승인/변경.
+**User Input**: "승인. 다음 단계로 진행하자"
+**AI Response**: 모호성 없음. Q1~Q8 프리필 전부 확정. nfr-requirements.md·tech-stack-decisions.md 생성.
+**Context**: CONSTRUCTION - NFR Requirements(UOW-0F) Part 1(GATE 승인) → 산출물 생성
+
+---

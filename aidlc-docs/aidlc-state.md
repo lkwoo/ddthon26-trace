@@ -63,7 +63,7 @@
 
 ### 🟢 CONSTRUCTION PHASE (per-unit loop)
 - [ ] Functional Design — EXECUTE (per-unit) — ✅ UOW-0F 완료(2026-09-09 승인)
-- [ ] NFR Requirements — EXECUTE (per-unit) — 🔄 UOW-0F Part 1 계획+질문 작성, 답변 대기
+- [ ] NFR Requirements — EXECUTE (per-unit) — 🔄 UOW-0F 산출물 2종 생성 완료, 승인 대기
 - [ ] NFR Design — EXECUTE (per-unit)
 - [ ] Infrastructure Design — SKIP
 - [ ] Code Generation — EXECUTE (per-unit)
@@ -74,6 +74,6 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: NFR Requirements — UOW-0F (Foundation), Part 1 계획+질문 작성 완료 — 답변 대기
+- **Current Stage**: NFR Requirements — UOW-0F (Foundation), 산출물 2종 생성 완료 — 승인 대기 (GATE)
 - **Next Stage**: (UOW-0F) NFR Design → Code Generation
-- **Status**: UOW-0F Functional Design 승인 완료. GLOSSARY.md 추가. NFR Requirements(UOW-0F) 착수 — 라이브러리 결정(Pydantic v2·PyYAML·Hypothesis·표준 logging) 및 재현성·신뢰성·보안·관측성 NFR 질문 프리필, 답변 대기 중.
+- **Status**: UOW-0F NFR Requirements 완료 — nfr-requirements.md(재현성·신뢰성·보안·유지보수·테스트가능성·관측성 NFR + 추적 매트릭스)·tech-stack-decisions.md(Pydantic v2·PyYAML·Hypothesis·표준 logging·Python 3.11+·의존성) 생성. 승인 대기 중.
