@@ -66,7 +66,7 @@
 - [ ] NFR Requirements — EXECUTE (per-unit) — ✅ UOW-0F/00/01/02/03/04 완료 / ✅ UOW-05 산출물 생성(2026-09-09, GATE)
 - [ ] NFR Design — EXECUTE (per-unit) — ✅ UOW-0F / UOW-00 SKIP / ✅ UOW-01/02/03/04 완료 / ✅ UOW-05 산출물 생성(2026-09-09, GATE)
 - [ ] Infrastructure Design — SKIP
-- [ ] Code Generation — EXECUTE (per-unit) — ✅ UOW-0F/00/01/02/03/04 완료 / ✅ UOW-05 완료·승인대기(2026-09-09, 142 pass·3 skip) / 🔄 UOW-06 진행
+- [x] Code Generation — EXECUTE (per-unit) — ✅ UOW-0F/00/01/02/03/04/05 완료 / ✅ UOW-06 완료·승인대기(2026-09-09, 145 pass·3 skip)
 - [ ] Build and Test — EXECUTE
 
 ### 🟡 OPERATIONS PHASE
@@ -74,8 +74,9 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: Code Generation — UOW-06 (통합·시연), Part 1 계획 작성 완료 — 승인 대기 (GATE). (FD/NFR SKIP)
-- **Next Stage**: UOW-06 Code Generation Part 1 승인 → Part 2 구현 → Build and Test → (Construction 완료)
+- **Current Stage**: Code Generation — UOW-06 (통합·시연), Part 2 구현 완료 — 승인 대기 (GATE). per-unit loop **전체 완료**.
+- **Next Stage**: UOW-06 Code Generation 승인 → Build and Test(ALWAYS) → Construction 완료
+- **Status(코드 UOW-06)**: trace/cli(C9 폴백)·demo/run_demo.py(결정적 Hero 하니스 무키)·tests/test_hero_e2e.py·README(.mcp.json)·result/{usage-walkthrough,hero-demo-output.txt,README}. pytest 145 pass·3 skip. Hero E2E 3충돌+영향+Change Plan 재현. 보안 위생 OK. 스크린샷: GUI는 키+Claude Code 필요 → CLI 실행증거+캡처가이드 대체.
 - **스크린샷 한계**: GUI 캡처는 API 키+Claude Code 필요 → 결정적 CLI/데모 텍스트 실행증거(result/hero-demo-output.txt) + GUI 캡처 가이드로 대체.
 - **Status(코드 UOW-05)**: mcp_server/{serialize,server,__main__} + engine list_features/get_feature_knowledge + error_to_result 견고화. pytest 142 pass·3 skip, 신규 mypy-clean. build_server 5도구=코어 1:1+trace:// 리소스+P1 프롬프트, 핸들러 오류 격리 무크래시, 직렬화 핵심우선. mcp>=2.0(설치 2.x MCPServer 검증), mcp 지연임포트. 코어 5함수 전부 MCP 노출 완료. (사전존재 llm/client.py mypy 경고 1건은 범위 밖 유지)
 - **Status(NFR-Design UOW-05)**: build_server 팩토리+데코레이터·얇은 핸들러 오류 격리·_root(cwd/env)·serialize_result 핵심우선·코어 래퍼 list_features/get_feature_knowledge·trace:// 리소스·P1 프롬프트. mcp_server/{__main__,server,serialize}, pyproject mcp>=2.0, mcp 지연임포트. 확장 Resiliency Compliant·PBT N/A.

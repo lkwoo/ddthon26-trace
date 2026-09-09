@@ -505,3 +505,10 @@
 **AI Response**: UOW-05 Code Generation 승인(per-unit loop UOW-05 완료). → UOW-06(통합·신뢰성·시연) 착수. 적응형 판정: UOW-06은 수렴/통합 유닛(기존 계약 재사용, 신규 비즈니스 로직 없음, 보안/신뢰성은 per-unit 확립됨) → Functional Design·NFR SKIP, Code Generation EXECUTE. uow-06-code-generation-plan.md(Part 1) 작성. 스크린샷 한계 명시(GUI 스크린샷은 API 키+Claude Code 필요 → 결정적 CLI/데모 텍스트 실행증거 + GUI 캡처 가이드로 대체 제공).
 **Status**: 승인 대기 (GATE, Part 1 계획)
 **Context**: CONSTRUCTION - Code Generation(UOW-06) Part 1 계획 작성 (FD/NFR SKIP)
+
+## Code Generation (UOW-06) Part 1 GATE 승인 & Part 2 실행 완료
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인"
+**AI Response**: Part 1 승인 → Part 2 실행. 생성: trace/cli/{__init__,__main__}(C9 폴백 CLI), demo/run_demo.py(결정적 Hero 하니스), tests/test_hero_e2e.py, README.md 갱신, result/{usage-walkthrough.md,hero-demo-output.txt,README.md}, .env.example 갱신. 계획 C1~C9/V1~V4 전부 [x]. 결과: pytest 145 pass·3 skip. run_demo.py 무키 실행으로 3충돌(value_mismatch·policy_conflict·stale_knowledge)+영향+Change Plan 결정적 재현, 출력을 result/hero-demo-output.txt로 저장. 보안 위생 grep(하드코딩 시크릿 없음). 스크린샷 한계 정직 고지(GUI는 키+Claude Code 필요 → CLI 실행증거+캡처가이드 대체). Windows UTF-8 reconfigure. code-summary.md 작성. 승인 대기(GATE).
+**Status**: 승인 대기 (GATE)
+**Context**: CONSTRUCTION - Code Generation(UOW-06) Part 2 구현 완료 (per-unit loop 전체 완료)

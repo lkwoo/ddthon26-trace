@@ -1,0 +1,56 @@
+
+======================================================================
+① analyze_project — 스캔·지식화·결정적 충돌 검출
+======================================================================
+⚠ 충돌 3건이 감지되었습니다 (아래 우선 확인).
+2개 Feature 분석 완료 (자산 13개, 충돌 3건)
+자산 13개 / Feature 2개 / 충돌 3건
+
+======================================================================
+② list_features — Feature 요약 (캐시/저장 지식, LLM 미호출)
+======================================================================
+  - owner-registration: Owner Registration (충돌 2건)
+  - pet-management: Pet Management (충돌 1건)
+
+======================================================================
+③ get_conflicts — 문서/구현 충돌 (근거 포함)
+======================================================================
+  - [policy_conflict] owner.email.required
+      [요구와 구현 부재의 충돌] owner.email.required: absent(openapi/petclinic-rest.yaml), required(requirements/owner-management-spec.pdf)
+      값: absent@openapi/petclinic-rest.yaml, required@requirements/owner-management-spec.pdf
+  - [value_mismatch] owner.telephone.max_length
+      [값 불일치] owner.telephone.max_length: 10(db/schema.sql), 20(requirements/owner-management-spec.pdf)
+      값: 10@db/schema.sql, 20@requirements/owner-management-spec.pdf
+  - [stale_knowledge] pet.birthdate.future_date_validation
+      [문서/지식이 구현과 어긋남] pet.birthdate.future_date_validation: accepted(src/main/java/org/springframework/samples/petclinic/pet/Pet.java), rejected(requirements/maintenance-notes.md)
+      값: accepted@src/main/java/org/springframework/samples/petclinic/pet/Pet.java, rejected@requirements/maintenance-notes.md
+
+======================================================================
+④ analyze_task_impact — 'Add SMS verification to Owner registration'
+======================================================================
+⚠ 충돌 2건이 감지되었습니다 (아래 우선 확인).
+영향 후보 3건 (must 1 / likely 1 / review 1), 관련 충돌 2건
+
+⚠ 구현 착수 전 확인해야 할 기존 충돌:
+  - [policy_conflict] owner.email.required: [요구와 구현 부재의 충돌] owner.email.required: absent(openapi/petclinic-rest.yaml), required(requirements/owner-management-spec.pdf)
+  - [value_mismatch] owner.telephone.max_length: [값 불일치] owner.telephone.max_length: 10(db/schema.sql), 20(requirements/owner-management-spec.pdf)
+
+Must Change:
+  - src/main/java/org/springframework/samples/petclinic/owner/Owner.java: 전화번호 검증·SMS 인증 연동 지점
+
+Likely Change:
+  - openapi/petclinic-rest.yaml: telephone 스키마·엔드포인트 갱신 가능
+
+Review:
+  - db/schema.sql: telephone 컬럼 길이 확인 필요
+
+Change Plan (충돌 해소 우선):
+  1. telephone 길이 충돌(문서 20 vs 구현 10) 먼저 해소
+  2. OpenAPI telephone 스키마·검증 규칙 정의
+  3. Owner 검증 로직에 SMS 인증 흐름 추가
+  4. 통합/컨트롤러 테스트 갱신
+  5. 문서(spec) 동기화
+
+======================================================================
+완료 — Hero 흐름 E2E 통과 (API 키 없이 결정적 재현)
+======================================================================
