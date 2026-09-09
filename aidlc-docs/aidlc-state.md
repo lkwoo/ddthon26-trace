@@ -100,3 +100,17 @@
 **Deferred to a later increment**: item 3 (reranker + confidence threshold), item 4 (file:line + code-block output / citations / relationship linking).
 
 **Env note**: `.venv` bootstrapped (pip via get-pip.py) with pytest+hypothesis on Python 3.14; `fastembed` NOT installed → runs on hash embedding fallback. Run tests with `.venv/bin/python -m pytest`.
+
+---
+
+## INCREMENT 3 — Content-derived tag enrichment (U-Tags)
+
+- **Type**: Brownfield feature on completed base project (branch `shortFix1`, auto-adopt, standard depth).
+- **Trigger (2026-09-09)**: User — "tag로 벡터값 외에도 실질적으로 연관되어 있는 내용들을 추가했으면 좋겠어." Tags were extracted only from literal `#hashtags`, so `TagMatchStrategy` was nearly empty and relatedness relied entirely on vector similarity.
+- **Scope confirmed (AskUserQuestion)**: derive tags from all four facets — code symbols, keywords/keyphrases, path/language/kind, wikilink targets.
+
+### Increment 3 Stage Progress
+- [x] Requirements Analysis (clarifying question answered "all four facets"; minimal-standard depth; extensions unchanged: Security No / PBT Partial / Resiliency No)
+- [x] **U-Tags** — CODE DONE + docs. NEW `src/knowledge_store/ingestion/tagging.py::TagEnricher` (deterministic namespaced facets: `sym:`/`kw:`/`mod:`/`dir:`/`lang:`/`kind:`/`link:`, human `#hashtags` preserved), wired as a post-pass in `Chunker.chunk()` via `dataclasses.replace` (chunk id/text untouched → versioning + PBT-02 round-trip safe). REWROTE `codegraph/relationships.py::TagMatchStrategy` to selectivity-weighted (idf `1/(df-1)`) + namespace-weighted (sym/link/hashtag 1.0, mod 0.7, kw 0.6, dir 0.35, lang/kind 0.0 facet-only) scoring, `df>60` skipped, `min_score` 0.1, bidirectional edges. Tests: `tests/ingestion/test_tagging.py` (4) + `tests/codegraph/test_tag_relationships.py` (4). Doc: `aidlc-docs/construction/u4-codegraph-relationships/code/tag-enrichment.md`.
+- **Verification**: new tests 8/8 pass; full non-eval suite **46 pass**; targeted ingestion/wiki/codegraph **19 pass**. Search-quality eval unaffected by construction (enrichment changes `tags` only, never chunk `text`/`id`; search indexes `text`) — `semantic_query` recall/MRR unchanged. `TagMatchStrategy.build` ≈ 0.04 s over 407 repo chunks (not a bottleneck).
+- **Env fix**: `.venv` had lost pip/pytest/hypothesis and was a stale non-editable install; restored pip (get-pip.py), reinstalled pytest/hypothesis, and `pip install -e .` so the venv tracks `src/` live.

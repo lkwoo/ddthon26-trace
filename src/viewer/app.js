@@ -114,13 +114,42 @@ function currentFilter() {
   return (el && el.value || "").toLowerCase();
 }
 
+/* Normalise a raw search query: trim and drop a leading "#" so a tag search
+ * typed as "#api" matches the tag "api". */
+function normalizeQuery(raw) {
+  let q = (raw || "").toLowerCase().trim();
+  if (q.startsWith("#")) q = q.slice(1);
+  return q;
+}
+
+/* A page matches when the query appears in its path OR in any of its tags, so
+ * the same search box works for both file names and tags. */
+function pageMatches(p, q) {
+  if (!q) return true;
+  if (String(p.path).toLowerCase().includes(q)) return true;
+  return (p.tags || []).some((t) => String(t).toLowerCase().includes(q));
+}
+
+function filteredPages(rawFilter) {
+  const q = normalizeQuery(rawFilter);
+  return state.pageList.filter((p) => pageMatches(p, q));
+}
+
+/* Put a tag into the search box and re-render the wiki so both the sidebar and
+ * the contents narrow to pages carrying that tag. */
+function filterByTag(tag) {
+  const el = document.getElementById("wiki-search");
+  if (el) el.value = "#" + tag;
+  switchView("wiki");
+  renderWikiNav(currentFilter());
+  renderWikiHome();
+}
+
 /* Sidebar table of contents. */
 function renderWikiNav(filter) {
   const host = document.getElementById("wiki-nav");
   host.innerHTML = "";
-  const q = (filter || "").toLowerCase();
-  const list = state.pageList.filter((p) =>
-    !q || p.path.toLowerCase().includes(q));
+  const list = filteredPages(filter);
 
   const home = document.createElement("a");
   home.className = "wiki-nav-home";
@@ -175,16 +204,25 @@ function renderWikiHome() {
     host.innerHTML = notice("No wiki content yet. Ingest documents to populate the wiki.");
     return;
   }
+
+  const filter = currentFilter();
+  const list = filteredPages(filter);
   const header = document.createElement("div");
   header.className = "wiki-home-head";
   header.innerHTML =
     `<h2>Table of Contents</h2>` +
-    `<p class="muted">${state.pageList.length} pages · ` +
+    `<p class="muted">${list.length} of ${state.pageList.length} pages · ` +
     `${(state.wiki.entries || []).length} sections. Click a page to read it, ` +
-    `or explore the Structure Tree / Dependency Graph and click a node to jump here.</p>`;
+    `or explore the Structure Tree / Dependency Graph and click a node to jump here. ` +
+    `Search matches page paths and #tags.</p>`;
   host.appendChild(header);
 
-  groupedPages(state.pageList).forEach(([group, pages]) => {
+  if (!list.length) {
+    host.appendChild(el("div", "notice", "No pages match your search."));
+    return;
+  }
+
+  groupedPages(list).forEach(([group, pages]) => {
     const sec = document.createElement("section");
     sec.className = "toc-group";
     sec.appendChild(el("h3", "toc-group-title", `${group}`));
@@ -200,11 +238,25 @@ function renderWikiHome() {
       const meta = el("span", "toc-meta",
         ` · ${p.sections.length} section${p.sections.length === 1 ? "" : "s"} · ${p.kind}`);
       li.appendChild(meta);
+      if (p.tags && p.tags.length) li.appendChild(tagChips(p.tags));
       ul.appendChild(li);
     });
     sec.appendChild(ul);
     host.appendChild(sec);
   });
+}
+
+/* Build a row of clickable tag chips. Clicking one filters the wiki by that
+ * tag (see filterByTag). Used in the TOC and on article pages. */
+function tagChips(tags) {
+  const wrap = el("span", "tag-chips");
+  tags.forEach((t) => {
+    const chip = el("span", "tag-chip", "#" + t);
+    chip.title = `Filter by #${t}`;
+    chip.addEventListener("click", (ev) => { ev.preventDefault(); filterByTag(t); });
+    wrap.appendChild(chip);
+  });
+  return wrap;
 }
 
 /* A single wiki article. */
@@ -234,9 +286,12 @@ function openWikiPage(path) {
   head.innerHTML =
     `<h2>${escapeHtml(pageTitle(path))}</h2>` +
     `<div class="meta">${escapeHtml(path)} · ${escapeHtml(page.kind)}` +
-    `<span class="badge">v${page.version}</span>` +
-    page.tags.map((t) => `<span class="badge">#${escapeHtml(t)}</span>`).join("") +
-    `</div>`;
+    `<span class="badge">v${page.version}</span></div>`;
+  if (page.tags && page.tags.length) {
+    const tagRow = el("div", "page-tags");
+    tagRow.appendChild(tagChips(page.tags));
+    head.appendChild(tagRow);
+  }
   host.appendChild(head);
 
   page.sections.forEach((s, i) => {
@@ -521,7 +576,11 @@ async function init() {
   buildPages(state.wiki);
   document.querySelectorAll(".tab").forEach((t) =>
     t.addEventListener("click", () => switchView(t.dataset.view)));
-  document.getElementById("wiki-search").addEventListener("input", () => renderWikiNav(currentFilter()));
+  document.getElementById("wiki-search").addEventListener("input", () => {
+    renderWikiNav(currentFilter());
+    // Keep the contents pane in sync while the landing TOC is showing.
+    if (!/^#page=/.test(location.hash)) renderWikiHome();
+  });
   window.addEventListener("hashchange", () => {
     if (document.getElementById("view-wiki").classList.contains("active")) routeFromHash();
   });

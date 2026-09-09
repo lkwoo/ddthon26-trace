@@ -10,8 +10,10 @@ from __future__ import annotations
 
 import json
 import re
+from dataclasses import replace
 
 from knowledge_store.ingestion.symbols import SymbolSpanExtractor
+from knowledge_store.ingestion.tagging import TagEnricher
 from knowledge_store.types import Chunk, ExtractionResult
 
 _HEADING_RE = re.compile(r"^#{1,6}\s")
@@ -37,16 +39,26 @@ class Chunker:
 
     def __init__(self) -> None:
         self._symbols = SymbolSpanExtractor()
+        self._enricher = TagEnricher()
 
     def chunk(self, extraction: ExtractionResult) -> list[Chunk]:
-        """Produce semantic chunks with stable ids + source metadata."""
+        """Produce semantic chunks with stable ids + source metadata.
+
+        Tags are enriched from each chunk's own content (symbols, links, salient
+        keywords, path/language facets) so the tag-match relationship reflects real
+        relatedness, not just literal ``#hashtags``. Enrichment leaves the chunk id
+        untouched (ids derive from path/ordinal/kind/text, never tags), so
+        versioning and the serialize round-trip are unaffected.
+        """
         if not extraction.ok:
             return []
         if extraction.tables:
-            return self._chunk_tables(extraction)
-        if extraction.is_code:
-            return self._chunk_code(extraction)
-        return self._chunk_text(extraction)
+            chunks = self._chunk_tables(extraction)
+        elif extraction.is_code:
+            chunks = self._chunk_code(extraction)
+        else:
+            chunks = self._chunk_text(extraction)
+        return [replace(c, tags=self._enricher.enrich(c)) for c in chunks]
 
     # -- strategies --------------------------------------------------------
     def _chunk_text(self, ex: ExtractionResult) -> list[Chunk]:

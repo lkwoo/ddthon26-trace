@@ -73,23 +73,72 @@ class MarkdownLinkStrategy:
 
 
 class TagMatchStrategy:
-    """Connect chunks that share at least one tag (US-3.3)."""
+    """Connect chunks that share substantive tags (US-3.3), weighted by selectivity.
+
+    Tags are enriched at chunk time (see :class:`~knowledge_store.ingestion.tagging.
+    TagEnricher`) with content facets — code symbols, link targets, salient keywords,
+    and path/language/kind. A naive "share any tag -> link" would then connect every
+    ``lang:python`` / ``kind:code`` chunk to every other (an O(n^2) flood of
+    non-substantive edges). Instead each shared tag contributes a score that is:
+
+    * **namespace-weighted** — a shared symbol or explicit link is a strong signal;
+      a shared keyword weaker; broad facets (``lang:``/``kind:``) carry no relation
+      signal at all (they remain on the chunk for search/filtering, just don't wire
+      pairwise edges);
+    * **selectivity-weighted** — the rarer a tag is across the corpus, the more it
+      says about the pair that shares it (inverse document frequency).
+
+    Per-pair scores accumulate across shared tags; only pairs clearing ``min_score``
+    are emitted, in **both directions** so ``read_relationships`` surfaces the link
+    from either endpoint. Everything is deterministic.
+    """
+
+    # Signal strength per tag namespace. Unprefixed (user #hashtag) -> strong (1.0).
+    _NS_WEIGHT = {
+        "sym": 1.0, "link": 1.0, "mod": 0.7, "kw": 0.6, "dir": 0.35,
+        "lang": 0.0, "kind": 0.0,  # facet-only: kept on chunks, no pairwise edge
+    }
+
+    def __init__(self, max_group: int = 60, min_score: float = 0.1) -> None:
+        self._max_group = max_group
+        self._min_score = min_score
+
+    def _weight(self, tag: str, df: int) -> float:
+        ns = tag.split(":", 1)[0] if ":" in tag else ""
+        base = self._NS_WEIGHT.get(ns, 1.0)
+        if base <= 0.0:
+            return 0.0
+        idf = 1.0 / (df - 1)  # df=2 -> 1.0, df=3 -> 0.5, ... rarer shares weigh more
+        return base * idf
 
     def build(self, chunks: list[Chunk]) -> list[Relationship]:
         by_tag: dict[str, list[str]] = {}
         for chunk in chunks:
             for tag in chunk.tags:
                 by_tag.setdefault(tag, []).append(chunk.id)
-        rels: list[Relationship] = []
-        seen: set[tuple[str, str]] = set()
+
+        pair_score: dict[tuple[str, str], float] = {}
         for tag, ids in by_tag.items():
             ids = sorted(set(ids))
+            df = len(ids)
+            # df < 2: nothing to link. df > max_group: too broad to be substantive
+            # (and O(df^2) to expand) — skip pairwise expansion.
+            if df < 2 or df > self._max_group:
+                continue
+            weight = self._weight(tag, df)
+            if weight <= 0.0:
+                continue
             for i, a in enumerate(ids):
                 for b in ids[i + 1:]:
-                    if (a, b) in seen:
-                        continue
-                    seen.add((a, b))
-                    rels.append(Relationship(a, b, RelationType.TAG, score=1.0))
+                    pair_score[(a, b)] = pair_score.get((a, b), 0.0) + weight
+
+        rels: list[Relationship] = []
+        for (a, b), score in sorted(pair_score.items()):
+            capped = round(min(1.0, score), 4)
+            if capped < self._min_score:
+                continue
+            rels.append(Relationship(a, b, RelationType.TAG, score=capped))
+            rels.append(Relationship(b, a, RelationType.TAG, score=capped))
         return rels
 
 

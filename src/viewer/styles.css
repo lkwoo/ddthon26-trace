@@ -141,6 +141,16 @@ footer {
   display: inline-block; padding: 0 0.4rem; border-radius: 4px;
   background: var(--edge); color: var(--fg); font-size: 0.7rem; margin-left: 0.35rem;
 }
+
+/* clickable tag chips (TOC + article head) — click to filter by that tag */
+.tag-chips { display: inline-flex; flex-wrap: wrap; gap: 0.3rem; margin-left: 0.35rem; }
+.page-tags { margin-top: 0.4rem; }
+.page-tags .tag-chips { margin-left: 0; }
+.tag-chip {
+  display: inline-block; padding: 0.05rem 0.45rem; border-radius: 999px;
+  background: var(--edge); color: var(--fg); font-size: 0.72rem; cursor: pointer;
+}
+.tag-chip:hover { background: var(--accent); color: #0f1419; }
 .notice { padding: 2rem; color: var(--muted); }
 
 /* floating node-info panel (tree & graph) */
