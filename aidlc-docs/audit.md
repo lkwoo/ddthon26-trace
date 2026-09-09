@@ -125,3 +125,47 @@ AI-DLC 워크플로우를 시작해봅시다."
 **Context**: INCEPTION - Application Design (Steps 8-12 — artifacts generated, approval gate)
 
 ---
+
+## Session Resume — Application Design Approved (auto-adopt) → Units Generation Start
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "aidlc-docs/aidlc-state.md를 확인하고, 첫번째 미완료 항목부터 이어서 진행해주세요. 모든 작업이 끝날때 까지 질문에 권장사항을 채택해서 자동으로 진행해주세요."
+**AI Response**: "Resumed session. Read aidlc-state.md: first incomplete Stage Progress item is Application Design (artifacts generated, awaiting approval). Per the user's standing directive to continue from the first incomplete item and to auto-adopt recommended options for all questions until all work is complete, interpreted this as explicit approval of the generated Application Design artifacts (application-design.md, components.md, component-methods.md, services.md, component-dependency.md). Marked Application Design [x] in aidlc-state.md. Proceeding to Units Generation Part 1 (Planning): loaded inception/units-generation.md rule details; authoring aidlc-docs/inception/plans/unit-of-work-plan.md with decomposition plan checkboxes and embedded [Answer]: questions across Story Grouping, Dependencies, Team Alignment, Technical Considerations, Business Domain, and Code Organization; will self-answer with recommended options per the auto-proceed directive, run Step 7 ambiguity analysis, then proceed to generation."
+**Context**: INCEPTION - Application Design approved (auto-adopt) → Units Generation Part 1 start
+
+---
+
+## Units Generation - Part 1 Planning Complete (auto-adopt) → Part 2 Generation
+**Timestamp**: 2026-09-09T00:00:00Z
+**AI Prompt**: "Unit of work plan complete at aidlc-docs/inception/plans/unit-of-work-plan.md. 9 decomposition questions (Story Grouping, Granularity, Dependencies, Shared Resources, Team Alignment, Technical, Business Domain, Code Organization, cross-unit ordering) pre-filled with recommended options. Ready to proceed to generation?"
+**User Response**: Auto-adopt per standing directive "모든 작업이 끝날때 까지 질문에 권장사항을 채택해서 자동으로 진행해주세요."
+**AI Response**: "Step 7 ambiguity analysis: all answers are the single recommended option, consistent with confirmed Application Design decisions and the component build order; no vague/contradictory/combined answers; no follow-ups required. Decomposition: 8 capability-layered units in a single installable Python package (Storage Foundation; Embedding & Search; Ingestion & Chunking; Code Structure & Relationships; Retrieval & Summarization; Service Orchestration & MCP Server; Wiki Export & Web Viewer; Installer & Packaging). Marked Part 1 checkboxes [x]. Proceeding to Part 2: generating unit-of-work.md, unit-of-work-dependency.md, unit-of-work-story-map.md."
+**Status**: Part 1 Approved (auto-adopt)
+**Context**: INCEPTION - Units Generation Part 1 complete → Part 2 generation
+
+---
+
+## Units Generation - Part 2 Complete + Approved (auto-adopt) → CONSTRUCTION Phase
+**Timestamp**: 2026-09-09T00:00:00Z
+**AI Prompt**: "🔧 Units Generation Complete — 8 units generated (unit-of-work.md, unit-of-work-dependency.md, unit-of-work-story-map.md). Review at aidlc-docs/inception/application-design/. Approve & Continue to CONSTRUCTION?"
+**User Response**: Auto-adopt per standing directive.
+**AI Response**: "Generated all 3 mandatory unit artifacts. Validated: dependency graph is a DAG (no cycles), single sanctioned cross-orchestration edge U6→U7, all 28 stories assigned with full coverage (5+5+3+6+4+5 primary = 28), U1/U2 are foundation units validated indirectly + unit tests. Marked Part 2 checkboxes [x] and Units Generation complete in aidlc-state.md. Entering CONSTRUCTION per-unit loop at U1 Storage Foundation (build order U1→U8). Per-unit stages: Functional Design → NFR Requirements → NFR Design → (Infrastructure Design SKIP) → Code Generation, all under auto-adopt."
+**Status**: Units Generation Complete (auto-adopt)
+**Context**: INCEPTION complete → CONSTRUCTION Phase, U1 start
+
+---
+
+## CONSTRUCTION — Code Generation (all 8 units) + Test Suite
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "aidlc-docs/aidlc-state.md를 확인하고, 첫번째 미완료 항목부터 이어서 진행해주세요. 모든 작업이 끝날때 까지 질문에 권장사항을 채택해서 자동으로 진행해주세요."
+**AI Response**: "Under auto-adopt, generated actual working Python for all 8 units (U1 store/, U2 embedding/, U3 ingestion/, U4 codegraph/, U5 retrieval/, U6 services/ + mcp/, U7 wiki/ + viewer/, U8 install/ + pyproject.toml) in dependency order U1→U8, LLM-free/offline with graceful fallbacks (sqlite-vec, fastembed, tree-sitter, pypdf, openpyxl, mcp all optional). Verified end-to-end pipeline smoke (ingest→chunk→version→graph→embed→relate→summarize→wiki export = SMOKE OK). Then wrote pytest suite under tests/ mirroring the package with Hypothesis PBT for the enforced properties: Chunker serialize/deserialize round-trip (PBT-02), ChunkVersioner MinHash determinism + TokenEstimator monotonicity + SnippetBuilder budget invariant (PBT-03), reusable domain generators (PBT-07), print_blob/derandomize config for reproducibility (PBT-08), Hypothesis framework (PBT-09), plus example-based tests (PBT-10) for extractors, analyzer, mcp tools, install, and full pipeline. Bootstrapped pip via get-pip.py into a local .venv (no system pip), installed pytest+hypothesis, ran the suite: 36 passed (PBT properties run 200-300 examples each). Added LICENSE (Apache-2.0), NOTICE (preserving Graphify Apache-2.0 + obsidian-wiki MIT attributions, NFR-7), README.md (agent-readable install, US-8.4), and .gitignore."
+**Status**: Code Generation Complete for all units; tests green (auto-adopt)
+**Context**: CONSTRUCTION Phase — Code Generation (per-unit, ALWAYS) + shared test suite
+
+---
+
+## CONSTRUCTION — Per-Unit Design Docs + Build & Test (completion)
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "aidlc-docs/aidlc-state.md를 확인하고, 첫번째 미완료 항목부터 이어서 진행해주세요. 모든 작업이 끝날때 까지 질문에 권장사항을 채택해서 자동으로 진행해주세요."
+**AI Response**: "Under auto-adopt, delegated per-unit AI-DLC design documentation to 4 parallel subagents (2 units each), each reading the actual source; generated all 64 per-unit docs under aidlc-docs/construction/<unit>/ (functional-design: business-logic-model/business-rules/domain-entities incl. Testable Properties PBT-01; nfr-requirements: nfr-requirements/tech-stack-decisions; nfr-design: nfr-design-patterns/logical-components; code: code-summary). Wrote Build & Test instruction files (build/unit-test/integration/performance/summary) with PBT seed/reproducibility guidance (PBT-08), and a consolidated code-generation-plan.md. A subagent flagged that the U7 wiki exporter was only covered by the earlier manual smoke; added tests/wiki/test_exporter.py to give it automated coverage — suite now 38 passed. Updated the Build&Test docs' counts (36→38) and test-mapping. Marked all CONSTRUCTION stages complete in aidlc-state.md; only the OPERATIONS placeholder (out of scope) remains. Extension compliance: Security N/A (OFF), PBT Partial compliant, Resiliency N/A (OFF); license notices preserved (NFR-7)."
+**Status**: CONSTRUCTION Complete — project deliverable done (auto-adopt)
+**Context**: CONSTRUCTION Phase — per-unit design docs + Build and Test; workflow complete

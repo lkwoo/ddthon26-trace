@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "knowledge-store"
+version = "0.1.0"
+description = "Dual-Interface Knowledge Store — an LLM-free, local MCP knowledge base with a human D3 wiki viewer"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "ddthon26-trace" }]
+keywords = ["mcp", "knowledge-base", "code-graph", "embeddings", "sqlite-vec"]
+
+# Core runtime deps are intentionally minimal. Heavy/optional integrations
+# (tree-sitter, sqlite-vec, embeddings, PDF/xlsx) are declared as extras so the
+# package imports and its deterministic core tests run without them (NFR-3/NFR-4).
+dependencies = []
+
+[project.optional-dependencies]
+mcp = ["mcp>=1.0.0"]
+embeddings = ["fastembed>=0.3.0"]
+vec = ["sqlite-vec>=0.1.0"]
+code = ["tree-sitter>=0.21.0", "tree-sitter-language-pack>=0.2.0"]
+docs = ["pypdf>=4.0.0", "openpyxl>=3.1.0"]
+test = ["pytest>=8.0", "hypothesis>=6.100"]
+all = [
+    "mcp>=1.0.0",
+    "fastembed>=0.3.0",
+    "sqlite-vec>=0.1.0",
+    "tree-sitter>=0.21.0",
+    "tree-sitter-language-pack>=0.2.0",
+    "pypdf>=4.0.0",
+    "openpyxl>=3.1.0",
+]
+
+[project.scripts]
+knowledge-store = "knowledge_store.install.cli:main"
+knowledge-store-mcp = "knowledge_store.mcp.server:main"
+
+[tool.setuptools.packages.find]
+include = ["knowledge_store*"]
+
+[tool.setuptools.package-data]
+knowledge_store = ["viewer/**/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.hypothesis]
+# PBT-08: deterministic reproducibility — seed logged on failure; CI-friendly.
+derandomize = false
+print_blob = true

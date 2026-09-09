@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Knowledge Store — Wiki Viewer</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- D3 v7. Loaded from CDN; if offline, the viewer still renders the wiki
+       content and shows a notice for the tree/graph views. -->
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Knowledge Store</h1>
+    <nav>
+      <button data-testid="tab-tree" class="tab active" data-view="tree">Structure Tree</button>
+      <button data-testid="tab-graph" class="tab" data-view="graph">Dependency Graph</button>
+      <button data-testid="tab-wiki" class="tab" data-view="wiki">Wiki</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="view-tree" class="view active">
+      <div id="tree" class="canvas"></div>
+    </section>
+    <section id="view-graph" class="view">
+      <div id="graph" class="canvas"></div>
+    </section>
+    <section id="view-wiki" class="view">
+      <div id="wiki-search-bar">
+        <input data-testid="wiki-search-input" id="wiki-search" type="search"
+               placeholder="Filter wiki entries…" />
+      </div>
+      <div id="wiki" class="wiki-list"></div>
+    </section>
+  </main>
+
+  <footer>
+    <span id="status">Loading…</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
