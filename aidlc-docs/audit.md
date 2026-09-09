@@ -498,3 +498,10 @@
 **AI Response**: Part 1 계획 승인 → Part 2 실행. 생성: mcp_server/{__init__,serialize,server,__main__}.py + engine list_features/get_feature_knowledge·engine/__init__·pyproject mcp>=2.0·common/errors.error_to_result 견고화. 테스트 3종 신설. 계획 체크박스 C1~C7/T1~T3/V1~V4 전부 [x]. 결과: pytest 142 passed·3 skipped(옵트인), 신규 모듈 mypy-clean. build_server 5도구+trace:// 리소스+P1 프롬프트 등록 확인, 핸들러 오류 격리 무크래시, 직렬화 핵심우선. 설치 mcp 2.x(MCPServer) 검증. code-summary.md 작성. 승인 대기(GATE).
 **Status**: 승인 대기 (GATE)
 **Context**: CONSTRUCTION - Code Generation(UOW-05) Part 2 구현 완료
+
+## Code Generation (UOW-05) GATE 승인 & UOW-06 착수 판정
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인"
+**AI Response**: UOW-05 Code Generation 승인(per-unit loop UOW-05 완료). → UOW-06(통합·신뢰성·시연) 착수. 적응형 판정: UOW-06은 수렴/통합 유닛(기존 계약 재사용, 신규 비즈니스 로직 없음, 보안/신뢰성은 per-unit 확립됨) → Functional Design·NFR SKIP, Code Generation EXECUTE. uow-06-code-generation-plan.md(Part 1) 작성. 스크린샷 한계 명시(GUI 스크린샷은 API 키+Claude Code 필요 → 결정적 CLI/데모 텍스트 실행증거 + GUI 캡처 가이드로 대체 제공).
+**Status**: 승인 대기 (GATE, Part 1 계획)
+**Context**: CONSTRUCTION - Code Generation(UOW-06) Part 1 계획 작성 (FD/NFR SKIP)

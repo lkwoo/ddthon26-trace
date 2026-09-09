@@ -74,8 +74,9 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: Code Generation — UOW-05 (MCP 서버), Part 2 구현 완료 — 승인 대기 (GATE). (FD SKIP)
-- **Next Stage**: UOW-05 Code Generation 승인 → UOW-06 (통합·신뢰성·시연: Hero E2E·README·페르소나 여정·스크린샷·CLI 폴백)
+- **Current Stage**: Code Generation — UOW-06 (통합·시연), Part 1 계획 작성 완료 — 승인 대기 (GATE). (FD/NFR SKIP)
+- **Next Stage**: UOW-06 Code Generation Part 1 승인 → Part 2 구현 → Build and Test → (Construction 완료)
+- **스크린샷 한계**: GUI 캡처는 API 키+Claude Code 필요 → 결정적 CLI/데모 텍스트 실행증거(result/hero-demo-output.txt) + GUI 캡처 가이드로 대체.
 - **Status(코드 UOW-05)**: mcp_server/{serialize,server,__main__} + engine list_features/get_feature_knowledge + error_to_result 견고화. pytest 142 pass·3 skip, 신규 mypy-clean. build_server 5도구=코어 1:1+trace:// 리소스+P1 프롬프트, 핸들러 오류 격리 무크래시, 직렬화 핵심우선. mcp>=2.0(설치 2.x MCPServer 검증), mcp 지연임포트. 코어 5함수 전부 MCP 노출 완료. (사전존재 llm/client.py mypy 경고 1건은 범위 밖 유지)
 - **Status(NFR-Design UOW-05)**: build_server 팩토리+데코레이터·얇은 핸들러 오류 격리·_root(cwd/env)·serialize_result 핵심우선·코어 래퍼 list_features/get_feature_knowledge·trace:// 리소스·P1 프롬프트. mcp_server/{__main__,server,serialize}, pyproject mcp>=2.0, mcp 지연임포트. 확장 Resiliency Compliant·PBT N/A.
 - **Status(NFR UOW-05)**: Q1~Q4=A. mcp>=2.0 상향(설치 2.x MCPServer), 5도구=코어 1:1(타입힌트 스키마)·stdio·cwd+TRACE_PROJECT_ROOT·오류 격리 무크래시·직렬화 핵심우선·trace:// 리소스·P1 프롬프트. 코어 래퍼 list_features/get_feature_knowledge 추가 예정. mcp 지연임포트. 확장 Resiliency Compliant·PBT N/A.
