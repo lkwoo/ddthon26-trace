@@ -288,3 +288,10 @@
 **AI Response**: UOW-01 NFR Requirements 승인 → NFR Design(UOW-01). 추가 질문 없음(패턴이 앞 단계에서 일의적 도출). 산출물 2종: nfr-design-patterns.md(P1 경로검증 게이트+canonicalization, P2 prune-on-descent 순회, P3 파서 레지스트리(Strategy), P4 크기상한 스트리밍, P5 per-item 실패격리+sanitize, P6 Warning 코드 체계 7종, P7 config 분리 get_scan_settings, P8 PBT 배치 4속성, P9 결정성), logical-components.md(models/asset.py·config/scan_settings.py·engine/{scanner,classifier,parsers,scan}.py 시그니처·의존방향·테스트 3파일·pypdf 런타임 승격).
 **Status**: 승인 대기 (GATE)
 **Context**: CONSTRUCTION - NFR Design(UOW-01) 산출물 생성 완료
+
+## NFR Design (UOW-01) GATE 승인 & Code Generation Part 1 계획
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인"
+**AI Response**: UOW-01 NFR Design 승인 → Code Generation(UOW-01) Part 1 계획 작성. uow-01-code-generation-plan.md: A(models/asset.py·config/scan_settings.py) B(engine/{classifier,parsers,scanner,scan}.py) C(errors PathValidationError+sanitize) D(tests: test_classifier·test_scanner_scan·test_scanner_properties[PBT 4속성]) E(pyproject pypdf 런타임 승격·pytest·code-summary·커밋). 경계=스캔+텍스트화+분류, 결정성·보안·오케스트레이션 훅 준수.
+**Status**: 승인 대기 (GATE, Part 1)
+**Context**: CONSTRUCTION - Code Generation(UOW-01) Part 1 계획 작성 완료

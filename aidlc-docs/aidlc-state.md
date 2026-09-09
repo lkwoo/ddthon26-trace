@@ -74,6 +74,6 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: NFR Design — UOW-01 (스캐너 & 파서), 산출물 생성 완료 — 승인 대기 (GATE)
-- **Next Stage**: UOW-01 NFR Design 승인 → Code Generation(UOW-01) Part 1 계획
-- **Status**: UOW-01 NFR Design 완료 — 추가 질문 없음(패턴 도출 일의적). nfr-design-patterns.md(P1~P9: 경로검증 게이트·prune 순회·파서 레지스트리·크기상한·실패격리·Warning 코드체계·config 분리·PBT 배치·결정성), logical-components.md(engine/ 4모듈+models/asset+config/scan_settings, 시그니처·의존방향·테스트 배치·pypdf 런타임 승격).
+- **Current Stage**: Code Generation — UOW-01 (스캐너 & 파서), Part 1 계획 작성 완료 — 승인 대기 (GATE)
+- **Next Stage**: Code Gen Part 1 승인 → Part 2(engine/·models/asset·config/scan_settings 구현 + 테스트 3종, pytest)
+- **Status**: UOW-01 NFR Design 승인. Code Generation Part 1 계획 작성 — models/asset.py·config/scan_settings.py·engine/{scanner,classifier,parsers,scan}.py + tests/{test_classifier,test_scanner_scan,test_scanner_properties(PBT 4속성)}.py + pyproject(pypdf 런타임 승격) 열거.
