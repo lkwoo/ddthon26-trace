@@ -337,3 +337,10 @@
 **AI Response**: UOW-02 NFR Requirements 승인 → NFR Design(UOW-02). 추가 질문 없음(패턴 일의적). 산출물 2종: nfr-design-patterns.md(P1 카탈로그 빌더+절단, P2 구조화 LLM step+단계 강등, P3 id 안전화/slugify, P4 KnowledgeStore repository, P5 콘텐츠 해시 캐시(순서무관·손상=미스), P6 build_knowledge cache-first+per-item 격리, P7 프롬프트 템플릿, P8 테스트 배치(FakeLLM+PBT+llm_integration), P9 결정성/보안), logical-components.md(models/feature_candidate·workflow/{catalog,features}·knowledge/{ids,store,cache}·프롬프트 2종·테스트 5종·pytest marker·의존방향).
 **Status**: 승인 대기 (GATE)
 **Context**: CONSTRUCTION - NFR Design(UOW-02) 산출물 생성 완료
+
+## NFR Design (UOW-02) GATE 승인 & Code Generation Part 1 계획
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인"
+**AI Response**: UOW-02 NFR Design 승인 → Code Generation(UOW-02) Part 1 계획. uow-02-code-generation-plan.md: A(models/feature_candidate) B(knowledge/{ids,store,cache}) C(workflow/{catalog,features}) D(프롬프트 identify_features·feature_knowledge) E(테스트 5종: store·cache·workflow·PBT·llm_integration 옵트인) F(pyproject marker·pytest·code-summary·커밋). 경계 Q2=A(식별+지식셸+캐시), 부분실패 강등·결정성·보안·오프라인 테스트 기본 준수.
+**Status**: 승인 대기 (GATE, Part 1)
+**Context**: CONSTRUCTION - Code Generation(UOW-02) Part 1 계획 작성 완료
