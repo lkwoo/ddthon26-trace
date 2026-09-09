@@ -66,7 +66,7 @@
 - [ ] NFR Requirements — EXECUTE (per-unit) — ✅ UOW-0F/00/01/02/03/04 완료 / ✅ UOW-05 산출물 생성(2026-09-09, GATE)
 - [ ] NFR Design — EXECUTE (per-unit) — ✅ UOW-0F / UOW-00 SKIP / ✅ UOW-01/02/03/04 완료 / ✅ UOW-05 산출물 생성(2026-09-09, GATE)
 - [ ] Infrastructure Design — SKIP
-- [ ] Code Generation — EXECUTE (per-unit) — ✅ UOW-0F/00/01/02/03 완료 / ✅ UOW-04 완료·승인대기(2026-09-09, 131 pass·3 skip) / 🔄 UOW-05~06 진행
+- [ ] Code Generation — EXECUTE (per-unit) — ✅ UOW-0F/00/01/02/03/04 완료 / ✅ UOW-05 완료·승인대기(2026-09-09, 142 pass·3 skip) / 🔄 UOW-06 진행
 - [ ] Build and Test — EXECUTE
 
 ### 🟡 OPERATIONS PHASE
@@ -74,8 +74,9 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: Code Generation — UOW-05 (MCP 서버), Part 1 계획 작성 완료 — 승인 대기 (GATE). (FD SKIP)
-- **Next Stage**: UOW-05 Code Generation Part 1 승인 → Part 2 구현 → UOW-06 (통합·시연)
+- **Current Stage**: Code Generation — UOW-05 (MCP 서버), Part 2 구현 완료 — 승인 대기 (GATE). (FD SKIP)
+- **Next Stage**: UOW-05 Code Generation 승인 → UOW-06 (통합·신뢰성·시연: Hero E2E·README·페르소나 여정·스크린샷·CLI 폴백)
+- **Status(코드 UOW-05)**: mcp_server/{serialize,server,__main__} + engine list_features/get_feature_knowledge + error_to_result 견고화. pytest 142 pass·3 skip, 신규 mypy-clean. build_server 5도구=코어 1:1+trace:// 리소스+P1 프롬프트, 핸들러 오류 격리 무크래시, 직렬화 핵심우선. mcp>=2.0(설치 2.x MCPServer 검증), mcp 지연임포트. 코어 5함수 전부 MCP 노출 완료. (사전존재 llm/client.py mypy 경고 1건은 범위 밖 유지)
 - **Status(NFR-Design UOW-05)**: build_server 팩토리+데코레이터·얇은 핸들러 오류 격리·_root(cwd/env)·serialize_result 핵심우선·코어 래퍼 list_features/get_feature_knowledge·trace:// 리소스·P1 프롬프트. mcp_server/{__main__,server,serialize}, pyproject mcp>=2.0, mcp 지연임포트. 확장 Resiliency Compliant·PBT N/A.
 - **Status(NFR UOW-05)**: Q1~Q4=A. mcp>=2.0 상향(설치 2.x MCPServer), 5도구=코어 1:1(타입힌트 스키마)·stdio·cwd+TRACE_PROJECT_ROOT·오류 격리 무크래시·직렬화 핵심우선·trace:// 리소스·P1 프롬프트. 코어 래퍼 list_features/get_feature_knowledge 추가 예정. mcp 지연임포트. 확장 Resiliency Compliant·PBT N/A.
 - **Status(코드 UOW-04)**: models/impact + impact/{context,analyze} + engine.analyze_task_impact + analyze_task 프롬프트. pytest 131 pass·3 skip(옵트인), 신규 mypy-clean. 지식 그라운딩·허구 path/근거부족 review 강등·기존 conflicts related_conflicts 노출(LLM 실패에도 유지)·순서형 Change Plan·소스 자동수정 없음. to_impact_out 정렬 완전 순서화(PBT-04-C). 코어 5함수 중 analyze_project/get_conflicts/analyze_task_impact 완비(scan_project·list_features 잔여는 UOW-05 배선).

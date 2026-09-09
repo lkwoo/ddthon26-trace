@@ -7,6 +7,11 @@ BR-ERR-002: 어댑터(C1 MCP / C9 CLI)가 이 예외를 사용자용 Result로 �
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from trace.models.result import Result
+
 
 class TraceError(Exception):
     """TRACE 도메인/서비스 오류의 베이스 타입."""
@@ -63,18 +68,21 @@ def sanitize_error(exc: BaseException) -> str:
     return f"{name}: {safe_message}" if safe_message else name
 
 
-def error_to_result(error: TraceError) -> "Result":
-    """TraceError를 사용자용 Result로 변환 (어댑터 경계 전용, P3).
+def error_to_result(error: BaseException) -> "Result":
+    """예외를 사용자용 Result로 변환 (어댑터 경계 전용, P3).
 
     코어는 예외를 raise만 하고, C1/C9 어댑터가 이 헬퍼로 사용자 표현을 만든다.
     내부 스택/경로 원문은 담지 않고 code+안전한 메시지만 전달한다.
+    TraceError가 아닌 예상 밖 예외도 안전하게 흡수한다(어댑터 무크래시, NFR-05-REL-1).
     """
     # 지연 임포트로 순환 의존 회피 (result → 이 모듈 참조 없음, 방향 유지)
     from trace.models.result import Result, Warning
 
+    code = getattr(error, "code", None) or "internal_error"
+    safe = sanitize_error(error)
     return Result(
-        summary=f"요청을 완료하지 못했습니다: {error}",
+        summary=f"요청을 완료하지 못했습니다: {safe}",
         data={},
-        warnings=[Warning(code=error.code, message=str(error))],
-        meta={"error": True, "error_code": error.code},
+        warnings=[Warning(code=code, message=safe)],
+        meta={"error": True, "error_code": code},
     )

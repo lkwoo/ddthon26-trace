@@ -139,6 +139,38 @@ def get_conflicts(feature_id: str | None = None, *, path: str = ".") -> Result:
     )
 
 
+def list_features(*, path: str = ".") -> Result:
+    """저장된 Feature 요약 목록을 반환한다 (FR-KNOWLEDGE-OUT, UOW-05 코어 래퍼)."""
+    try:
+        summaries = KnowledgeStore(path).list_feature_summaries()
+    except Exception as exc:  # noqa: BLE001
+        return error_to_result(exc)
+    return build_result(
+        f"Feature {len(summaries)}개",
+        data={"features": [s.model_dump() for s in summaries]},
+        meta={"features_count": len(summaries)},
+    )
+
+
+def get_feature_knowledge(feature_id: str, *, path: str = ".") -> Result:
+    """한 Feature의 지식(구조화 필드)을 반환한다. 본문은 리소스로 조회 (UOW-05 코어 래퍼)."""
+    try:
+        fk = KnowledgeStore(path).load_feature(feature_id)
+    except Exception as exc:  # noqa: BLE001 — 부재/손상은 오류 Result
+        return error_to_result(exc)
+    return build_result(
+        f"{fk.feature.title} — claims {len(fk.claims)}, conflicts {len(fk.conflicts)}",
+        data={
+            "feature": fk.feature.model_dump(),
+            "claims": [c.model_dump() for c in fk.claims],
+            "confidence": [c.model_dump() for c in fk.confidence],
+            "resource_uri": f"trace://feature/{fk.feature.id}",
+        },
+        conflicts=summarize_conflicts(fk.conflicts),
+        meta={"conflicts_count": len(fk.conflicts)},
+    )
+
+
 def analyze_task_impact(
     task: str,
     feature_id: str | None = None,
@@ -197,4 +229,7 @@ def analyze_task_impact(
     )
 
 
-__all__ = ["analyze_project", "get_conflicts", "analyze_task_impact"]
+__all__ = [
+    "analyze_project", "get_conflicts", "analyze_task_impact",
+    "list_features", "get_feature_knowledge",
+]

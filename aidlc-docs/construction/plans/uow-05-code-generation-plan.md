@@ -12,24 +12,24 @@
 ## 생성/수정 파일
 
 ### 코드
-- [ ] C1. `trace/engine/analyze.py` **[수정]** — `list_features(*, path=".")`, `get_feature_knowledge(feature_id, *, path=".")` (store 위임·Result·부재→error_to_result).
-- [ ] C2. `trace/engine/__init__.py` **[수정]** — 위 2함수 export.
-- [ ] C3. `trace/mcp_server/__init__.py` **[신설]** — 패키지 docstring(지연 임포트 주석).
-- [ ] C4. `trace/mcp_server/serialize.py` **[신설]** — `serialize_result(Result) -> dict` (model_dump(exclude_none)·핵심 우선 키 순서).
-- [ ] C5. `trace/mcp_server/server.py` **[신설]** — `build_server() -> MCPServer`(5 도구·리소스·프롬프트 등록), `_root()`(TRACE_PROJECT_ROOT/cwd). 각 도구 try/except→serialize_result(error_to_result).
-- [ ] C6. `trace/mcp_server/__main__.py` **[신설]** — `main()`: `build_server().run("stdio")`.
-- [ ] C7. `pyproject.toml` **[수정]** — `mcp>=1.2.0` → `mcp>=2.0`.
+- [x] C1. `trace/engine/analyze.py` **[수정]** — `list_features(*, path=".")`, `get_feature_knowledge(feature_id, *, path=".")` (store 위임·Result·부재→error_to_result).
+- [x] C2. `trace/engine/__init__.py` **[수정]** — 위 2함수 export.
+- [x] C3. `trace/mcp_server/__init__.py` **[신설]** — 패키지 docstring(지연 임포트 주석).
+- [x] C4. `trace/mcp_server/serialize.py` **[신설]** — `serialize_result(Result) -> dict` (model_dump(exclude_none)·핵심 우선 키 순서).
+- [x] C5. `trace/mcp_server/server.py` **[신설]** — `build_server() -> MCPServer`(5 도구·리소스·프롬프트 등록), `_root()`(TRACE_PROJECT_ROOT/cwd). 각 도구 try/except→serialize_result(error_to_result).
+- [x] C6. `trace/mcp_server/__main__.py` **[신설]** — `main()`: `build_server().run("stdio")`.
+- [x] C7. `pyproject.toml` **[수정]** — `mcp>=1.2.0` → `mcp>=2.0`.
 
 ### 테스트
-- [ ] T1. `tests/test_serialize_result.py` — 키 순서(summary→…→meta)·None/빈 제외·conflicts/impact 포함.
-- [ ] T2. `tests/test_core_wrappers.py` — list_features/get_feature_knowledge Result(tmp 지식·부재→오류 Result).
-- [ ] T3. `tests/test_mcp_server.py` — `importorskip("mcp")`: build_server 5 도구 등록 목록, 리소스/프롬프트 등록, 도구 핸들러 오류→구조화 Result.
+- [x] T1. `tests/test_serialize_result.py` — 키 순서(summary→…→meta)·None/빈 제외·conflicts/impact 포함.
+- [x] T2. `tests/test_core_wrappers.py` — list_features/get_feature_knowledge Result(tmp 지식·부재→오류 Result).
+- [x] T3. `tests/test_mcp_server.py` — `importorskip("mcp")`: build_server 5 도구 등록 목록, 리소스/프롬프트 등록, 도구 핸들러 오류→구조화 Result.
 
 ### DoD 검증
-- [ ] V1. `pytest -q` 전체 green(기존 131 pass 유지 + 신규), `llm_integration` skip.
-- [ ] V2. 신규 모듈 mypy-clean(server.py는 mcp 동적 타입 — 필요한 최소 ignore만).
-- [ ] V3. build_server()가 5 도구 + 리소스 템플릿 + 프롬프트 등록, `main` import 가능.
-- [ ] V4. code-summary.md 작성.
+- [x] V1. `pytest -q` 전체 green(기존 131 pass 유지 + 신규), `llm_integration` skip.
+- [x] V2. 신규 모듈 mypy-clean(server.py는 mcp 동적 타입 — 필요한 최소 ignore만).
+- [x] V3. build_server()가 5 도구 + 리소스 템플릿 + 프롬프트 등록, `main` import 가능.
+- [x] V4. code-summary.md 작성.
 
 ---
 
