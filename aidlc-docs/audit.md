@@ -246,3 +246,10 @@
 **AI Response**: UOW-00 NFR Requirements 승인 → NFR Design(UOW-00) SKIP(런타임 패턴 없음) → Code Generation(UOW-00) Part 1 계획 작성. uow-00-code-generation-plan.md: 생성대상 A(demo/ 자산 A1~A10: README/PDF/notes/openapi/schema.sql/Owner·Pet Java/properties/tests) + B(tests/test_demo_dataset_integrity.py: INV-C1~C3·R1/R2/R4/R5 assert, PBT 대체) + C(pytest 검증·code-summary·커밋). 준수: 결정성·시크릿더미·라이선스고지·Owner+Pet 범위. aidlc-state에 NFR Requirements UOW-00 완료·NFR Design UOW-00 SKIP 기록.
 **Status**: 승인 대기 (GATE, Part 1)
 **Context**: CONSTRUCTION - Code Generation(UOW-00) Part 1 계획 작성 완료
+
+## Code Generation (UOW-00) Part 1 승인 & Part 2 완료
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인"
+**AI Response**: UOW-00 Code Generation Part 1 계획 승인 → Part 2 실행. demo/ 픽스처 생성: README(매니페스트+라이선스+충돌3건표), owner-management-spec.pdf(reportlab invariant 결정적 생성, telephone≤20·email필수), maintenance-notes.md(Pet.birthDate 검증규칙), petclinic-rest.yaml(telephone maxLength 10·email없음), schema.sql(VARCHAR(10)·email컬럼없음), Owner/Pet Java 7파일, application.properties(더미시크릿), OwnerControllerTests.java. tests/test_demo_dataset_integrity.py(12 tests, PBT 대체) 생성. `pytest` 43 passed(31+12). PDF 2회 생성 바이트 동일(R1 결정성) 확인. pyproject [dev]에 pypdf>=4.0 추가(테스트 PDF추출용). code-summary.md 작성, 계획 체크박스 전부 [x].
+**Status**: 승인 대기 (GATE, Part 2)
+**Context**: CONSTRUCTION - Code Generation(UOW-00) Part 2 완료

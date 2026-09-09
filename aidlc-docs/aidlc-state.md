@@ -74,6 +74,6 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: Code Generation — UOW-00 (데모 데이터셋), Part 1 계획 작성 완료 — 승인 대기 (GATE)
-- **Next Stage**: Code Gen Part 1 승인 → Part 2(demo/ 픽스처 파일 + 무결성 테스트 생성)
-- **Status**: UOW-00 NFR Requirements 승인. NFR Design(UOW-00)=SKIP(런타임 패턴 없음). Code Generation Part 1 계획 작성 — demo/ 자산(README·PDF·md·yaml·sql·java·properties·test) + tests/ 데이터셋 무결성 테스트(INV-C1~C3, R1~R5) 열거.
+- **Current Stage**: Code Generation — UOW-00 (데모 데이터셋), Part 2 완료 — 승인 대기 (GATE)
+- **Next Stage**: UOW-00 승인 → UOW-01(스캐너/파서) per-unit 루프 (Functional Design부터)
+- **Status**: UOW-00 코드 생성 완료 — demo/(README·PDF·maintenance-notes·openapi·schema.sql·Owner/Pet Java 7개·properties·Java test) + tests/test_demo_dataset_integrity.py(12). `pytest` 43 passed(31+12). 의도적 충돌 3건(C-1 telephone value_mismatch P0 / C-2 Pet.birthDate stale_knowledge / C-3 email policy_conflict) 데이터에 고정·검증. PDF 결정성(reportlab invariant, 바이트 동일) 확인. pypdf>=4.0 dev 의존성 추가. 승인 대기.

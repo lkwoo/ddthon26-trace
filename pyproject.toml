@@ -24,6 +24,7 @@ dev = [
     "pytest>=8.0",
     "hypothesis>=6.100",
     "mypy>=1.9",
+    "pypdf>=4.0",
 ]
 
 [project.scripts]

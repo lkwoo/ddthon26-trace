@@ -14,28 +14,28 @@
 ## 생성 대상 파일 (체크박스)
 
 ### A. 데모 자산 — `demo/`
-- [ ] A1. `demo/README.md` — 매니페스트: 각 파일 용도, 출처/라이선스(Apache-2.0 발췌·개변), **의도적 충돌 3건 표**(INV-C1~C3와 동기화, R5)
-- [ ] A2. `demo/requirements/owner-management-spec.pdf` — 합성 PDF 요구사항(P0 파서 대상). 내용: Owner telephone **최대 20자(국제형식)**, **email 필수(신규 정책)**. Q2=A 완성 바이너리 커밋
-- [ ] A3. `demo/requirements/maintenance-notes.md` — 유지보수 지식 노트: "Pet.birthDate는 미래 일자를 거부하도록 검증된다"(코드와 드리프트 → C-2)
-- [ ] A4. `demo/openapi/petclinic-rest.yaml` — Owner/Pet 경로. `telephone: maxLength 10`, **email 필드 없음**
-- [ ] A5. `demo/db/schema.sql` — `owners(telephone VARCHAR(10), email 컬럼 없음)`, `pets`, `types`
-- [ ] A6. `demo/src/main/java/org/springframework/samples/petclinic/owner/Owner.java` — `@Size(max=10) telephone`, email 필드 없음
-- [ ] A7. `.../owner/OwnerRestController.java` + `.../owner/OwnerDto.java` — Owner CRUD, DTO(email 없음)
-- [ ] A8. `.../pet/Pet.java` + `.../pet/PetType.java` — `birthDate` 필드, **미래일자 검증 애너테이션 없음**(C-2)
-- [ ] A9. `demo/config/application.properties` — 로컬 설정, **시크릿 없음/더미값만**(R2)
-- [ ] A10. `demo/tests/OwnerControllerTests.java` — telephone 최대 10자 가정 인코딩(드리프트 고착, C-1 근거 보강)
+- [x] A1. `demo/README.md` — 매니페스트: 각 파일 용도, 출처/라이선스(Apache-2.0 발췌·개변), **의도적 충돌 3건 표**(INV-C1~C3와 동기화, R5)
+- [x] A2. `demo/requirements/owner-management-spec.pdf` — 합성 PDF 요구사항(P0 파서 대상). 내용: Owner telephone **최대 20자(국제형식)**, **email 필수(신규 정책)**. Q2=A 완성 바이너리 커밋 (reportlab invariant, 결정적)
+- [x] A3. `demo/requirements/maintenance-notes.md` — 유지보수 지식 노트: "Pet.birthDate는 미래 일자를 거부하도록 검증된다"(코드와 드리프트 → C-2)
+- [x] A4. `demo/openapi/petclinic-rest.yaml` — Owner/Pet 경로. `telephone: maxLength 10`, **email 필드 없음**
+- [x] A5. `demo/db/schema.sql` — `owners(telephone VARCHAR(10), email 컬럼 없음)`, `pets`, `types`
+- [x] A6. `demo/src/main/java/org/springframework/samples/petclinic/owner/Owner.java` — `@Size(max=10) telephone`, email 필드 없음
+- [x] A7. `.../owner/OwnerRestController.java` + `.../owner/OwnerDto.java` (+ `OwnerRepository.java`) — Owner CRUD, DTO(email 없음)
+- [x] A8. `.../pet/Pet.java` + `.../pet/PetType.java` — `birthDate` 필드, **미래일자 검증 애너테이션 없음**(C-2)
+- [x] A9. `demo/config/application.properties` — 로컬 설정, **시크릿 없음/더미값만**(R2)
+- [x] A10. `demo/tests/OwnerControllerTests.java` — telephone 최대 10자 가정 인코딩(드리프트 고착, C-1 근거 보강)
 
 ### B. 데이터셋 무결성 테스트 — `tests/` (PBT 대체, NFR §3)
-- [ ] B1. `tests/test_demo_dataset_integrity.py`:
+- [x] B1. `tests/test_demo_dataset_integrity.py` (12 tests):
   - INV-C1: telephone max_length가 pdf=20, yaml/java/sql=10 로 어긋나 있음을 assert
   - INV-C2: maintenance-notes는 검증 언급, Pet.java에는 미래일자 검증 없음을 assert
-  - INV-C3: pdf는 email 필수 언급, yaml/java/sql에는 email 부재를 assert
-  - R1: 금지 패턴(타임스탬프/난수 흔적) 부재, R2: 시크릿 패턴 부재, R4: 자산 유형 6종 존재, R5: README 충돌표 존재
+  - INV-C3: pdf는 email 필수 언급, yaml/java/sql에는 email 선언 부재를 assert
+  - R2: 시크릿 플레이스홀더, R4: 자산 유형 6종 존재, R5: README 충돌표 존재
 
 ### C. 마무리
-- [ ] C1. 로컬에서 `pytest tests/test_demo_dataset_integrity.py` 실행 → 전부 pass 확인, PDF 텍스트 추출 가능 확인
-- [ ] C2. `aidlc-docs/construction/uow-00/code/code-summary.md` 작성(생성 파일 목록·불변식 매핑·실행 결과)
-- [ ] C3. 계획 체크박스 전부 [x], 커밋
+- [x] C1. 로컬 `pytest` 실행 → 43 passed(기존 31 + UOW-00 12), PDF 텍스트 추출·바이트 결정성 확인
+- [x] C2. `aidlc-docs/construction/uow-00/code/code-summary.md` 작성(생성 파일 목록·불변식 매핑·실행 결과)
+- [x] C3. 계획 체크박스 전부 [x], 커밋
 
 ---
 
