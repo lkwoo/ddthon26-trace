@@ -12,9 +12,9 @@
 |---|---|
 | `knowledge_store/wiki/exporter.py` | `WikiExporter` — writes `structure.json`, `relationships.json`, `wiki.json` and copies `viewer/*` into the export dir; returns `ExportResult`. Read-only via `Repositories`. |
 | `knowledge_store/wiki/__init__.py` | Package init; exports `WikiExporter`. |
-| `viewer/index.html` | Static viewer shell: tree/graph/wiki tabs, D3 v7 CDN script, status/footer. |
-| `viewer/styles.css` | Dark-theme CSS for tabs, tree, force graph, wiki cards, badges, notices. |
-| `viewer/app.js` | Vanilla ES controller: `init` fetches 3 JSON files; `renderTree`, `renderGraph`, `renderWiki` render the views; graceful degradation + `escapeHtml`. |
+| `viewer/index.html` | Static viewer shell: **Wiki (default) / tree / graph** tabs, D3 v7 CDN script, wiki sidebar+content layout, per-view node-info panels, status/footer. |
+| `viewer/styles.css` | Dark-theme CSS for tabs, tree, force graph, **wiki TOC sidebar + article pane, table-of-contents, related-page chips, floating node-info panel, graph highlight/dim states**, badges, notices. |
+| `viewer/app.js` | Vanilla ES controller: `init` fetches 3 JSON files; `buildPages` groups chunks into navigable wiki pages; `renderWikiNav`/`renderWikiHome`/`openWikiPage` drive the wiki-as-website UX with hash routing; `renderTree`/`renderGraph` render **clickable** nodes that navigate to wiki pages or surface related info; graceful degradation + `escapeHtml`. See [`viewer-navigation-enhancement.md`](viewer-navigation-enhancement.md). |
 | `pyproject.toml` (root) | Ships `viewer/**/*` as package data (`[tool.setuptools.package-data]`). |
 
 ## Key public API
@@ -30,8 +30,13 @@
 
 ## Tests exercising the unit
 
-- **No dedicated `tests/wiki/` suite.** The exporter is wired into the ingestion
-  pipeline: `IngestionService.ingest(paths, export=True)` (default) →
+- **`tests/wiki/test_exporter.py`** — end-to-end export contract: after ingest,
+  `WikiExportService.regenerate()` writes valid `structure.json` /
+  `relationships.json` / `wiki.json` and copies the viewer assets
+  (`index.html`, `app.js`) for `file://` loading; also asserts code nodes land
+  in `structure.json`.
+- The exporter is also wired into the ingestion pipeline:
+  `IngestionService.ingest(paths, export=True)` (default) →
   `WikiExportService.regenerate()` → `WikiExporter.export()`
   (`knowledge_store/services/services.py`, `system.py`).
 - Pipeline tests in `tests/services/test_pipeline.py` run the ingest path with

@@ -13,25 +13,32 @@
   <header>
     <h1>Knowledge Store</h1>
     <nav>
-      <button data-testid="tab-tree" class="tab active" data-view="tree">Structure Tree</button>
+      <button data-testid="tab-wiki" class="tab active" data-view="wiki">Wiki</button>
+      <button data-testid="tab-tree" class="tab" data-view="tree">Structure Tree</button>
       <button data-testid="tab-graph" class="tab" data-view="graph">Dependency Graph</button>
-      <button data-testid="tab-wiki" class="tab" data-view="wiki">Wiki</button>
     </nav>
   </header>
 
   <main>
-    <section id="view-tree" class="view active">
+    <section id="view-wiki" class="view active">
+      <div class="wiki-layout">
+        <aside class="wiki-toc">
+          <div id="wiki-search-bar">
+            <input data-testid="wiki-search-input" id="wiki-search" type="search"
+                   placeholder="Search pages…" />
+          </div>
+          <div id="wiki-nav" class="wiki-nav"></div>
+        </aside>
+        <div id="wiki-content" class="wiki-content"></div>
+      </div>
+    </section>
+    <section id="view-tree" class="view">
       <div id="tree" class="canvas"></div>
+      <div id="tree-info" class="node-info" hidden></div>
     </section>
     <section id="view-graph" class="view">
       <div id="graph" class="canvas"></div>
-    </section>
-    <section id="view-wiki" class="view">
-      <div id="wiki-search-bar">
-        <input data-testid="wiki-search-input" id="wiki-search" type="search"
-               placeholder="Filter wiki entries…" />
-      </div>
-      <div id="wiki" class="wiki-list"></div>
+      <div id="graph-info" class="node-info" hidden></div>
     </section>
   </main>
 
