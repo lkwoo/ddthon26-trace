@@ -256,3 +256,11 @@
 **Context**: INCEPTION - Application Design 완료(증분: 온보딩 맵). US-07.1~5 및 FR-MAP-001~007이 C10 메서드/데이터흐름에 1:1 반영(앞 단계→뒤 단계 연결). 다음 Units Generation.
 
 ---
+
+## Increment 2 온보딩 맵 — Units Generation (minimal) 완료
+**Timestamp**: 2026-09-09T00:00:00Z
+**User Input**: "승인. 진행"
+**AI Response**: Units Generation을 minimal 실행 — 단일 신규 UOW-07(온보딩 맵) 경계가 Application Design에서 이미 정의됨(unit-of-work.md). 추가 분해 불필요(단일 컴포넌트 C10 + 어댑터 배선). unit-of-work-story-map.md에 UOW-07 행 추가(US-07.1~5, 총 27스토리 배정 완결성 확인), unit-of-work-dependency.md 매트릭스에 UOW-07 행 추가(0F·01·02 소비측, C10 신규, 순환 없음). aidlc-state.md Units Generation [x], CONSTRUCTION UOW-07 Functional Design 착수로 갱신.
+**Context**: INCEPTION 종료(증분: 온보딩 맵). 다음 CONSTRUCTION per-unit 루프(UOW-07): Functional Design → Code Generation → Build and Test.
+
+---

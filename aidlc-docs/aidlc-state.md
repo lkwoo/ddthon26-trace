@@ -91,15 +91,17 @@
 | Requirements Analysis | [x] 완료 | 답변 확정(Q1=A,Q2=A,Q3=B,Q4=A,Q5=A) → requirements.md §4.10 FR-MAP-001~007 + §9 UOW-07 추가 |
 | User Stories | [x] 완료 | P4 '뉴비' 페르소나 신설 + UOW-07 Epic 5개 스토리(US-07.1~5, Given/When/Then·추적성). 총 27스토리/7Epic |
 | Application Design | [x] 완료 | C10 `map/` 신설(관계추출·Mermaid·내러티브·overview.md). onboarding-map-design.md + components/methods/dependency/unit-of-work 증분 반영. FR-MAP→메서드 1:1 |
-| Units Generation | [~] 대기 | 단일 신규 UOW-07 경계 이미 정의(unit-of-work.md). 승인 시 minimal 처리 |
-| Construction (Functional Design → Code Gen → Build/Test) | [ ] 대기 | |
+| Units Generation | [x] 완료 (minimal) | 단일 UOW-07 확정. story-map(27스토리)·dependency 매트릭스에 UOW-07 반영. 순환 없음 |
+| Construction — UOW-07 Functional Design | [~] 진행 예정 | 정적 추출기 파서 세부·overview.md YAML 스키마·PBT 속성 |
+| Construction — UOW-07 Code Generation | [ ] 대기 | C10 map/ 구현 + C2/C3/C8/C1/C9 배선 + replay 픽스처 |
+| Construction — Build and Test | [ ] 대기 | UOW-07 단위/통합/PBT + Hero 온보딩 E2E |
 
 - **확정된 결정(답변)**: Q1=A 하이브리드(정적 단서+LLM 서술), Q2=A MCP 도구+CLI+`overview.md` 영속화, Q3=B 파일+함수 레벨, Q4=A Mermaid, Q5=A Java/Python 정적+LLM 폴백. → requirements.md §4.10 FR-MAP-001~007, §9 UOW-07 반영.
 
 ## Current Status
 - **Lifecycle Phase**: INCEPTION (Increment 2) — Increment 1은 CONSTRUCTION 완료
-- **Current Stage**: Increment 2 "온보딩 맵" — Requirements·User Stories·Application Design 완료 → **Units Generation 대기(minimal)**
-- **Next Stage**: Units Generation(단일 UOW-07, 경계 확정) → Construction(Functional Design → Code Gen → Build/Test)
+- **Current Stage**: Increment 2 "온보딩 맵" — INCEPTION 전 단계 완료(Req·Stories·App Design·Units Gen) → **CONSTRUCTION UOW-07 착수(Functional Design)**
+- **Next Stage**: UOW-07 Functional Design → Code Generation → Build and Test
 - **완료**: UOW-0F ~ UOW-06 전 단위. 전체 62 테스트 통과. 설치된 `trace`/`trace-mcp` 명령이 저장소 밖에서도 동작(replay Hero E2E 검증). value_mismatch(전화번호 20 vs 10) 검출·영향분석·Change Plan 확인.
 - **Status**: 8개 단위 코드 생성 완료. import 패키지 `trace`→`traceki` 개명(파이썬 stdlib `trace` 충돌 해소, 명령어명·로거명·`.trace/` 디렉터리는 유지). result/hero-run.txt 실행 전사 갱신.
 - **핵심 Construction 결정**: LLMService는 (1) live Anthropic 다이렉트(sk-ant) + (2) bedrock(Amazon Bedrock, bearer 토큰) + (3) cache/replay 백엔드를 지원.

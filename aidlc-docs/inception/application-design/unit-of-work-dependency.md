@@ -17,8 +17,10 @@
 | **UOW-04 Task Impact** | ✅ | | | ✅ | ✅ | — | | |
 | **UOW-05 MCP 어댑터** | ✅ | | ✅² | ✅² | ✅² | ✅² | — | |
 | **UOW-06 통합·시연** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — |
+| **UOW-07 온보딩 맵** *(Inc.2)* | ✅ | | ✅ | ✅ | | | (배선) | |
 
 - ¹ UOW-02는 실행/검증에 UOW-00(데모 데이터)을 입력으로 사용(코드 의존 아닌 데이터 의존).
+- **UOW-07**(Inc.2)은 0F(모델·Result·LLM·프롬프트 로더)·01(assets)·02(Feature 지식/저장소)에 의존하는 **소비측**. C1/C9 어댑터에 도구/서브커맨드 배선 추가. 순환 없음(C10은 신규 leaf-of-consumers).
 - ² UOW-05는 **런타임/통합 의존**. 개발 시점엔 UOW-0F에서 고정된 코어 함수 시그니처
   (`scan_project/analyze_project/list_features/get_feature_knowledge/get_conflicts/analyze_task_impact`)
   **스텁 대비 선개발 가능** → Wave 1 병렬 성립.
